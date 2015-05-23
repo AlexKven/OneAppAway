@@ -1,0 +1,22 @@
+﻿<Page
+    x:Class="OneAppAway.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:OneAppAway"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <SplitView CompactPaneLength="50" DisplayMode="CompactOverlay" IsPaneOpen="{Binding ElementName=btn, Path=IsChecked}">
+        <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        </Grid>
+        <SplitView.Pane>
+            <Grid Background="Red">
+                <ToggleButton x:ConnectionId='1' x:Name="btn" VerticalAlignment="Top">
+                    <SymbolIcon Symbol="ClosePane" Width="40" Height="40"/>
+                </ToggleButton>
+            </Grid>
+        </SplitView.Pane>
+    </SplitView>
+</Page>
+
