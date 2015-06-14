@@ -5,10 +5,14 @@
     xmlns:local="using:OneAppAway"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Maps="using:Windows.UI.Xaml.Controls.Maps"
     mc:Ignorable="d">
 
     <SplitView CompactPaneLength="50" DisplayMode="CompactOverlay" IsPaneOpen="{Binding ElementName=btn, Path=IsChecked}">
         <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+            <Maps:MapControl MapServiceToken="s5030Pi5RRfQpmN9G31Y~Av27qRni0nZtyuLdCWdmgw~AroE4QWDxcQzLO1BLE1Dsm9t_hi6TG9z-8Kxr6v5D01QZFP4BacIgGWRRnuYcRJM" >
+                
+            </Maps:MapControl>
         </Grid>
         <SplitView.Pane>
             <Grid Background="Red">
