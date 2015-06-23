@@ -1,8 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Roots >
-  <Roots.PropertyPathNames>
-    <RootPropertyPathName Name="IsChecked" />
-  </Roots.PropertyPathNames>
   <Roots.RootTypes>
     <RootType FullName="Windows.UI.Xaml.Application">
       <RootProperty Name="RequestedTheme" />
@@ -13,13 +10,8 @@
     <RootType FullName="Windows.UI.Xaml.Controls.SplitView">
       <RootProperty Name="CompactPaneLength" />
       <RootProperty Name="DisplayMode" />
-      <RootProperty Name="IsPaneOpen" />
       <RootProperty Name="Content" />
       <RootProperty Name="Pane" />
-    </RootType>
-    <RootType FullName="Windows.UI.Xaml.Data.Binding">
-      <RootProperty Name="ElementName" />
-      <RootProperty Name="Path" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.Grid">
       <RootProperty Name="Background" />
@@ -27,16 +19,22 @@
     </RootType>
     <RootType FullName="Microsoft.Xaml.DirectUI.ProxyTypes.ThemeResourceExtension" />
     <RootType FullName="Windows.UI.Xaml.Controls.Maps.MapControl">
+      <RootProperty Name="RotateInteractionMode" />
       <RootProperty Name="MapServiceToken" />
     </RootType>
-    <RootType FullName="Windows.UI.Xaml.Controls.Primitives.ToggleButton">
+    <RootType FullName="Windows.UI.Xaml.Controls.Button">
       <RootProperty Name="VerticalAlignment" />
-      <RootProperty Name="Content" />
-    </RootType>
-    <RootType FullName="Windows.UI.Xaml.Controls.SymbolIcon">
-      <RootProperty Name="Symbol" />
+      <RootProperty Name="HorizontalAlignment" />
       <RootProperty Name="Width" />
+      <RootProperty Name="Content" />
+      <RootProperty Name="FontFamily" />
       <RootProperty Name="Height" />
+      <RootProperty Name="Background" />
+      <RootEvent Name="Click" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.StackPanel">
+      <RootProperty Name="Background" />
+      <RootProperty Name="Children" />
     </RootType>
     <RootType FullName="OneAppAway.MainPage" />
   </Roots.RootTypes>

@@ -94,6 +94,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BusStop.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -104,10 +105,20 @@
       <SubType>Designer</SubType>
     </AppxManifest>
     <None Include="ApplicationInsights.config" />
+    <None Include="Assets\Icons\BusDirectionBase.pdn" />
     <None Include="OneAppAway_TemporaryKey.pfx" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Icons\BusBase.png" />
+    <Content Include="Assets\Icons\BusDirectionE.png" />
+    <Content Include="Assets\Icons\BusDirectionN.png" />
+    <Content Include="Assets\Icons\BusDirectionNE.png" />
+    <Content Include="Assets\Icons\BusDirectionNW.png" />
+    <Content Include="Assets\Icons\BusDirectionS.png" />
+    <Content Include="Assets\Icons\BusDirectionSE.png" />
+    <Content Include="Assets\Icons\BusDirectionSW.png" />
+    <Content Include="Assets\Icons\BusDirectionW.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\Logo.scale-100.png" />
     <Content Include="Assets\SmallLogo.scale-100.png" />
@@ -147,6 +158,7 @@
       <Private>True</Private>
     </Reference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

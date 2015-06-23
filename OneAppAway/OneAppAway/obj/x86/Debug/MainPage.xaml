@@ -8,18 +8,16 @@
     xmlns:Maps="using:Windows.UI.Xaml.Controls.Maps"
     mc:Ignorable="d">
 
-    <SplitView CompactPaneLength="50" DisplayMode="CompactOverlay" IsPaneOpen="{Binding ElementName=btn, Path=IsChecked}">
+    <SplitView x:ConnectionId='1' CompactPaneLength="50" DisplayMode="CompactOverlay" x:Name="MainSplitView">
         <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-            <Maps:MapControl MapServiceToken="s5030Pi5RRfQpmN9G31Y~Av27qRni0nZtyuLdCWdmgw~AroE4QWDxcQzLO1BLE1Dsm9t_hi6TG9z-8Kxr6v5D01QZFP4BacIgGWRRnuYcRJM" >
-                
+            <Maps:MapControl x:ConnectionId='2' RotateInteractionMode="Disabled" x:Name="MainMap" MapServiceToken="s5030Pi5RRfQpmN9G31Y~Av27qRni0nZtyuLdCWdmgw~AroE4QWDxcQzLO1BLE1Dsm9t_hi6TG9z-8Kxr6v5D01QZFP4BacIgGWRRnuYcRJM" >
             </Maps:MapControl>
+            <Button x:ConnectionId='3'                      VerticalAlignment="Top" HorizontalAlignment="Left" Width="200">Get Stops</Button>
         </Grid>
         <SplitView.Pane>
-            <Grid Background="Red">
-                <ToggleButton x:ConnectionId='1' x:Name="btn" VerticalAlignment="Top">
-                    <SymbolIcon Symbol="ClosePane" Width="40" Height="40"/>
-                </ToggleButton>
-            </Grid>
+            <StackPanel Background="#88CC00">
+                <Button x:ConnectionId='4' FontFamily="Segoe MDL2 Assets" Content="&#xE700;" Width="50" Height="50" Background="Transparent"                              />
+            </StackPanel>
         </SplitView.Pane>
     </SplitView>
 </Page>

@@ -1,4 +1,13 @@
 WinMetadata\Windows.winmd
+Assets\Icons\BusBase.png
+Assets\Icons\BusDirectionE.png
+Assets\Icons\BusDirectionN.png
+Assets\Icons\BusDirectionNE.png
+Assets\Icons\BusDirectionNW.png
+Assets\Icons\BusDirectionS.png
+Assets\Icons\BusDirectionSE.png
+Assets\Icons\BusDirectionSW.png
+Assets\Icons\BusDirectionW.png
 Assets\Logo.scale-100.png
 Assets\SmallLogo.scale-100.png
 Assets\SplashScreen.scale-100.png
