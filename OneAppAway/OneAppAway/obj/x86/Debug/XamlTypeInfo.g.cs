@@ -132,15 +132,37 @@ namespace OneAppAway.OneAppAway_XamlTypeInfo
 
         private void InitTypeTables()
         {
-            _typeNameTable = new string[3];
-            _typeNameTable[0] = "OneAppAway.MainPage";
-            _typeNameTable[1] = "Windows.UI.Xaml.Controls.Page";
-            _typeNameTable[2] = "Windows.UI.Xaml.Controls.UserControl";
+            _typeNameTable = new string[14];
+            _typeNameTable[0] = "OneAppAway.BusMap";
+            _typeNameTable[1] = "Windows.UI.Xaml.Controls.UserControl";
+            _typeNameTable[2] = "System.Collections.Generic.ICollection`1<OneAppAway.BusStop>";
+            _typeNameTable[3] = "OneAppAway.BusStop";
+            _typeNameTable[4] = "System.ValueType";
+            _typeNameTable[5] = "Object";
+            _typeNameTable[6] = "OneAppAway.StopDirection";
+            _typeNameTable[7] = "System.Enum";
+            _typeNameTable[8] = "Windows.Devices.Geolocation.BasicGeoposition";
+            _typeNameTable[9] = "String";
+            _typeNameTable[10] = "Double";
+            _typeNameTable[11] = "OneAppAway.Converters.BasicGeopositionToStringConverter";
+            _typeNameTable[12] = "OneAppAway.MainPage";
+            _typeNameTable[13] = "Windows.UI.Xaml.Controls.Page";
 
-            _typeTable = new global::System.Type[3];
-            _typeTable[0] = typeof(global::OneAppAway.MainPage);
-            _typeTable[1] = typeof(global::Windows.UI.Xaml.Controls.Page);
-            _typeTable[2] = typeof(global::Windows.UI.Xaml.Controls.UserControl);
+            _typeTable = new global::System.Type[14];
+            _typeTable[0] = typeof(global::OneAppAway.BusMap);
+            _typeTable[1] = typeof(global::Windows.UI.Xaml.Controls.UserControl);
+            _typeTable[2] = typeof(global::System.Collections.Generic.ICollection<global::OneAppAway.BusStop>);
+            _typeTable[3] = typeof(global::OneAppAway.BusStop);
+            _typeTable[4] = typeof(global::System.ValueType);
+            _typeTable[5] = typeof(global::System.Object);
+            _typeTable[6] = typeof(global::OneAppAway.StopDirection);
+            _typeTable[7] = typeof(global::System.Enum);
+            _typeTable[8] = typeof(global::Windows.Devices.Geolocation.BasicGeoposition);
+            _typeTable[9] = typeof(global::System.String);
+            _typeTable[10] = typeof(global::System.Double);
+            _typeTable[11] = typeof(global::OneAppAway.Converters.BasicGeopositionToStringConverter);
+            _typeTable[12] = typeof(global::OneAppAway.MainPage);
+            _typeTable[13] = typeof(global::Windows.UI.Xaml.Controls.Page);
         }
 
         private int LookupTypeIndexByName(string typeName)
@@ -175,7 +197,15 @@ namespace OneAppAway.OneAppAway_XamlTypeInfo
             return -1;
         }
 
-        private object Activate_0_MainPage() { return new global::OneAppAway.MainPage(); }
+        private object Activate_0_BusMap() { return new global::OneAppAway.BusMap(); }
+        private object Activate_11_BasicGeopositionToStringConverter() { return new global::OneAppAway.Converters.BasicGeopositionToStringConverter(); }
+        private object Activate_12_MainPage() { return new global::OneAppAway.MainPage(); }
+        private void VectorAdd_2_ICollection(object instance, object item)
+        {
+            var collection = (global::System.Collections.Generic.ICollection<global::OneAppAway.BusStop>)instance;
+            var newItem = (global::OneAppAway.BusStop)item;
+            collection.Add(newItem);
+        }
 
         private global::Windows.UI.Xaml.Markup.IXamlType CreateXamlType(int typeIndex)
         {
@@ -187,18 +217,99 @@ namespace OneAppAway.OneAppAway_XamlTypeInfo
             switch (typeIndex)
             {
 
-            case 0:   //  OneAppAway.MainPage
-                userType = new global::OneAppAway.OneAppAway_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_0_MainPage;
+            case 0:   //  OneAppAway.BusMap
+                userType = new global::OneAppAway.OneAppAway_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.UserControl"));
+                userType.Activator = Activate_0_BusMap;
+                userType.AddMemberName("ShownStops");
+                userType.AddMemberName("Center");
+                userType.AddMemberName("TopLeft");
+                userType.AddMemberName("BottomRight");
+                userType.AddMemberName("LatitudePerPixel");
+                userType.AddMemberName("LongitudePerPixel");
+                userType.AddMemberName("ZoomLevel");
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
-            case 1:   //  Windows.UI.Xaml.Controls.Page
+            case 1:   //  Windows.UI.Xaml.Controls.UserControl
                 xamlType = new global::OneAppAway.OneAppAway_XamlTypeInfo.XamlSystemBaseType(typeName, type);
                 break;
 
-            case 2:   //  Windows.UI.Xaml.Controls.UserControl
+            case 2:   //  System.Collections.Generic.ICollection`1<OneAppAway.BusStop>
+                userType = new global::OneAppAway.OneAppAway_XamlTypeInfo.XamlUserType(this, typeName, type, null);
+                userType.CollectionAdd = VectorAdd_2_ICollection;
+                userType.SetIsReturnTypeStub();
+                xamlType = userType;
+                break;
+
+            case 3:   //  OneAppAway.BusStop
+                userType = new global::OneAppAway.OneAppAway_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("System.ValueType"));
+                userType.AddMemberName("Direction");
+                userType.AddMemberName("Position");
+                userType.AddMemberName("ID");
+                userType.AddMemberName("FriendlyName");
+                userType.SetIsLocalType();
+                xamlType = userType;
+                break;
+
+            case 4:   //  System.ValueType
+                userType = new global::OneAppAway.OneAppAway_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Object"));
+                xamlType = userType;
+                break;
+
+            case 5:   //  Object
+                xamlType = new global::OneAppAway.OneAppAway_XamlTypeInfo.XamlSystemBaseType(typeName, type);
+                break;
+
+            case 6:   //  OneAppAway.StopDirection
+                userType = new global::OneAppAway.OneAppAway_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("System.Enum"));
+                userType.AddEnumValue("Unspecified", global::OneAppAway.StopDirection.Unspecified);
+                userType.AddEnumValue("N", global::OneAppAway.StopDirection.N);
+                userType.AddEnumValue("NE", global::OneAppAway.StopDirection.NE);
+                userType.AddEnumValue("E", global::OneAppAway.StopDirection.E);
+                userType.AddEnumValue("SE", global::OneAppAway.StopDirection.SE);
+                userType.AddEnumValue("S", global::OneAppAway.StopDirection.S);
+                userType.AddEnumValue("SW", global::OneAppAway.StopDirection.SW);
+                userType.AddEnumValue("W", global::OneAppAway.StopDirection.W);
+                userType.AddEnumValue("NW", global::OneAppAway.StopDirection.NW);
+                userType.SetIsLocalType();
+                xamlType = userType;
+                break;
+
+            case 7:   //  System.Enum
+                userType = new global::OneAppAway.OneAppAway_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("System.ValueType"));
+                xamlType = userType;
+                break;
+
+            case 8:   //  Windows.Devices.Geolocation.BasicGeoposition
+                userType = new global::OneAppAway.OneAppAway_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("System.ValueType"));
+                userType.SetIsReturnTypeStub();
+                xamlType = userType;
+                break;
+
+            case 9:   //  String
+                xamlType = new global::OneAppAway.OneAppAway_XamlTypeInfo.XamlSystemBaseType(typeName, type);
+                break;
+
+            case 10:   //  Double
+                xamlType = new global::OneAppAway.OneAppAway_XamlTypeInfo.XamlSystemBaseType(typeName, type);
+                break;
+
+            case 11:   //  OneAppAway.Converters.BasicGeopositionToStringConverter
+                userType = new global::OneAppAway.OneAppAway_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Object"));
+                userType.Activator = Activate_11_BasicGeopositionToStringConverter;
+                userType.SetIsLocalType();
+                xamlType = userType;
+                break;
+
+            case 12:   //  OneAppAway.MainPage
+                userType = new global::OneAppAway.OneAppAway_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
+                userType.Activator = Activate_12_MainPage;
+                userType.SetIsLocalType();
+                xamlType = userType;
+                break;
+
+            case 13:   //  Windows.UI.Xaml.Controls.Page
                 xamlType = new global::OneAppAway.OneAppAway_XamlTypeInfo.XamlSystemBaseType(typeName, type);
                 break;
             }
@@ -206,11 +317,161 @@ namespace OneAppAway.OneAppAway_XamlTypeInfo
         }
 
 
+        private object get_0_BusMap_ShownStops(object instance)
+        {
+            var that = (global::OneAppAway.BusMap)instance;
+            return that.ShownStops;
+        }
+        private object get_1_BusStop_Direction(object instance)
+        {
+            var that = (global::OneAppAway.BusStop)instance;
+            return that.Direction;
+        }
+        private void set_1_BusStop_Direction(object instance, object Value)
+        {
+            var that = (global::OneAppAway.BusStop)instance;
+            that.Direction = (global::OneAppAway.StopDirection)Value;
+        }
+        private object get_2_BusStop_Position(object instance)
+        {
+            var that = (global::OneAppAway.BusStop)instance;
+            return that.Position;
+        }
+        private void set_2_BusStop_Position(object instance, object Value)
+        {
+            var that = (global::OneAppAway.BusStop)instance;
+            that.Position = (global::Windows.Devices.Geolocation.BasicGeoposition)Value;
+        }
+        private object get_3_BusStop_ID(object instance)
+        {
+            var that = (global::OneAppAway.BusStop)instance;
+            return that.ID;
+        }
+        private void set_3_BusStop_ID(object instance, object Value)
+        {
+            var that = (global::OneAppAway.BusStop)instance;
+            that.ID = (global::System.String)Value;
+        }
+        private object get_4_BusStop_FriendlyName(object instance)
+        {
+            var that = (global::OneAppAway.BusStop)instance;
+            return that.FriendlyName;
+        }
+        private void set_4_BusStop_FriendlyName(object instance, object Value)
+        {
+            var that = (global::OneAppAway.BusStop)instance;
+            that.FriendlyName = (global::System.String)Value;
+        }
+        private object get_5_BusMap_Center(object instance)
+        {
+            var that = (global::OneAppAway.BusMap)instance;
+            return that.Center;
+        }
+        private void set_5_BusMap_Center(object instance, object Value)
+        {
+            var that = (global::OneAppAway.BusMap)instance;
+            that.Center = (global::Windows.Devices.Geolocation.BasicGeoposition)Value;
+        }
+        private object get_6_BusMap_TopLeft(object instance)
+        {
+            var that = (global::OneAppAway.BusMap)instance;
+            return that.TopLeft;
+        }
+        private object get_7_BusMap_BottomRight(object instance)
+        {
+            var that = (global::OneAppAway.BusMap)instance;
+            return that.BottomRight;
+        }
+        private object get_8_BusMap_LatitudePerPixel(object instance)
+        {
+            var that = (global::OneAppAway.BusMap)instance;
+            return that.LatitudePerPixel;
+        }
+        private object get_9_BusMap_LongitudePerPixel(object instance)
+        {
+            var that = (global::OneAppAway.BusMap)instance;
+            return that.LongitudePerPixel;
+        }
+        private object get_10_BusMap_ZoomLevel(object instance)
+        {
+            var that = (global::OneAppAway.BusMap)instance;
+            return that.ZoomLevel;
+        }
 
         private global::Windows.UI.Xaml.Markup.IXamlMember CreateXamlMember(string longMemberName)
         {
             global::OneAppAway.OneAppAway_XamlTypeInfo.XamlMember xamlMember = null;
-            // No Local Properties
+            global::OneAppAway.OneAppAway_XamlTypeInfo.XamlUserType userType;
+
+            switch (longMemberName)
+            {
+            case "OneAppAway.BusMap.ShownStops":
+                userType = (global::OneAppAway.OneAppAway_XamlTypeInfo.XamlUserType)GetXamlTypeByName("OneAppAway.BusMap");
+                xamlMember = new global::OneAppAway.OneAppAway_XamlTypeInfo.XamlMember(this, "ShownStops", "System.Collections.Generic.ICollection`1<OneAppAway.BusStop>");
+                xamlMember.Getter = get_0_BusMap_ShownStops;
+                xamlMember.SetIsReadOnly();
+                break;
+            case "OneAppAway.BusStop.Direction":
+                userType = (global::OneAppAway.OneAppAway_XamlTypeInfo.XamlUserType)GetXamlTypeByName("OneAppAway.BusStop");
+                xamlMember = new global::OneAppAway.OneAppAway_XamlTypeInfo.XamlMember(this, "Direction", "OneAppAway.StopDirection");
+                xamlMember.Getter = get_1_BusStop_Direction;
+                xamlMember.Setter = set_1_BusStop_Direction;
+                break;
+            case "OneAppAway.BusStop.Position":
+                userType = (global::OneAppAway.OneAppAway_XamlTypeInfo.XamlUserType)GetXamlTypeByName("OneAppAway.BusStop");
+                xamlMember = new global::OneAppAway.OneAppAway_XamlTypeInfo.XamlMember(this, "Position", "Windows.Devices.Geolocation.BasicGeoposition");
+                xamlMember.Getter = get_2_BusStop_Position;
+                xamlMember.Setter = set_2_BusStop_Position;
+                break;
+            case "OneAppAway.BusStop.ID":
+                userType = (global::OneAppAway.OneAppAway_XamlTypeInfo.XamlUserType)GetXamlTypeByName("OneAppAway.BusStop");
+                xamlMember = new global::OneAppAway.OneAppAway_XamlTypeInfo.XamlMember(this, "ID", "String");
+                xamlMember.Getter = get_3_BusStop_ID;
+                xamlMember.Setter = set_3_BusStop_ID;
+                break;
+            case "OneAppAway.BusStop.FriendlyName":
+                userType = (global::OneAppAway.OneAppAway_XamlTypeInfo.XamlUserType)GetXamlTypeByName("OneAppAway.BusStop");
+                xamlMember = new global::OneAppAway.OneAppAway_XamlTypeInfo.XamlMember(this, "FriendlyName", "String");
+                xamlMember.Getter = get_4_BusStop_FriendlyName;
+                xamlMember.Setter = set_4_BusStop_FriendlyName;
+                break;
+            case "OneAppAway.BusMap.Center":
+                userType = (global::OneAppAway.OneAppAway_XamlTypeInfo.XamlUserType)GetXamlTypeByName("OneAppAway.BusMap");
+                xamlMember = new global::OneAppAway.OneAppAway_XamlTypeInfo.XamlMember(this, "Center", "Windows.Devices.Geolocation.BasicGeoposition");
+                xamlMember.Getter = get_5_BusMap_Center;
+                xamlMember.Setter = set_5_BusMap_Center;
+                break;
+            case "OneAppAway.BusMap.TopLeft":
+                userType = (global::OneAppAway.OneAppAway_XamlTypeInfo.XamlUserType)GetXamlTypeByName("OneAppAway.BusMap");
+                xamlMember = new global::OneAppAway.OneAppAway_XamlTypeInfo.XamlMember(this, "TopLeft", "Windows.Devices.Geolocation.BasicGeoposition");
+                xamlMember.Getter = get_6_BusMap_TopLeft;
+                xamlMember.SetIsReadOnly();
+                break;
+            case "OneAppAway.BusMap.BottomRight":
+                userType = (global::OneAppAway.OneAppAway_XamlTypeInfo.XamlUserType)GetXamlTypeByName("OneAppAway.BusMap");
+                xamlMember = new global::OneAppAway.OneAppAway_XamlTypeInfo.XamlMember(this, "BottomRight", "Windows.Devices.Geolocation.BasicGeoposition");
+                xamlMember.Getter = get_7_BusMap_BottomRight;
+                xamlMember.SetIsReadOnly();
+                break;
+            case "OneAppAway.BusMap.LatitudePerPixel":
+                userType = (global::OneAppAway.OneAppAway_XamlTypeInfo.XamlUserType)GetXamlTypeByName("OneAppAway.BusMap");
+                xamlMember = new global::OneAppAway.OneAppAway_XamlTypeInfo.XamlMember(this, "LatitudePerPixel", "Double");
+                xamlMember.Getter = get_8_BusMap_LatitudePerPixel;
+                xamlMember.SetIsReadOnly();
+                break;
+            case "OneAppAway.BusMap.LongitudePerPixel":
+                userType = (global::OneAppAway.OneAppAway_XamlTypeInfo.XamlUserType)GetXamlTypeByName("OneAppAway.BusMap");
+                xamlMember = new global::OneAppAway.OneAppAway_XamlTypeInfo.XamlMember(this, "LongitudePerPixel", "Double");
+                xamlMember.Getter = get_9_BusMap_LongitudePerPixel;
+                xamlMember.SetIsReadOnly();
+                break;
+            case "OneAppAway.BusMap.ZoomLevel":
+                userType = (global::OneAppAway.OneAppAway_XamlTypeInfo.XamlUserType)GetXamlTypeByName("OneAppAway.BusMap");
+                xamlMember = new global::OneAppAway.OneAppAway_XamlTypeInfo.XamlMember(this, "ZoomLevel", "Double");
+                xamlMember.Getter = get_10_BusMap_ZoomLevel;
+                xamlMember.SetIsReadOnly();
+                break;
+            }
             return xamlMember;
         }
     }

@@ -94,7 +94,11 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="BusStop.cs" />
+    <Compile Include="BusMap.xaml.cs">
+      <DependentUpon>BusMap.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converters\BasicGeopositionToStringConverter.cs" />
+    <Compile Include="Structs.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -111,14 +115,33 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Icons\BusBase.png" />
+    <Content Include="Assets\Icons\BusBase20.png" />
+    <Content Include="Assets\Icons\BusBase40.png" />
     <Content Include="Assets\Icons\BusDirectionE.png" />
+    <Content Include="Assets\Icons\BusDirectionE20.png" />
+    <Content Include="Assets\Icons\BusDirectionE40.png" />
     <Content Include="Assets\Icons\BusDirectionN.png" />
+    <Content Include="Assets\Icons\BusDirectionN20.png" />
+    <Content Include="Assets\Icons\BusDirectionN40.png" />
     <Content Include="Assets\Icons\BusDirectionNE.png" />
+    <Content Include="Assets\Icons\BusDirectionNE20.png" />
+    <Content Include="Assets\Icons\BusDirectionNE40.png" />
     <Content Include="Assets\Icons\BusDirectionNW.png" />
+    <Content Include="Assets\Icons\BusDirectionNW20.png" />
+    <Content Include="Assets\Icons\BusDirectionNW40.png" />
     <Content Include="Assets\Icons\BusDirectionS.png" />
+    <Content Include="Assets\Icons\BusDirectionS20.png" />
+    <Content Include="Assets\Icons\BusDirectionS40.png" />
     <Content Include="Assets\Icons\BusDirectionSE.png" />
+    <Content Include="Assets\Icons\BusDirectionSE20.png" />
+    <Content Include="Assets\Icons\BusDirectionSE40.png" />
     <Content Include="Assets\Icons\BusDirectionSW.png" />
+    <Content Include="Assets\Icons\BusDirectionSW20.png" />
+    <Content Include="Assets\Icons\BusDirectionSW40.png" />
     <Content Include="Assets\Icons\BusDirectionW.png" />
+    <Content Include="Assets\Icons\BusDirectionW20.png" />
+    <Content Include="Assets\Icons\BusDirectionW40.png" />
+    <Content Include="Assets\Icons\BusGeneric16.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\Logo.scale-100.png" />
     <Content Include="Assets\SmallLogo.scale-100.png" />
@@ -131,6 +154,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="BusMap.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

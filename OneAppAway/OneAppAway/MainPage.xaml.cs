@@ -20,6 +20,8 @@ using System.Net.Http;
 using System.Xml;
 using System.Xml.Linq;
 using Windows.Storage.Streams;
+using Windows.UI.Xaml.Media.Imaging;
+using System.Diagnostics;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -38,8 +40,10 @@ namespace OneAppAway
             titleBar.ForegroundColor = Colors.White;
             titleBar.ButtonBackgroundColor = titleBar.BackgroundColor;
             titleBar.ButtonForegroundColor = Colors.Green;
+            //ApplicationView.GetForCurrentView().Title = StopDirection.NE.ToString();
             //CenterOnMyHouse();
-            ApiTest();
+            //ApiTest();
+            
         }
 
         private async void ApiTest()
@@ -50,31 +54,14 @@ namespace OneAppAway
             respStr.ToString();
         }
 
-        private async void CenterOnMyHouse()
-        {
-            var res = await Windows.Services.Maps.MapLocationFinder.FindLocationsAsync("30143 12th Ave SW, Federal Way, WA", new Windows.Devices.Geolocation.Geopoint(new Windows.Devices.Geolocation.BasicGeoposition() { Latitude = 47.3, Longitude = 122.3 }));
-            //MapControl.SetLocation(FortyTwo, res.Locations[0].Point);
-
-            
-            MapIcon MapIcon1 = new MapIcon();
-            MapIcon1.Location = res.Locations[0].Point;
-            MapIcon1.NormalizedAnchorPoint = new Point(0.5, 1.0);
-            MapIcon1.Title = "4 Routes";
-            MainMap.MapElements.Add(MapIcon1);
-            
-        }
-
-        private void HamburgerButton_Click(object sender, RoutedEventArgs e)
-        {
-            MainSplitView.IsPaneOpen = !MainSplitView.IsPaneOpen;
-        }
-
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            var loc = MainMap.Center;
-            
+            var loc = MainBusMap.Center;
+            double latSpan = Math.Abs(MainBusMap.BottomRight.Latitude - MainBusMap.TopLeft.Latitude);
+            double lonSpan = Math.Abs(MainBusMap.BottomRight.Longitude - MainBusMap.TopLeft.Longitude);
+
             HttpClient client = new HttpClient();
-            var resp = await client.SendAsync(new HttpRequestMessage(HttpMethod.Get, "http://api.pugetsound.onebusaway.org/api/where/stops-for-location.xml?key=TEST&radius=2000&lat=" + loc.Position.Latitude.ToString() + "&lon=" + loc.Position.Longitude.ToString()));
+            var resp = await client.SendAsync(new HttpRequestMessage(HttpMethod.Get, "http://api.pugetsound.onebusaway.org/api/where/stops-for-location.xml?key=TEST&lat=" + loc.Latitude.ToString() + "&lon=" + loc.Longitude.ToString() + "&latSpan=" + latSpan.ToString() + "&lonSpan=" + lonSpan.ToString()));
 
             var responseString = await resp.Content.ReadAsStringAsync();
 
@@ -86,18 +73,28 @@ namespace OneAppAway
 
             XElement el1 = el.Element("data");
             XElement el2 = el1.Element("list");
+
             foreach (XElement el3 in el2.Elements("stop"))
             {
                 string lat = el3.Element("lat").Value;
                 string lon = el3.Element("lon").Value;
-                MapIcon MapIcon1 = new MapIcon();
-                MapIcon1.Location = new Geopoint(new BasicGeoposition() { Latitude = double.Parse(lat), Longitude = double.Parse(lon) });
-                MapIcon1.NormalizedAnchorPoint = new Point(0.5, 1.0);
-                MapIcon1.Title = "Bus Stop";
-                MapIcon1.Image = RandomAccessStreamReference.CreateFromUri(new Uri("ms-appx:///Assets/Icons/BusDirectionN.png"));
-                
-                MainMap.MapElements.Add(MapIcon1);
+                string direction = el3.Element("direction") == null ? null : el3.Element("direction").Value;
+                BusStop stop = new BusStop() { Position = new BasicGeoposition() { Latitude = double.Parse(lat), Longitude = double.Parse(lon) }, Direction = direction == null ? StopDirection.Unspecified : (StopDirection)Enum.Parse(typeof(StopDirection), direction) };
+                MainBusMap.ShownStops.Add(stop);
             }
+            MainBusMap.UnOverlapIcons();
+            Debug.WriteLine("Number of stops: " + MainBusMap.ShownStops.Count);
+        }
+
+        private void HamburgerButton_Click(object sender, RoutedEventArgs e)
+        {
+            MainSplitView.IsPaneOpen = !MainSplitView.IsPaneOpen;
+        }
+
+        private void MainBusMap_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "ZoomLevel")
+                MainBusMap.UnOverlapIcons();
         }
     }
 }
