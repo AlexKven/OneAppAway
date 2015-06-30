@@ -13,7 +13,17 @@
     </Page.Resources>
     <SplitView x:ConnectionId='1' CompactPaneLength="50" DisplayMode="CompactOverlay" x:Name="MainSplitView">
         <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-            <local:BusMap x:ConnectionId='2' x:Name="MainBusMap"                                             />
+            <local:BusMap x:ConnectionId='2' x:Name="MainBusMap"                                                                                  />
+            <Grid x:ConnectionId='3' Width="400" Height="500" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,50" x:Name="StopInfoPanel" Visibility="Collapsed" Opacity="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <ScrollViewer Background="White">
+                    <StackPanel x:ConnectionId='4' x:Name="StopView"/>
+                </ScrollViewer>
+                <Polygon Grid.Row="1" Points="0, 0, 30, 30, 60, 0" Fill="White" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </Grid>
             <StackPanel VerticalAlignment="Top" Background="White" Orientation="Horizontal">
                 <TextBlock Margin="5,0,0,5" Foreground="Black" FontSize="16">Zoom Level:</TextBlock>
                 <TextBlock Margin="5,0,0,5" Foreground="Black" FontSize="16" Text="{Binding ElementName=MainBusMap, Path=ZoomLevel}"/>
@@ -24,9 +34,9 @@
             </StackPanel>
         </Grid>
         <SplitView.Pane>
-            <StackPanel Background="#88CC00">
-                <Button x:ConnectionId='3' FontFamily="Segoe MDL2 Assets" Content="&#xE700;" Width="50" Height="50" Background="Transparent"                              />
-                <Button x:ConnectionId='4'                     >+</Button>
+            <StackPanel Background="#050505" Margin="0, 40,0,0">
+                <Button x:ConnectionId='5' RequestedTheme="Dark" FontFamily="Segoe MDL2 Assets" FontSize="20" Content="&#xE700;" Width="50" Height="50"                              />
+                <Button x:ConnectionId='6'                     >+</Button>
             </StackPanel>
         </SplitView.Pane>
     </SplitView>

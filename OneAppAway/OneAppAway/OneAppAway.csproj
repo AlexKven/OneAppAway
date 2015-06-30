@@ -91,6 +91,7 @@
     <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="ApiLayer.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
@@ -98,6 +99,7 @@
       <DependentUpon>BusMap.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\BasicGeopositionToStringConverter.cs" />
+    <Compile Include="Data.cs" />
     <Compile Include="Structs.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>

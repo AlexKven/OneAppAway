@@ -10,6 +10,7 @@ using System.Xml.Linq;
 using Windows.Devices.Geolocation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage.Streams;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Maps;
@@ -27,9 +28,13 @@ namespace OneAppAway
     public sealed partial class BusMap : UserControl, INotifyPropertyChanged
     {
         #region Fields
-        private const double ZOOMLEVEL_SIZE_CUTOFF = 17;
+        private const double ZOOMLEVEL_SIZE_CUTOFF = 16;
+        private const double LAT_OVER_LON = .67706;
 
-        private List<Image> BusStopIcons = new List<Image>();
+        private List<MapIcon> BusStopIcons = new List<MapIcon>();
+        private Dictionary<MapIcon, BusStop> Stops = new Dictionary<MapIcon, BusStop>();
+        private List<Tuple<MapIcon, MapIcon, double>> CloseIconPairs = new List<Tuple<MapIcon, MapIcon, double>>();
+        //private Dictionary<string, MapIconSource> BusMapIcons = new Dictionary<string, MapIconSource>();
         private double PreviousZoomLevel;
         #endregion
 
@@ -37,6 +42,25 @@ namespace OneAppAway
         {
             this.InitializeComponent();
             _ShownStops.CollectionChanged += _ShownStops_CollectionChanged;
+            //"ms-appx:///Assets/Icons/BusBase" + size + ".png" : "ms-appx:///Assets/Icons/BusDirection" + stop.Direction.ToString() + size + ".png"
+            //BusMapIcons.Add("BusBase20", new BitmapMapIcon(new Uri("ms-appx:///Assets/Icons/BusBase20.png")));
+            //BusMapIcons.Add("BusBase40", new BitmapMapIcon(new Uri("ms-appx:///Assets/Icons/BusBase40.png")));
+            //BusMapIcons.Add("BusDirectionN20", new BitmapMapIcon(new Uri("ms-appx:///Assets/Icons/BusDirectionN20.png")));
+            //BusMapIcons.Add("BusDirectionNE20", new BitmapMapIcon(new Uri("ms-appx:///Assets/Icons/BusDirectionNE20.png")));
+            //BusMapIcons.Add("BusDirectionE20", new BitmapMapIcon(new Uri("ms-appx:///Assets/Icons/BusDirectionE20.png")));
+            //BusMapIcons.Add("BusDirectionSE20", new BitmapMapIcon(new Uri("ms-appx:///Assets/Icons/BusDirectionSE20.png")));
+            //BusMapIcons.Add("BusDirectionS20", new BitmapMapIcon(new Uri("ms-appx:///Assets/Icons/BusDirectionS20.png")));
+            //BusMapIcons.Add("BusDirectionSW20", new BitmapMapIcon(new Uri("ms-appx:///Assets/Icons/BusDirectionSW20.png")));
+            //BusMapIcons.Add("BusDirectionW20", new BitmapMapIcon(new Uri("ms-appx:///Assets/Icons/BusDirectionW20.png")));
+            //BusMapIcons.Add("BusDirectionNW20", new BitmapMapIcon(new Uri("ms-appx:///Assets/Icons/BusDirectionNW20.png")));
+            //BusMapIcons.Add("BusDirectionN40", new BitmapMapIcon(new Uri("ms-appx:///Assets/Icons/BusDirectionN40.png")));
+            //BusMapIcons.Add("BusDirectionNE40", new BitmapMapIcon(new Uri("ms-appx:///Assets/Icons/BusDirectionNE40.png")));
+            //BusMapIcons.Add("BusDirectionE40", new BitmapMapIcon(new Uri("ms-appx:///Assets/Icons/BusDirectionE40.png")));
+            //BusMapIcons.Add("BusDirectionSE40", new BitmapMapIcon(new Uri("ms-appx:///Assets/Icons/BusDirectionSE40.png")));
+            //BusMapIcons.Add("BusDirectionS40", new BitmapMapIcon(new Uri("ms-appx:///Assets/Icons/BusDirectionS40.png")));
+            //BusMapIcons.Add("BusDirectionSW40", new BitmapMapIcon(new Uri("ms-appx:///Assets/Icons/BusDirectionSW40.png")));
+            //BusMapIcons.Add("BusDirectionW40", new BitmapMapIcon(new Uri("ms-appx:///Assets/Icons/BusDirectionW40.png")));
+            //BusMapIcons.Add("BusDirectionNW40", new BitmapMapIcon(new Uri("ms-appx:///Assets/Icons/BusDirectionNW40.png")));
         }
 
         private ObservableCollection<BusStop> _ShownStops = new ObservableCollection<BusStop>();
@@ -66,9 +90,16 @@ namespace OneAppAway
         {
             get
             {
-                Geopoint result;
-                MainMap.GetLocationFromOffset(new Point(0, 0), out result);
-                return result.Position;
+                try
+                {
+                    Geopoint result;
+                    MainMap.GetLocationFromOffset(new Point(0, 0), out result);
+                    return result.Position;
+                }
+                catch (ArgumentException)
+                {
+                    return new BasicGeoposition();
+                }
             }
         }
 
@@ -76,9 +107,16 @@ namespace OneAppAway
         {
             get
             {
-                Geopoint result;
-                MainMap.GetLocationFromOffset(new Point(ActualWidth - 1, ActualHeight - 1), out result);
-                return result.Position;
+                try
+                {
+                    Geopoint result;
+                    MainMap.GetLocationFromOffset(new Point(ActualWidth - 1, ActualHeight - 1), out result);
+                    return result.Position;
+                }
+                catch (ArgumentException)
+                {
+                    return new BasicGeoposition();
+                }
             }
         }
 
@@ -109,14 +147,54 @@ namespace OneAppAway
         #region Methods
         private void AddStopToMap(BusStop stop)
         {
-            Image img = new Image();
-            img.Tag = stop;
+            MapIcon mico = new MapIcon();
+            mico.Location = new Geopoint(stop.Position);
+            mico.CollisionBehaviorDesired = MapElementCollisionBehavior.RemainVisible;
+            //MapIcon img = new MapIcon();
+            //img.Tag = stop;
             string size = ZoomLevel < ZOOMLEVEL_SIZE_CUTOFF ? "20" : "40";
-            img.Source = new BitmapImage(new Uri(stop.Direction == StopDirection.Unspecified ? "ms-appx:///Assets/Icons/BusBase" + size + ".png" : "ms-appx:///Assets/Icons/BusDirection" + stop.Direction.ToString() + size + ".png"));
-            MapControl.SetLocation(img, new Geopoint(stop.Position));
-            MapControl.SetNormalizedAnchorPoint(img, new Point(0.5, 0.5));
-            MainMap.Children.Add(img);
-            BusStopIcons.Add(img);
+            //img.Source = BusMapIcons[stop.Direction == StopDirection.Unspecified ? "BusBase" + size : "BusDirection" + stop.Direction.ToString() + size];
+            //img.Source = new BitmapMapIcon(new Uri(stop.Direction == StopDirection.Unspecified ? "ms-appx:///Assets/Icons/BusBase" + size + ".png" : "ms-appx:///Assets/Icons/BusDirection" + stop.Direction.ToString() + size + ".png"));
+            //MapControl.SetLocation(img, new Geopoint(stop.Position));
+            //MapControl.SetNormalizedAnchorPoint(img, new Point(0.5, 0.5));
+            mico.Image = RandomAccessStreamReference.CreateFromUri(new Uri(stop.Direction == StopDirection.Unspecified ? "ms-appx:///Assets/Icons/BusBase" + size + ".png" : "ms-appx:///Assets/Icons/BusDirection" + stop.Direction.ToString() + size + ".png"));
+            mico.NormalizedAnchorPoint = new Point(0.5, 0.5);
+            MainMap.MapElements.Add(mico);
+            //MainMap.Children.Add(img);
+            Stops[mico] = stop;
+            BusStopIcons.Add(mico);
+        }
+
+        public void CalculateCloseIconPairs()
+        {
+            foreach (MapIcon img in BusStopIcons)
+            {
+                BusStop stop = Stops[img];
+                double closestDist = double.PositiveInfinity;
+                MapIcon closestImg = null;
+                foreach (MapIcon otherImg in BusStopIcons)
+                {
+                    if (otherImg == img) continue;
+                    BusStop otherStop = Stops[otherImg];
+                    double distEW = Math.Abs(stop.Position.Longitude - otherStop.Position.Longitude) * LAT_OVER_LON;
+                    double distNS = Math.Abs(stop.Position.Latitude - otherStop.Position.Latitude);
+                    double dist = Math.Sqrt(distEW * distEW + distNS * distNS);
+                    if (dist < closestDist)
+                    {
+                        closestDist = dist;
+                        closestImg = otherImg;
+                    }
+                }
+                CloseIconPairs.Add(new Tuple<MapIcon, MapIcon, double>(img, closestImg, closestDist));
+            }
+            foreach (MapIcon img in BusStopIcons)
+            {
+                var pairs = CloseIconPairs.Where(tup => Stops[tup.Item1] == Stops[img] || Stops[tup.Item2] == Stops[img]).ToList();
+                if (pairs.Count <= 1) continue;
+                pairs.Remove(pairs.First(tup0 => tup0.Item3 == pairs.Min(tup => tup.Item3)));
+                foreach (var item in pairs)
+                    CloseIconPairs.Remove(item);
+            }
         }
 
         public void UnOverlapIcons()
@@ -124,13 +202,13 @@ namespace OneAppAway
             double latPP = LatitudePerPixel;
             double lonPP = LongitudePerPixel;
             double iconSize = ZoomLevel < ZOOMLEVEL_SIZE_CUTOFF ? 24 : 48;
-            Func<Image, BasicGeoposition, Rect> getBounds = delegate (Image img, BasicGeoposition loc)
+            Func<MapIcon, BasicGeoposition, Rect> getBounds = delegate (MapIcon img, BasicGeoposition loc)
             {
                 Point center;
                 MainMap.GetOffsetFromLocation(new Geopoint(loc), out center);
                 return new Rect(new Point(center.X - iconSize / 2, center.Y - iconSize / 2), new Size(iconSize, iconSize));
             };
-            Action<Image, Image, StopDirection, StopDirection, BasicGeoposition, BasicGeoposition> deIntersect = delegate (Image img1, Image img2, StopDirection dir1, StopDirection dir2, BasicGeoposition loc1, BasicGeoposition loc2)
+            Action<MapIcon, MapIcon, StopDirection, StopDirection, BasicGeoposition, BasicGeoposition> deIntersect = delegate (MapIcon img1, MapIcon img2, StopDirection dir1, StopDirection dir2, BasicGeoposition loc1, BasicGeoposition loc2)
             {
                 Rect intersect = getBounds(img1, loc1);
                 intersect.Intersect(getBounds(img2, loc2));
@@ -145,8 +223,8 @@ namespace OneAppAway
                         lengthen = intersect.Width > intersect.Height;
                     if (lengthen)
                     {
-                        Image top;
-                        Image bottom;
+                        MapIcon top;
+                        MapIcon bottom;
                         BasicGeoposition lTop;
                         BasicGeoposition lBottom;
                         if (loc1.Latitude > loc2.Latitude)
@@ -169,8 +247,8 @@ namespace OneAppAway
                     }
                     else
                     {
-                        Image left;
-                        Image right;
+                        MapIcon left;
+                        MapIcon right;
                         BasicGeoposition lLeft;
                         BasicGeoposition lRight;
                         if (loc1.Longitude > loc2.Longitude)
@@ -193,36 +271,40 @@ namespace OneAppAway
                     }
                 }
             };
-            List<Image> closestIcons = new List<Image>();
-            foreach (Image img in BusStopIcons)
+            //List<MapIcon> closestIcons = new List<MapIcon>();
+            //foreach (MapIcon img in BusStopIcons)
+            //{
+            //    BusStop stop = (BusStop)img.Tag;
+            //    double closestDist = double.PositiveInfinity;
+            //    MapIcon closestImg = null;
+            //    foreach (MapIcon otherImg in BusStopIcons)
+            //    {
+            //        if (otherImg == img) continue;
+            //        BusStop otherStop = (BusStop)otherImg.Tag;
+            //        double distEW = Math.Abs(stop.Position.Longitude - otherStop.Position.Longitude) / lonPP;
+            //        double distNS = Math.Abs(stop.Position.Latitude - otherStop.Position.Latitude) / lonPP;
+            //        double dist = Math.Sqrt(distEW * distEW + distNS * distNS);
+            //        if (dist < closestDist)
+            //        {
+            //            closestDist = dist;
+            //            closestImg = otherImg;
+            //        }
+            //    }
+            //    closestIcons.Add(closestImg);
+            //}
+            //List<MapIcon> deIntersectedMapIcons = new List<MapIcon>();
+            //for (int i = 0; i < BusStopIcons.Count; i++)
+            //{
+            //    MapIcon img1 = BusStopIcons[i];
+            //    //if (deIntersectedMapIcons.Contains(img1)) continue;
+            //    MapIcon img2 = closestIcons[i];
+            //    deIntersectedMapIcons.Add(img2);
+            //    if (img1 == null || img2 == null) continue;
+            //    deIntersect(img1, img2, ((BusStop)img1.Tag).Direction, ((BusStop)img2.Tag).Direction, ((BusStop)img1.Tag).Position, ((BusStop)img2.Tag).Position);
+            //}
+            foreach (var item in CloseIconPairs)
             {
-                BusStop stop = (BusStop)img.Tag;
-                double closestDist = double.PositiveInfinity;
-                Image closestImg = null;
-                foreach (Image otherImg in BusStopIcons)
-                {
-                    if (otherImg == img) continue;
-                    BusStop otherStop = (BusStop)otherImg.Tag;
-                    double distEW = Math.Abs(stop.Position.Longitude - otherStop.Position.Longitude) / lonPP;
-                    double distNS = Math.Abs(stop.Position.Latitude - otherStop.Position.Latitude) / lonPP;
-                    double dist = Math.Sqrt(distEW * distEW + distNS * distNS);
-                    if (dist < closestDist)
-                    {
-                        closestDist = dist;
-                        closestImg = otherImg;
-                    }
-                }
-                closestIcons.Add(closestImg);
-            }
-            List<Image> deIntersectedImages = new List<Image>();
-            for (int i = 0; i < BusStopIcons.Count; i++)
-            {
-                Image img1 = BusStopIcons[i];
-                //if (deIntersectedImages.Contains(img1)) continue;
-                Image img2 = closestIcons[i];
-                deIntersectedImages.Add(img2);
-                if (img1 == null || img2 == null) continue;
-                deIntersect(img1, img2, ((BusStop)img1.Tag).Direction, ((BusStop)img2.Tag).Direction, ((BusStop)img1.Tag).Position, ((BusStop)img2.Tag).Position);
+                deIntersect(item.Item1, item.Item2, Stops[item.Item1].Direction, Stops[item.Item2].Direction, Stops[item.Item1].Position, Stops[item.Item2].Position);
             }
         }
 
@@ -230,11 +312,12 @@ namespace OneAppAway
 
         private void RefreshIconSizes()
         {
-            foreach (Image img in BusStopIcons)
+            foreach (MapIcon img in BusStopIcons)
             {
-                BusStop stop = (BusStop)img.Tag;
+                BusStop stop = Stops[img];
                 string size = ZoomLevel < ZOOMLEVEL_SIZE_CUTOFF ? "20" : "40";
-                img.Source = new BitmapImage(new Uri(stop.Direction == StopDirection.Unspecified ? "ms-appx:///Assets/Icons/BusBase" + size + ".png" : "ms-appx:///Assets/Icons/BusDirection" + stop.Direction.ToString() + size + ".png"));
+                img.Image = RandomAccessStreamReference.CreateFromUri(new Uri(stop.Direction == StopDirection.Unspecified ? "ms-appx:///Assets/Icons/BusBase" + size + ".png" : "ms-appx:///Assets/Icons/BusDirection" + stop.Direction.ToString() + size + ".png"));
+                //img.Source = new BitmapMapIcon(new Uri(stop.Direction == StopDirection.Unspecified ? "ms-appx:///Assets/Icons/BusBase" + size + ".png" : "ms-appx:///Assets/Icons/BusDirection" + stop.Direction.ToString() + size + ".png"));
             }
         }
         #endregion
@@ -255,6 +338,7 @@ namespace OneAppAway
         #region Event Handlers
         private void _ShownStops_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
+            CloseIconPairs.Clear();
             if (e.NewItems != null)
             {
                 foreach (BusStop item in e.NewItems)
@@ -299,5 +383,35 @@ namespace OneAppAway
             MainMap.MapElements.Add(MapIcon1);
 
         }
+
+        private async void MainMap_MapElementClick(MapControl sender, MapElementClickEventArgs args)
+        {
+            Geopoint position;
+            MainMap.GetLocationFromOffset(args.Position, out position);
+            BasicGeoposition newCenter = position.Position;
+            newCenter.Latitude = position.Position.Latitude + (TopLeft.Latitude - BottomRight.Latitude) / 2 - 50 * LatitudePerPixel;
+            double halfLatSpan = (TopLeft.Latitude - BottomRight.Latitude) / 2.5;
+            double halfLonSpan = (BottomRight.Longitude - TopLeft.Longitude) / 2.5;
+            //await MainMap.TrySetViewBoundsAsync(new GeoboundingBox(TopLeft, BottomRight), new Thickness(0), MapAnimationKind.Linear);
+            await MainMap.TrySetViewBoundsAsync(new GeoboundingBox(new BasicGeoposition() { Latitude = newCenter.Latitude + halfLatSpan, Longitude = newCenter.Longitude - halfLonSpan },
+                new BasicGeoposition() { Latitude = newCenter.Latitude - halfLatSpan, Longitude = newCenter.Longitude + halfLonSpan }), null, MapAnimationKind.Linear);
+
+            if (StopClicked != null)
+            {
+                BusStop[] stops = new BusStop[args.MapElements.Count];
+                for (int i = 0; i < stops.Length; i++)
+                {
+                    stops[i] = Stops[(MapIcon)args.MapElements[i]];
+                }
+                StopClicked(this, new StopClickedEventArgs() { Stops = stops });
+            }
+        }
+
+        public event EventHandler<StopClickedEventArgs> StopClicked;
+    }
+
+    public class StopClickedEventArgs : EventArgs
+    {
+        public BusStop[] Stops { get; set; }
     }
 }

@@ -14,6 +14,19 @@ namespace OneAppAway
         public StopDirection Direction { get; set; }
         public BasicGeoposition Position { get; set; }
         public string ID { get; set; }
-        public string FriendlyName { get; set; }
+        public string Name { get; set; }
+        public string Code { get; set; }
+        public int LocationType { get; set; }
+        public string[] RouteIds { get; set; }
+
+        public static bool operator ==(BusStop lhs, BusStop rhs)
+        {
+            return lhs.Position.Latitude == rhs.Position.Latitude && lhs.Position.Longitude == rhs.Position.Longitude;
+        }
+
+        public static bool operator !=(BusStop lhs, BusStop rhs)
+        {
+            return !(lhs == rhs);
+        }
     }
 }

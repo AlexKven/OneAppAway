@@ -13,7 +13,17 @@
     </Page.Resources>
     <SplitView CompactPaneLength="50" DisplayMode="CompactOverlay" x:Name="MainSplitView">
         <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-            <local:BusMap x:Name="MainBusMap" PropertyChanged="MainBusMap_PropertyChanged"/>
+            <local:BusMap x:Name="MainBusMap" PropertyChanged="MainBusMap_PropertyChanged" StopClicked="MainBusMap_StopClicked"/>
+            <Grid Width="400" Height="500" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,50" x:Name="StopInfoPanel" Visibility="Collapsed" Opacity="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <ScrollViewer Background="White">
+                    <StackPanel x:Name="StopView"/>
+                </ScrollViewer>
+                <Polygon Grid.Row="1" Points="0, 0, 30, 30, 60, 0" Fill="White" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </Grid>
             <StackPanel VerticalAlignment="Top" Background="White" Orientation="Horizontal">
                 <TextBlock Margin="5,0,0,5" Foreground="Black" FontSize="16">Zoom Level:</TextBlock>
                 <TextBlock Margin="5,0,0,5" Foreground="Black" FontSize="16" Text="{Binding ElementName=MainBusMap, Path=ZoomLevel}"/>
@@ -24,8 +34,8 @@
             </StackPanel>
         </Grid>
         <SplitView.Pane>
-            <StackPanel Background="#88CC00">
-                <Button FontFamily="Segoe MDL2 Assets" Content="&#xE700;" Width="50" Height="50" Background="Transparent" Click="HamburgerButton_Click"/>
+            <StackPanel Background="#050505" Margin="0, 40,0,0">
+                <Button RequestedTheme="Dark" FontFamily="Segoe MDL2 Assets" FontSize="20" Content="&#xE700;" Width="50" Height="50" Click="HamburgerButton_Click"/>
                 <Button Click="Button_Click">+</Button>
             </StackPanel>
         </SplitView.Pane>

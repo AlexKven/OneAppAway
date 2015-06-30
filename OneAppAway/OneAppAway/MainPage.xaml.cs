@@ -22,6 +22,8 @@ using System.Xml.Linq;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml.Media.Imaging;
 using System.Diagnostics;
+using Windows.UI.Xaml.Media.Animation;
+using Windows.UI.Core;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -34,16 +36,28 @@ namespace OneAppAway
     {
         public MainPage()
         {
+            Func<Color, Color> darken = clr => Color.FromArgb(clr.A, (byte)(clr.R / 2), (byte)(clr.G / 2), (byte)(clr.B / 2));
+            Func<Color, Color> lighten = clr => Color.FromArgb(clr.A, (byte)(128 + clr.R / 2), (byte)(128 + clr.G / 2), (byte)(1287 + clr.B / 2));
             this.InitializeComponent();
+            Color accentColor = ((Color)App.Current.Resources["SystemColorControlAccentColor"]);
             var titleBar = ApplicationView.GetForCurrentView().TitleBar;
-            titleBar.BackgroundColor = Color.FromArgb(255, byte.Parse("88", System.Globalization.NumberStyles.HexNumber), byte.Parse("CC", System.Globalization.NumberStyles.HexNumber), byte.Parse("00", System.Globalization.NumberStyles.HexNumber));
-            titleBar.ForegroundColor = Colors.White;
+            titleBar.BackgroundColor = Color.FromArgb(255, byte.Parse("05", System.Globalization.NumberStyles.HexNumber), byte.Parse("05", System.Globalization.NumberStyles.HexNumber), byte.Parse("05", System.Globalization.NumberStyles.HexNumber));
+            titleBar.InactiveBackgroundColor = titleBar.BackgroundColor;
+            //titleBar.BackgroundColor = darken(accentColor);
+            titleBar.ForegroundColor = accentColor;
+            titleBar.InactiveForegroundColor = darken(accentColor);
             titleBar.ButtonBackgroundColor = titleBar.BackgroundColor;
-            titleBar.ButtonForegroundColor = Colors.Green;
+            titleBar.ButtonForegroundColor = titleBar.ForegroundColor;
+            //titleBar.InactiveBackgroundColor = Color.FromArgb(255, byte.Parse("20", System.Globalization.NumberStyles.HexNumber), byte.Parse("20", System.Globalization.NumberStyles.HexNumber), byte.Parse("20", System.Globalization.NumberStyles.HexNumber));
+            //titleBar.InactiveBackgroundColor = accentColor;
+            //titleBar.InactiveForegroundColor = Colors.White;
+            titleBar.ButtonInactiveBackgroundColor = titleBar.InactiveBackgroundColor;
+            titleBar.ButtonInactiveForegroundColor = titleBar.InactiveForegroundColor;
+
             //ApplicationView.GetForCurrentView().Title = StopDirection.NE.ToString();
             //CenterOnMyHouse();
             //ApiTest();
-            
+            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
         }
 
         private async void ApiTest()
@@ -57,33 +71,39 @@ namespace OneAppAway
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
             var loc = MainBusMap.Center;
-            double latSpan = Math.Abs(MainBusMap.BottomRight.Latitude - MainBusMap.TopLeft.Latitude);
-            double lonSpan = Math.Abs(MainBusMap.BottomRight.Longitude - MainBusMap.TopLeft.Longitude);
 
-            HttpClient client = new HttpClient();
-            var resp = await client.SendAsync(new HttpRequestMessage(HttpMethod.Get, "http://api.pugetsound.onebusaway.org/api/where/stops-for-location.xml?key=TEST&lat=" + loc.Latitude.ToString() + "&lon=" + loc.Longitude.ToString() + "&latSpan=" + latSpan.ToString() + "&lonSpan=" + lonSpan.ToString()));
+            await Data.GetStopsForArea(MainBusMap.TopLeft, MainBusMap.BottomRight, delegate (BusStop[] stops) {
+                foreach (var stop in stops)
+                {
+                    MainBusMap.ShownStops.Add(stop);
+                }
+            });
+            //HttpClient client = new HttpClient();
+            //var resp = await client.SendAsync(new HttpRequestMessage(HttpMethod.Get, "http://api.pugetsound.onebusaway.org/api/where/stops-for-location.xml?key=TEST&lat=" + loc.Latitude.ToString() + "&lon=" + loc.Longitude.ToString() + "&latSpan=" + latSpan.ToString() + "&lonSpan=" + lonSpan.ToString()));
 
-            var responseString = await resp.Content.ReadAsStringAsync();
+            //var responseString = await resp.Content.ReadAsStringAsync();
 
-            StringReader reader = new StringReader(responseString);
-            XDocument xDoc = XDocument.Load(reader);
+            //StringReader reader = new StringReader(responseString);
+            //XDocument xDoc = XDocument.Load(reader);
 
-            //XElement el = (XElement)xDoc.Nodes().First(d => d.NodeType == XmlNodeType.Element && ((XElement)d).Name.LocalName == "response");
-            XElement el = xDoc.Element("response");
+            ////XElement el = (XElement)xDoc.Nodes().First(d => d.NodeType == XmlNodeType.Element && ((XElement)d).Name.LocalName == "response");
+            //XElement el = xDoc.Element("response");
 
-            XElement el1 = el.Element("data");
-            XElement el2 = el1.Element("list");
+            //XElement el1 = el.Element("data");
+            //XElement el2 = el1.Element("list");
 
-            foreach (XElement el3 in el2.Elements("stop"))
-            {
-                string lat = el3.Element("lat").Value;
-                string lon = el3.Element("lon").Value;
-                string direction = el3.Element("direction") == null ? null : el3.Element("direction").Value;
-                BusStop stop = new BusStop() { Position = new BasicGeoposition() { Latitude = double.Parse(lat), Longitude = double.Parse(lon) }, Direction = direction == null ? StopDirection.Unspecified : (StopDirection)Enum.Parse(typeof(StopDirection), direction) };
-                MainBusMap.ShownStops.Add(stop);
-            }
-            MainBusMap.UnOverlapIcons();
-            Debug.WriteLine("Number of stops: " + MainBusMap.ShownStops.Count);
+            //foreach (XElement el3 in el2.Elements("stop"))
+            //{
+            //    string lat = el3.Element("lat").Value;
+            //    string lon = el3.Element("lon").Value;
+            //    string direction = el3.Element("direction") == null ? null : el3.Element("direction").Value;
+            //    BusStop stop = new BusStop() { Position = new BasicGeoposition() { Latitude = double.Parse(lat), Longitude = double.Parse(lon) }, Direction = direction == null ? StopDirection.Unspecified : (StopDirection)Enum.Parse(typeof(StopDirection), direction) };
+            //    MainBusMap.ShownStops.Add(stop);
+            //}
+            //MainBusMap.CalculateCloseIconPairs();
+            //MainBusMap.UnOverlapIcons();
+            //Debug.WriteLine("Number of stops: " + MainBusMap.ShownStops.Count);
+            
         }
 
         private void HamburgerButton_Click(object sender, RoutedEventArgs e)
@@ -93,8 +113,30 @@ namespace OneAppAway
 
         private void MainBusMap_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == "ZoomLevel")
-                MainBusMap.UnOverlapIcons();
+            //if (e.PropertyName == "ZoomLevel")
+            //    MainBusMap.UnOverlapIcons();
+            //Debug.WriteLine(MainBusMap.LatitudePerPixel / MainBusMap.LongitudePerPixel);
+        }
+
+        private void MainBusMap_StopClicked(object sender, StopClickedEventArgs e)
+        {
+            StopView.Children.Clear();
+            foreach (var stop in e.Stops)
+            {
+                StopView.Children.Add(new TextBlock() { FontSize = 20, Text = stop.Name, Margin = new Thickness(10), TextWrapping = TextWrapping.Wrap });
+            }
+            StopInfoPanel.Visibility = Visibility.Visible;
+            DoubleAnimation fadeIn = new DoubleAnimation();
+            Storyboard.SetTarget(fadeIn, StopInfoPanel);
+            Storyboard.SetTargetProperty(fadeIn, "Opacity");
+            fadeIn.From = 0;
+            fadeIn.To = 1;
+            fadeIn.Duration = TimeSpan.FromMilliseconds(200);
+            fadeIn.BeginTime = TimeSpan.FromSeconds(1);
+            Storyboard sb = new Storyboard();
+            sb.Children.Add(fadeIn);
+            sb.Begin();
+            
         }
     }
 }
