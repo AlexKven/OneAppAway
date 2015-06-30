@@ -34,8 +34,8 @@
             </StackPanel>
         </Grid>
         <SplitView.Pane>
-            <StackPanel Background="#050505" Margin="0, 40,0,0">
-                <Button RequestedTheme="Dark" FontFamily="Segoe MDL2 Assets" FontSize="20" Content="&#xE700;" Width="50" Height="50" Click="HamburgerButton_Click"/>
+            <StackPanel Background="#303030" Margin="0, 0,0,0">
+                <Button Background="#303030" RequestedTheme="Dark" FontFamily="Segoe MDL2 Assets" FontSize="19" Content="&#xE700;" Width="50" Height="50" Click="HamburgerButton_Click"/>
                 <Button Click="Button_Click">+</Button>
             </StackPanel>
         </SplitView.Pane>

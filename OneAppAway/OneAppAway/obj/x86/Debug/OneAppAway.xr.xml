@@ -39,6 +39,7 @@
       <RootEvent Name="CenterChanged" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.Button">
+      <RootProperty Name="Background" />
       <RootProperty Name="RequestedTheme" />
       <RootProperty Name="FontFamily" />
       <RootProperty Name="FontSize" />
