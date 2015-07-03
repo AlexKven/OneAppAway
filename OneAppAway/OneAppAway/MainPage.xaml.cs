@@ -58,6 +58,8 @@ namespace OneAppAway
             //CenterOnMyHouse();
             //ApiTest();
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
+
+            CenterOnCurrentLocation();
         }
 
         private async void ApiTest()
@@ -71,13 +73,6 @@ namespace OneAppAway
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
             var loc = MainBusMap.Center;
-
-            await Data.GetStopsForArea(MainBusMap.TopLeft, MainBusMap.BottomRight, delegate (BusStop[] stops) {
-                foreach (var stop in stops)
-                {
-                    MainBusMap.ShownStops.Add(stop);
-                }
-            });
             //HttpClient client = new HttpClient();
             //var resp = await client.SendAsync(new HttpRequestMessage(HttpMethod.Get, "http://api.pugetsound.onebusaway.org/api/where/stops-for-location.xml?key=TEST&lat=" + loc.Latitude.ToString() + "&lon=" + loc.Longitude.ToString() + "&latSpan=" + latSpan.ToString() + "&lonSpan=" + lonSpan.ToString()));
 
@@ -104,6 +99,18 @@ namespace OneAppAway
             //MainBusMap.UnOverlapIcons();
             //Debug.WriteLine("Number of stops: " + MainBusMap.ShownStops.Count);
             
+        }
+
+        private async void CenterOnCurrentLocation()
+        {
+            var loc = new Geolocator();
+            try
+            {
+                loc.DesiredAccuracy = PositionAccuracy.High;
+                Geoposition pos = await loc.GetGeopositionAsync();
+                MainBusMap.CenterOnLocation(pos.Coordinate.Point.Position, 17);
+            }
+            catch (Exception) { }
         }
 
         private void HamburgerButton_Click(object sender, RoutedEventArgs e)

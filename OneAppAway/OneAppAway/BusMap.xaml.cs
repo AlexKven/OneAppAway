@@ -6,6 +6,8 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Xml.Linq;
 using Windows.Devices.Geolocation;
 using Windows.Foundation;
@@ -28,44 +30,35 @@ namespace OneAppAway
     public sealed partial class BusMap : UserControl, INotifyPropertyChanged
     {
         #region Fields
-        private const double ZOOMLEVEL_SIZE_CUTOFF = 16;
+        public const double ZOOMLEVEL_SIZE_CUTOFF = 16;
+        public const double ZOOMLEVEL_VISIBILITY_CUTOFF = 14;
         private const double LAT_OVER_LON = .67706;
 
         private List<MapIcon> BusStopIcons = new List<MapIcon>();
+        private List<GeoboundingBox> BoundsCovered = new List<GeoboundingBox>();
         private Dictionary<MapIcon, BusStop> Stops = new Dictionary<MapIcon, BusStop>();
         private List<Tuple<MapIcon, MapIcon, double>> CloseIconPairs = new List<Tuple<MapIcon, MapIcon, double>>();
-        //private Dictionary<string, MapIconSource> BusMapIcons = new Dictionary<string, MapIconSource>();
         private double PreviousZoomLevel;
+        private long LastMove;
+
+        private Task<BusStop[]> GetStopsTask;
+        private CancellationTokenSource GetStopsCancellationTokenSource;
         #endregion
 
         public BusMap()
         {
             this.InitializeComponent();
             _ShownStops.CollectionChanged += _ShownStops_CollectionChanged;
-            //"ms-appx:///Assets/Icons/BusBase" + size + ".png" : "ms-appx:///Assets/Icons/BusDirection" + stop.Direction.ToString() + size + ".png"
-            //BusMapIcons.Add("BusBase20", new BitmapMapIcon(new Uri("ms-appx:///Assets/Icons/BusBase20.png")));
-            //BusMapIcons.Add("BusBase40", new BitmapMapIcon(new Uri("ms-appx:///Assets/Icons/BusBase40.png")));
-            //BusMapIcons.Add("BusDirectionN20", new BitmapMapIcon(new Uri("ms-appx:///Assets/Icons/BusDirectionN20.png")));
-            //BusMapIcons.Add("BusDirectionNE20", new BitmapMapIcon(new Uri("ms-appx:///Assets/Icons/BusDirectionNE20.png")));
-            //BusMapIcons.Add("BusDirectionE20", new BitmapMapIcon(new Uri("ms-appx:///Assets/Icons/BusDirectionE20.png")));
-            //BusMapIcons.Add("BusDirectionSE20", new BitmapMapIcon(new Uri("ms-appx:///Assets/Icons/BusDirectionSE20.png")));
-            //BusMapIcons.Add("BusDirectionS20", new BitmapMapIcon(new Uri("ms-appx:///Assets/Icons/BusDirectionS20.png")));
-            //BusMapIcons.Add("BusDirectionSW20", new BitmapMapIcon(new Uri("ms-appx:///Assets/Icons/BusDirectionSW20.png")));
-            //BusMapIcons.Add("BusDirectionW20", new BitmapMapIcon(new Uri("ms-appx:///Assets/Icons/BusDirectionW20.png")));
-            //BusMapIcons.Add("BusDirectionNW20", new BitmapMapIcon(new Uri("ms-appx:///Assets/Icons/BusDirectionNW20.png")));
-            //BusMapIcons.Add("BusDirectionN40", new BitmapMapIcon(new Uri("ms-appx:///Assets/Icons/BusDirectionN40.png")));
-            //BusMapIcons.Add("BusDirectionNE40", new BitmapMapIcon(new Uri("ms-appx:///Assets/Icons/BusDirectionNE40.png")));
-            //BusMapIcons.Add("BusDirectionE40", new BitmapMapIcon(new Uri("ms-appx:///Assets/Icons/BusDirectionE40.png")));
-            //BusMapIcons.Add("BusDirectionSE40", new BitmapMapIcon(new Uri("ms-appx:///Assets/Icons/BusDirectionSE40.png")));
-            //BusMapIcons.Add("BusDirectionS40", new BitmapMapIcon(new Uri("ms-appx:///Assets/Icons/BusDirectionS40.png")));
-            //BusMapIcons.Add("BusDirectionSW40", new BitmapMapIcon(new Uri("ms-appx:///Assets/Icons/BusDirectionSW40.png")));
-            //BusMapIcons.Add("BusDirectionW40", new BitmapMapIcon(new Uri("ms-appx:///Assets/Icons/BusDirectionW40.png")));
-            //BusMapIcons.Add("BusDirectionNW40", new BitmapMapIcon(new Uri("ms-appx:///Assets/Icons/BusDirectionNW40.png")));
+            this.PropertyChanged += BusMap_PropertyChanged;
+        }
+
+        private void BusMap_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
         }
 
         private ObservableCollection<BusStop> _ShownStops = new ObservableCollection<BusStop>();
 
-        public ICollection<BusStop> ShownStops
+        private ICollection<BusStop> ShownStops
         {
             get
             {
@@ -150,17 +143,10 @@ namespace OneAppAway
             MapIcon mico = new MapIcon();
             mico.Location = new Geopoint(stop.Position);
             mico.CollisionBehaviorDesired = MapElementCollisionBehavior.RemainVisible;
-            //MapIcon img = new MapIcon();
-            //img.Tag = stop;
             string size = ZoomLevel < ZOOMLEVEL_SIZE_CUTOFF ? "20" : "40";
-            //img.Source = BusMapIcons[stop.Direction == StopDirection.Unspecified ? "BusBase" + size : "BusDirection" + stop.Direction.ToString() + size];
-            //img.Source = new BitmapMapIcon(new Uri(stop.Direction == StopDirection.Unspecified ? "ms-appx:///Assets/Icons/BusBase" + size + ".png" : "ms-appx:///Assets/Icons/BusDirection" + stop.Direction.ToString() + size + ".png"));
-            //MapControl.SetLocation(img, new Geopoint(stop.Position));
-            //MapControl.SetNormalizedAnchorPoint(img, new Point(0.5, 0.5));
             mico.Image = RandomAccessStreamReference.CreateFromUri(new Uri(stop.Direction == StopDirection.Unspecified ? "ms-appx:///Assets/Icons/BusBase" + size + ".png" : "ms-appx:///Assets/Icons/BusDirection" + stop.Direction.ToString() + size + ".png"));
             mico.NormalizedAnchorPoint = new Point(0.5, 0.5);
             MainMap.MapElements.Add(mico);
-            //MainMap.Children.Add(img);
             Stops[mico] = stop;
             BusStopIcons.Add(mico);
         }
@@ -308,7 +294,24 @@ namespace OneAppAway
             }
         }
 
-        
+        private void AddStopsInBounds(GeoboundingBox bounds)
+        {
+            Action<BusStop[], GeoboundingBox> stopsLoadedCallback = delegate (BusStop[] stops, GeoboundingBox bnd) {
+                foreach (var stop in stops)
+                {
+                    if (!ShownStops.Any(other => other == stop))
+                        ShownStops.Add(stop);
+                    BoundsCovered.Add(bnd);
+                }
+            };
+            if (GetStopsTask != null && !GetStopsTask.IsCompleted)
+            {
+                GetStopsCancellationTokenSource.Cancel();
+                //await GetStopsTask;
+            }
+            GetStopsCancellationTokenSource = new CancellationTokenSource();
+            GetStopsTask = Data.GetStopsForArea(bounds, stopsLoadedCallback, GetStopsCancellationTokenSource.Token);
+        }
 
         private void RefreshIconSizes()
         {
@@ -319,6 +322,24 @@ namespace OneAppAway
                 img.Image = RandomAccessStreamReference.CreateFromUri(new Uri(stop.Direction == StopDirection.Unspecified ? "ms-appx:///Assets/Icons/BusBase" + size + ".png" : "ms-appx:///Assets/Icons/BusDirection" + stop.Direction.ToString() + size + ".png"));
                 //img.Source = new BitmapMapIcon(new Uri(stop.Direction == StopDirection.Unspecified ? "ms-appx:///Assets/Icons/BusBase" + size + ".png" : "ms-appx:///Assets/Icons/BusDirection" + stop.Direction.ToString() + size + ".png"));
             }
+        }
+
+        private void RefreshIconVisibilities()
+        {
+            bool visibility = ZoomLevel >= ZOOMLEVEL_VISIBILITY_CUTOFF;
+            foreach (MapIcon img in BusStopIcons)
+            {
+                BusStop stop = Stops[img];
+                img.Visible = visibility;
+                //img.Source = new BitmapMapIcon(new Uri(stop.Direction == StopDirection.Unspecified ? "ms-appx:///Assets/Icons/BusBase" + size + ".png" : "ms-appx:///Assets/Icons/BusDirection" + stop.Direction.ToString() + size + ".png"));
+            }
+        }
+
+        private void OnStopsClicked(BusStop[] stops, BasicGeoposition location)
+        {
+            MapControl.SetLocation(StopArrivalsBox, new Geopoint(location));
+            StopArrivalsBox.SetStops(stops);
+            StopArrivalsBox.Visibility = Visibility.Visible;
         }
         #endregion
 
@@ -352,6 +373,8 @@ namespace OneAppAway
         {
             if ((ZoomLevel < ZOOMLEVEL_SIZE_CUTOFF) != (PreviousZoomLevel < ZOOMLEVEL_SIZE_CUTOFF))
                 RefreshIconSizes();
+            if ((ZoomLevel < ZOOMLEVEL_VISIBILITY_CUTOFF) != (PreviousZoomLevel < ZOOMLEVEL_VISIBILITY_CUTOFF))
+                RefreshIconVisibilities();
             OnPropertyChanged("ZoomLevel", "TopLeft", "BottomRight");
             PreviousZoomLevel = ZoomLevel;
         }
@@ -367,21 +390,9 @@ namespace OneAppAway
         }
         #endregion
 
-
-
-
-        private async void CenterOnMyHouse()
+        public async void CenterOnLocation(BasicGeoposition location, double zoomLevel)
         {
-            var res = await Windows.Services.Maps.MapLocationFinder.FindLocationsAsync("30143 12th Ave SW, Federal Way, WA", new Windows.Devices.Geolocation.Geopoint(new Windows.Devices.Geolocation.BasicGeoposition() { Latitude = 47.3, Longitude = 122.3 }));
-            //MapControl.SetLocation(FortyTwo, res.Locations[0].Point);
-
-
-            MapIcon MapIcon1 = new MapIcon();
-            MapIcon1.Location = res.Locations[0].Point;
-            MapIcon1.NormalizedAnchorPoint = new Point(0.5, 1.0);
-            MapIcon1.Title = "4 Routes";
-            MainMap.MapElements.Add(MapIcon1);
-
+            await MainMap.TrySetViewAsync(new Geopoint(location), zoomLevel, null, null, MapAnimationKind.None);
         }
 
         private async void MainMap_MapElementClick(MapControl sender, MapElementClickEventArgs args)
@@ -396,18 +407,30 @@ namespace OneAppAway
             await MainMap.TrySetViewBoundsAsync(new GeoboundingBox(new BasicGeoposition() { Latitude = newCenter.Latitude + halfLatSpan, Longitude = newCenter.Longitude - halfLonSpan },
                 new BasicGeoposition() { Latitude = newCenter.Latitude - halfLatSpan, Longitude = newCenter.Longitude + halfLonSpan }), null, MapAnimationKind.Linear);
 
-            if (StopClicked != null)
+            BusStop[] stops = new BusStop[args.MapElements.Count];
+            for (int i = 0; i < stops.Length; i++)
             {
-                BusStop[] stops = new BusStop[args.MapElements.Count];
-                for (int i = 0; i < stops.Length; i++)
-                {
-                    stops[i] = Stops[(MapIcon)args.MapElements[i]];
-                }
-                StopClicked(this, new StopClickedEventArgs() { Stops = stops });
+                stops[i] = Stops[(MapIcon)args.MapElements[i]];
             }
+            OnStopsClicked(stops, args.Location.Position);
         }
 
-        public event EventHandler<StopClickedEventArgs> StopClicked;
+        private async void MainMap_ActualCameraChanged(MapControl sender, MapActualCameraChangedEventArgs args)
+        {
+            GeoboundingBox bounds = new GeoboundingBox(TopLeft, BottomRight);
+            long lm = DateTime.Now.Ticks;
+            LastMove = lm;
+            await Task.Delay(50);
+            if (LastMove == lm)
+            {
+                if (MainMap.ZoomLevel < ZOOMLEVEL_VISIBILITY_CUTOFF) return;
+                try
+                {
+                    AddStopsInBounds(bounds);
+                }
+                catch (TaskCanceledException) { }
+            }
+        }
     }
 
     public class StopClickedEventArgs : EventArgs

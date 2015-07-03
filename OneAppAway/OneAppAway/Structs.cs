@@ -21,7 +21,7 @@ namespace OneAppAway
 
         public static bool operator ==(BusStop lhs, BusStop rhs)
         {
-            return lhs.Position.Latitude == rhs.Position.Latitude && lhs.Position.Longitude == rhs.Position.Longitude;
+            return lhs.ID == rhs.ID;
         }
 
         public static bool operator !=(BusStop lhs, BusStop rhs)

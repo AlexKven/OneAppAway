@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Windows.Devices.Geolocation;
@@ -13,11 +14,12 @@ namespace OneAppAway
 {
     public static class ApiLayer
     {
-        public static async Task<BusStop[]> GetBusStops(BasicGeoposition center, double latSpan, double lonSpan)
+        public static async Task<BusStop[]> GetBusStops(BasicGeoposition center, double latSpan, double lonSpan, CancellationToken cancellationToken)
         {
             List<BusStop> result = new List<BusStop>();
             HttpClient client = new HttpClient();
-            var resp = await client.SendAsync(new HttpRequestMessage(HttpMethod.Get, "http://api.pugetsound.onebusaway.org/api/where/stops-for-location.xml?key=TEST&lat=" + center.Latitude.ToString() + "&lon=" + center.Longitude.ToString() + "&latSpan=" + latSpan.ToString() + "&lonSpan=" + lonSpan.ToString()));
+            var resp = await client.SendAsync(new HttpRequestMessage(HttpMethod.Get, "http://api.pugetsound.onebusaway.org/api/where/stops-for-location.xml?key=TEST&lat=" + center.Latitude.ToString() + "&lon=" + center.Longitude.ToString() + "&latSpan=" + latSpan.ToString() + "&lonSpan=" + lonSpan.ToString()), cancellationToken);
+            if (cancellationToken.IsCancellationRequested) return new BusStop[0];
 
             var responseString = await resp.Content.ReadAsStringAsync();
 

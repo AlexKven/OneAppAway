@@ -8,7 +8,7 @@
     <PackageArchitecture>x86</PackageArchitecture>
     <PackageIdentityName>47218a89-641f-4f6d-a5ac-82974e618780</PackageIdentityName>
     <IntermediateOutputPath>C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\obj\x86\Debug\</IntermediateOutputPath>
-    <RegisteredManifestChecksum>F71F18F9E156A317C1E9F240F95C8D48CDB8475D4F59DA562693A7946C90AF18</RegisteredManifestChecksum>
+    <RegisteredManifestChecksum>0DF9F87A15268C8A32171366595EC80E40E073F52FE7D3C62207396FEBF04341</RegisteredManifestChecksum>
     <RegisteredPackageMoniker>47218a89-641f-4f6d-a5ac-82974e618780_1.0.0.0_x86__1fadp56eckdn0</RegisteredPackageMoniker>
     <RegisteredUserModeAppID>47218a89-641f-4f6d-a5ac-82974e618780_1fadp56eckdn0!App</RegisteredUserModeAppID>
     <RegisteredPackageID>47218a89-641f-4f6d-a5ac-82974e618780</RegisteredPackageID>
@@ -20,7 +20,7 @@
     <AppXManifest Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2015-06-30T18:38:25.848</Modified>
+      <Modified>2015-07-02T04:03:23.676</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
@@ -210,11 +210,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\OneAppAway.exe">
       <PackagePath>OneAppAway.exe</PackagePath>
-      <Modified>2015-06-30T18:38:25.420</Modified>
+      <Modified>2015-07-02T04:03:23.344</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\OneAppAway.xr.xml">
       <PackagePath>OneAppAway.xr.xml</PackagePath>
-      <Modified>2015-06-30T18:32:07.051</Modified>
+      <Modified>2015-07-02T03:57:50.528</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\Properties\Default.rd.xml">
       <PackagePath>Properties\Default.rd.xml</PackagePath>
@@ -222,7 +222,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2015-06-30T18:38:26.879</Modified>
+      <Modified>2015-07-02T04:03:24.341</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\System.AppContext.dll">
       <PackagePath>System.AppContext.dll</PackagePath>

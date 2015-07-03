@@ -13,7 +13,7 @@
     </Page.Resources>
     <SplitView x:ConnectionId='1' CompactPaneLength="50" DisplayMode="CompactOverlay" x:Name="MainSplitView">
         <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-            <local:BusMap x:ConnectionId='2' x:Name="MainBusMap"                                                                                  />
+            <local:BusMap x:ConnectionId='2' x:Name="MainBusMap"                                             />
             <Grid x:ConnectionId='3' Width="400" Height="500" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,50" x:Name="StopInfoPanel" Visibility="Collapsed" Opacity="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
@@ -37,6 +37,7 @@
             <StackPanel Background="#303030" Margin="0, 0,0,0">
                 <Button x:ConnectionId='5' Background="#303030" RequestedTheme="Dark" FontFamily="Segoe MDL2 Assets" FontSize="19" Content="&#xE700;" Width="50" Height="50"                              />
                 <Button x:ConnectionId='6'                     >+</Button>
+                <local:MultiStopArrivalsBox Width="200" Height="400"/>
             </StackPanel>
         </SplitView.Pane>
     </SplitView>
