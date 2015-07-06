@@ -11,21 +11,39 @@
     d:DesignWidth="150">
 
     <Grid>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="ArrivalBoxVisualStates">
+                <VisualState x:Name="ArrivalBoxShown">
+                    <Storyboard>
+                        <DoubleAnimation Duration="0:0:0.15" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="StopArrivalBox" d:IsOptimized="True"/>
+                        <DoubleAnimation Duration="0:0:0.15" To="0" Storyboard.TargetProperty="(CompositeTransform.TranslateY)" Storyboard.TargetName="StopArrivalBoxTranslation" d:IsOptimized="True"/>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="StopArrivalBox" d:IsOptimized="True">
+                            <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
+                            </ObjectAnimationUsingKeyFrames.KeyFrames>
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+                <VisualState x:Name="ArrivalBoxHidden">
+                    <Storyboard>
+                        <DoubleAnimation Duration="0:0:0.15" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="StopArrivalBox" d:IsOptimized="True"/>
+                        <DoubleAnimation Duration="0:0:0.15" To="25" Storyboard.TargetProperty="(CompositeTransform.TranslateY)" Storyboard.TargetName="StopArrivalBoxTranslation" d:IsOptimized="True"/>
+                        <ObjectAnimationUsingKeyFrames Duration="0:0:0.15" Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="StopArrivalBox" d:IsOptimized="True">
+                            <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
+                                <DiscreteObjectKeyFrame KeyTime="1" Value="Collapsed"/>
+                            </ObjectAnimationUsingKeyFrames.KeyFrames>
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
         <Maps:MapControl TransitFeaturesVisible="False" PedestrianFeaturesVisible="True" TiltInteractionMode="Disabled" MapElementClick="MainMap_MapElementClick" SizeChanged="MainMap_SizeChanged" ZoomLevelChanged="MainMap_ZoomLevelChanged" CenterChanged="MainMap_CenterChanged" RotateInteractionMode="Disabled" x:Name="MainMap" MapServiceToken="s5030Pi5RRfQpmN9G31Y~Av27qRni0nZtyuLdCWdmgw~AroE4QWDxcQzLO1BLE1Dsm9t_hi6TG9z-8Kxr6v5D01QZFP4BacIgGWRRnuYcRJM" ActualCameraChanged="MainMap_ActualCameraChanged" >
-            <Maps:MapControl.Resources>
-                <Style TargetType="Button">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="Button">
-                                <Grid>
-                                    <ContentPresenter/>
-                                </Grid>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </Maps:MapControl.Resources>
-            <local:MultiStopArrivalsBox Width="300" Height="400" x:Name="StopArrivalsBox" Visibility="Collapsed" Maps:MapControl.NormalizedAnchorPoint="0.5, 1"/>
+            <local:MultiStopArrivalsBox Width="350" Height="450" x:Name="StopArrivalBox" CloseRequested="StopArrivalBox_CloseRequested" Visibility="Collapsed" Maps:MapControl.NormalizedAnchorPoint="0.5, 1" Opacity="0">
+                <local:MultiStopArrivalsBox.RenderTransform>
+                    <CompositeTransform TranslateY="25" x:Name="StopArrivalBoxTranslation"/>
+                </local:MultiStopArrivalsBox.RenderTransform>
+            </local:MultiStopArrivalsBox>
         </Maps:MapControl>
     </Grid>
 </UserControl>

@@ -95,12 +95,18 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BusArrivalBox.xaml.cs">
+      <DependentUpon>BusArrivalBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="BusMap.xaml.cs">
       <DependentUpon>BusMap.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\AddSubtractConverter.cs" />
     <Compile Include="Converters\BasicGeopositionToStringConverter.cs" />
+    <Compile Include="Converters\ColorToBrushConverter.cs" />
     <Compile Include="Converters\DoubleToGridlengthConverter.cs" />
+    <Compile Include="Converters\LightenColorConverter.cs" />
+    <Compile Include="Converters\RandomConverter.cs" />
     <Compile Include="Converters\ValueConverterGroup.cs" />
     <Compile Include="Data.cs" />
     <Compile Include="HelperFunctions.cs" />
@@ -166,6 +172,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="BusArrivalBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="BusMap.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

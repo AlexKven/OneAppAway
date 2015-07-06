@@ -72,33 +72,7 @@ namespace OneAppAway
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            var loc = MainBusMap.Center;
-            //HttpClient client = new HttpClient();
-            //var resp = await client.SendAsync(new HttpRequestMessage(HttpMethod.Get, "http://api.pugetsound.onebusaway.org/api/where/stops-for-location.xml?key=TEST&lat=" + loc.Latitude.ToString() + "&lon=" + loc.Longitude.ToString() + "&latSpan=" + latSpan.ToString() + "&lonSpan=" + lonSpan.ToString()));
-
-            //var responseString = await resp.Content.ReadAsStringAsync();
-
-            //StringReader reader = new StringReader(responseString);
-            //XDocument xDoc = XDocument.Load(reader);
-
-            ////XElement el = (XElement)xDoc.Nodes().First(d => d.NodeType == XmlNodeType.Element && ((XElement)d).Name.LocalName == "response");
-            //XElement el = xDoc.Element("response");
-
-            //XElement el1 = el.Element("data");
-            //XElement el2 = el1.Element("list");
-
-            //foreach (XElement el3 in el2.Elements("stop"))
-            //{
-            //    string lat = el3.Element("lat").Value;
-            //    string lon = el3.Element("lon").Value;
-            //    string direction = el3.Element("direction") == null ? null : el3.Element("direction").Value;
-            //    BusStop stop = new BusStop() { Position = new BasicGeoposition() { Latitude = double.Parse(lat), Longitude = double.Parse(lon) }, Direction = direction == null ? StopDirection.Unspecified : (StopDirection)Enum.Parse(typeof(StopDirection), direction) };
-            //    MainBusMap.ShownStops.Add(stop);
-            //}
-            //MainBusMap.CalculateCloseIconPairs();
-            //MainBusMap.UnOverlapIcons();
-            //Debug.WriteLine("Number of stops: " + MainBusMap.ShownStops.Count);
-            
+            await ApiLayer.GetBusArrivals("1_13283");
         }
 
         private async void CenterOnCurrentLocation()
@@ -144,6 +118,11 @@ namespace OneAppAway
             sb.Children.Add(fadeIn);
             sb.Begin();
             
+        }
+
+        private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            ApplicationView.GetForCurrentView().Title = ActualWidth.ToString("F0") + " x " + ActualHeight.ToString("F0");
         }
     }
 }

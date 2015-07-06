@@ -9,12 +9,15 @@
     d:DesignHeight="300"
     d:DesignWidth="200">
     
-    <Grid Background="White">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Image Margin="2" Width="20" Height="20" HorizontalAlignment="Left" VerticalAlignment="Center" x:Name="DirectionImage"/>
         <TextBlock x:Name="NameBlock" Margin="26, 2, 2, 2" VerticalAlignment="Center" HorizontalAlignment="Left" TextWrapping="WrapWholeWords" FontSize="18"/>
+        <ScrollViewer Grid.Row="1">
+            <StackPanel x:Name="MainStackPanel"/>
+        </ScrollViewer>
     </Grid>
 </UserControl>

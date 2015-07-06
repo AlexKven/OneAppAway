@@ -32,7 +32,17 @@ namespace OneAppAway
             ItemsPanel.Children.Clear();
             foreach (BusStop stop in stops)
             {
-                ItemsPanel.Children.Add(new StopArrivalsBox() { Stop = stop, Width = 280 });
+                StopArrivalsBox box = new StopArrivalsBox() { Stop = stop };
+                if (stops.Length == 1)
+                {
+                    Binding sizeBinding = new Binding() { Source = scrollViewer, Path = new PropertyPath("ActualWidth") };
+                    box.SetBinding(FrameworkElement.WidthProperty, sizeBinding);
+                }
+                else
+                {
+                    box.Width = 300;
+                }
+                ItemsPanel.Children.Add(box);
             }
             StopsCount = stops.Length;
             if (_Caption == null)
@@ -52,5 +62,12 @@ namespace OneAppAway
                     CaptionBox.Text = _Caption;
             }
         }
+
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (CloseRequested != null) CloseRequested(this, new EventArgs());
+        }
+
+        public event EventHandler CloseRequested;
     }
 }

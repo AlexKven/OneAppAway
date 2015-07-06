@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:Maps="using:Windows.UI.Xaml.Controls.Maps"
     xmlns:converters="using:OneAppAway.Converters"
-    mc:Ignorable="d">
+    mc:Ignorable="d" SizeChanged="Page_SizeChanged">
     <Page.Resources>
         <converters:BasicGeopositionToStringConverter x:Key="BasicGeopositionStringConverter"/>
     </Page.Resources>

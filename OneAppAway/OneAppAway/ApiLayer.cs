@@ -28,7 +28,6 @@ namespace OneAppAway
 
             //XElement el = (XElement)xDoc.Nodes().First(d => d.NodeType == XmlNodeType.Element && ((XElement)d).Name.LocalName == "response");
             XElement el = xDoc.Element("response");
-
             el = el.Element("data");
             el = el.Element("list");
 
@@ -50,6 +49,45 @@ namespace OneAppAway
                 result.Add(stop);
             }
             Debug.WriteLine(result.Count);
+            return result.ToArray();
+        }
+
+        public static async Task<BusArrival[]> GetBusArrivals(string id)
+        {
+            List<BusArrival> result = new List<BusArrival>();
+            HttpClient client = new HttpClient();
+            var resp = await client.SendAsync(new HttpRequestMessage(HttpMethod.Get, "http://api.pugetsound.onebusaway.org/api/where/arrivals-and-departures-for-stop/" + id + ".xml?key=TEST"));
+
+            var responseString = await resp.Content.ReadAsStringAsync();
+
+            StringReader reader = new StringReader(responseString);
+            XDocument xDoc = XDocument.Load(reader);
+
+            XElement el = xDoc.Element("response");
+            el = el.Element("data");
+            el = el.Element("entry");
+            el = el.Element("arrivalsAndDepartures");
+
+            foreach (XElement el1 in el.Elements("arrivalAndDeparture"))
+            {
+                string routeName = el1.Element("routeShortName") == null ? el1.Element("routeLongName").Value : el1.Element("routeShortName").Value;
+                string routeId = el1.Element("routeId").Value;
+                string tripId = el1.Element("tripId").Value;
+                string stopId = el1.Element("stopId").Value;
+                string predictedArrivalTime = el1.Element("predictedArrivalTime").Value;
+                string scheduledArrivalTime = el1.Element("scheduledArrivalTime").Value;
+                string lastUpdateTime = el1.Element("lastUpdateTime") == null ? null : el1.Element("lastUpdateTime").Value;
+                string destination = el1.Element("tripHeadsign").Value;
+                long predictedArrivalLong = long.Parse(predictedArrivalTime);
+                long scheduledArrivalLong = long.Parse(scheduledArrivalTime);
+                long? lastUpdateLong = lastUpdateTime == null ? null : new long?(long.Parse(scheduledArrivalTime));
+                DateTime? predictedArrival = predictedArrivalLong == 0 ? null : new DateTime?((new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc) + TimeSpan.FromMilliseconds(predictedArrivalLong)).ToLocalTime());
+                DateTime scheduledArrival = (new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc) + TimeSpan.FromMilliseconds(scheduledArrivalLong)).ToLocalTime();
+                DateTime? lastUpdate = lastUpdateLong == null ? null : new DateTime?((new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc) + TimeSpan.FromMilliseconds(lastUpdateLong.Value)).ToLocalTime());
+                BusArrival arrival = new BusArrival() { RouteName = routeName, PredictedArrivalTime = predictedArrival, ScheduledArrivalTime = scheduledArrival, LastUpdateTime = lastUpdate, RouteID = routeId, TripID = tripId, StopID = stopId, Destination = destination };
+                result.Add(arrival);
+            }
+
             return result.ToArray();
         }
     }

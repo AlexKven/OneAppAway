@@ -144,8 +144,10 @@ namespace OneAppAway
             mico.Location = new Geopoint(stop.Position);
             mico.CollisionBehaviorDesired = MapElementCollisionBehavior.RemainVisible;
             string size = ZoomLevel < ZOOMLEVEL_SIZE_CUTOFF ? "20" : "40";
+            bool visibility = ZoomLevel >= ZOOMLEVEL_VISIBILITY_CUTOFF;
             mico.Image = RandomAccessStreamReference.CreateFromUri(new Uri(stop.Direction == StopDirection.Unspecified ? "ms-appx:///Assets/Icons/BusBase" + size + ".png" : "ms-appx:///Assets/Icons/BusDirection" + stop.Direction.ToString() + size + ".png"));
             mico.NormalizedAnchorPoint = new Point(0.5, 0.5);
+            mico.Visible = visibility;
             MainMap.MapElements.Add(mico);
             Stops[mico] = stop;
             BusStopIcons.Add(mico);
@@ -337,9 +339,9 @@ namespace OneAppAway
 
         private void OnStopsClicked(BusStop[] stops, BasicGeoposition location)
         {
-            MapControl.SetLocation(StopArrivalsBox, new Geopoint(location));
-            StopArrivalsBox.SetStops(stops);
-            StopArrivalsBox.Visibility = Visibility.Visible;
+            MapControl.SetLocation(StopArrivalBox, new Geopoint(location));
+            StopArrivalBox.SetStops(stops);
+            VisualStateManager.GoToState(this, "ArrivalBoxShown", true);
         }
         #endregion
 
@@ -417,7 +419,12 @@ namespace OneAppAway
 
         private async void MainMap_ActualCameraChanged(MapControl sender, MapActualCameraChangedEventArgs args)
         {
-            GeoboundingBox bounds = new GeoboundingBox(TopLeft, BottomRight);
+            GeoboundingBox bounds;
+            try
+            {
+                bounds = new GeoboundingBox(TopLeft, BottomRight);
+            }
+            catch (Exception ex) { return; }
             long lm = DateTime.Now.Ticks;
             LastMove = lm;
             await Task.Delay(50);
@@ -430,6 +437,11 @@ namespace OneAppAway
                 }
                 catch (TaskCanceledException) { }
             }
+        }
+
+        private void StopArrivalBox_CloseRequested(object sender, EventArgs e)
+        {
+            VisualStateManager.GoToState(this, "ArrivalBoxHidden", true);
         }
     }
 

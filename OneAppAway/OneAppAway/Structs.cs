@@ -28,5 +28,53 @@ namespace OneAppAway
         {
             return !(lhs == rhs);
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null) return false;
+            if (!(obj is BusStop)) return false;
+            return this == (BusStop)obj;
+        }
+
+        public override int GetHashCode()
+        {
+            return ID.GetHashCode();
+        }
+    }
+
+    public struct BusArrival
+    {
+        public string RouteID { get; set; }
+
+        public string TripID { get; set; }
+
+        public string StopID { get; set; }
+
+        public string RouteName { get; set; }
+
+        //public string RouteLongName { get; set; }
+
+        public DateTime ScheduledArrivalTime { get; set; }
+
+        public DateTime? PredictedArrivalTime { get; set; }
+
+        public DateTime? LastUpdateTime { get; set; }
+
+        public string Destination { get; set; }
+
+        public string Timeliness
+        {
+            get
+            {
+                if (PredictedArrivalTime == null) return "Unknown";
+                int late = (int)(PredictedArrivalTime.Value - ScheduledArrivalTime).TotalMinutes;
+                if (late == 0)
+                    return "On Time";
+                else if (late > 0)
+                    return late.ToString() + "m Late";
+                else
+                    return (-late).ToString() + "m Early";
+            }
+        }
     }
 }

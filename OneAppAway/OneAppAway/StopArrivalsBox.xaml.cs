@@ -36,12 +36,16 @@ namespace OneAppAway
             set { SetValue(StopProperty, value); }
         }
 
-        private static void OnStopChangedStatic(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        private async static void OnStopChangedStatic(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
             StopArrivalsBox typedSender = (StopArrivalsBox)sender;
             BusStop value = (BusStop)e.NewValue;
             typedSender.NameBlock.Text = value.Name;
             typedSender.DirectionImage.Source = new BitmapImage(new Uri(value.Direction == StopDirection.Unspecified ? "ms-appx:///Assets/Icons/BusBase20.png" : "ms-appx:///Assets/Icons/BusDirection" + value.Direction.ToString() + "20.png"));
+            foreach (var item in await ApiLayer.GetBusArrivals(value.ID))
+            {
+                typedSender.MainStackPanel.Children.Add(new BusArrivalBox() { Arrival = item });
+            }
         }
         #endregion
     }
