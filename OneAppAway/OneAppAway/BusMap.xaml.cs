@@ -389,13 +389,6 @@ namespace OneAppAway
         private void MainMap_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             OnPropertyChanged("Center", "TopLeft", "BottomRight");
-            if (MainMap.ActualWidth < 350)
-                StopArrivalBox.Width = MainMap.ActualWidth;
-            else
-            {
-                if (StopArrivalBox.Width != 350)
-                    StopArrivalBox.Width = 350;
-            }
         }
         #endregion
 

@@ -60,21 +60,9 @@ namespace OneAppAway
                         break;
                 }
                 ScheduledTimeBlock.Text = "(sched. " + value.ScheduledArrivalTime.ToString("h:mm") + ")";
-                PredictedTimeBlock.Text = value.PredictedArrivalTime == null ? "Unknown" : (value.PredictedArrivalTime.Value.ToString("h:mm") + ", " + value.TimelinessDescription);
+                PredictedTimeBlock.Text = value.PredictedArrivalTime == null ? "Unknown" : (value.PredictedArrivalTime.Value.ToString("h:mm") + ", " + value.Timeliness);
                 MinutesAwayBlock.Text = value.PredictedArrivalTime == null ? (value.ScheduledArrivalTime - DateTime.Now).TotalMinutes.ToString("F0") : (value.PredictedArrivalTime.Value - DateTime.Now).TotalMinutes.ToString("F0");
-                if (value.PredictedArrivalTime == null)
-                {
-                    MinutesAwayBlock.Foreground = new SolidColorBrush(Colors.White);
-                }
-                else if (value.MinutesLate < 0)
-                {
-                    MinutesAwayBlock.Foreground = new SolidColorBrush(Colors.Red);
-                }
-                else
-                {
-                    Binding binding = new Binding() { Source = PredictedTimeBlock, Path = new PropertyPath("Foreground") };
-                    MinutesAwayBlock.SetBinding(TextBlock.ForegroundProperty, binding);
-                }
+                MinutesAwayBlock.Foreground = value.PredictedArrivalTime == null ? new SolidColorBrush(Colors.White) : new SolidColorBrush(Colors.LightGreen);
                 DestinationBlock.Text = value.Destination;
             }
         }
