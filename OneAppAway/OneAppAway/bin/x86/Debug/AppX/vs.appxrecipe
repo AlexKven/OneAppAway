@@ -8,7 +8,7 @@
     <PackageArchitecture>x86</PackageArchitecture>
     <PackageIdentityName>47218a89-641f-4f6d-a5ac-82974e618780</PackageIdentityName>
     <IntermediateOutputPath>C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\obj\x86\Debug\</IntermediateOutputPath>
-    <RegisteredManifestChecksum>0DF9F87A15268C8A32171366595EC80E40E073F52FE7D3C62207396FEBF04341</RegisteredManifestChecksum>
+    <RegisteredManifestChecksum>F05F6ED1C101CE5C73CD7B2EDDFA80558F34CB144CA898AD1BEF55AD7B78733D</RegisteredManifestChecksum>
     <RegisteredPackageMoniker>47218a89-641f-4f6d-a5ac-82974e618780_1.0.0.0_x86__1fadp56eckdn0</RegisteredPackageMoniker>
     <RegisteredUserModeAppID>47218a89-641f-4f6d-a5ac-82974e618780_1fadp56eckdn0!App</RegisteredUserModeAppID>
     <RegisteredPackageID>47218a89-641f-4f6d-a5ac-82974e618780</RegisteredPackageID>
@@ -20,125 +20,125 @@
     <AppXManifest Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2015-07-06T05:13:12.743</Modified>
+      <Modified>2015-07-10T06:05:52.611</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\ApplicationInsights.config">
       <PackagePath>ApplicationInsights.config</PackagePath>
-      <Modified>2015-05-23T04:23:27.837</Modified>
+      <Modified>2015-07-10T05:45:51.007</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\Assets\Icons\BusBase.png">
       <PackagePath>Assets\Icons\BusBase.png</PackagePath>
-      <Modified>2015-06-23T05:52:31.135</Modified>
+      <Modified>2015-07-10T05:40:52.434</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\Assets\Icons\BusBase20.png">
       <PackagePath>Assets\Icons\BusBase20.png</PackagePath>
-      <Modified>2015-06-24T00:48:03.339</Modified>
+      <Modified>2015-07-10T05:40:52.438</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\Assets\Icons\BusBase40.png">
       <PackagePath>Assets\Icons\BusBase40.png</PackagePath>
-      <Modified>2015-06-23T06:30:05.791</Modified>
+      <Modified>2015-07-10T05:40:52.443</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\Assets\Icons\BusDirectionE.png">
       <PackagePath>Assets\Icons\BusDirectionE.png</PackagePath>
-      <Modified>2015-06-23T06:07:22.232</Modified>
+      <Modified>2015-07-10T05:40:52.453</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\Assets\Icons\BusDirectionE20.png">
       <PackagePath>Assets\Icons\BusDirectionE20.png</PackagePath>
-      <Modified>2015-06-23T21:26:30.663</Modified>
+      <Modified>2015-07-10T05:40:52.457</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\Assets\Icons\BusDirectionE40.png">
       <PackagePath>Assets\Icons\BusDirectionE40.png</PackagePath>
-      <Modified>2015-06-23T06:25:10.093</Modified>
+      <Modified>2015-07-10T05:40:52.462</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\Assets\Icons\BusDirectionN.png">
       <PackagePath>Assets\Icons\BusDirectionN.png</PackagePath>
-      <Modified>2015-06-23T06:06:00.276</Modified>
+      <Modified>2015-07-10T05:40:52.468</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\Assets\Icons\BusDirectionN20.png">
       <PackagePath>Assets\Icons\BusDirectionN20.png</PackagePath>
-      <Modified>2015-06-23T21:28:36.238</Modified>
+      <Modified>2015-07-10T05:40:52.472</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\Assets\Icons\BusDirectionN40.png">
       <PackagePath>Assets\Icons\BusDirectionN40.png</PackagePath>
-      <Modified>2015-06-23T06:24:35.579</Modified>
+      <Modified>2015-07-10T05:40:52.476</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\Assets\Icons\BusDirectionNE.png">
       <PackagePath>Assets\Icons\BusDirectionNE.png</PackagePath>
-      <Modified>2015-06-23T06:06:34.333</Modified>
+      <Modified>2015-07-10T05:40:52.482</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\Assets\Icons\BusDirectionNE20.png">
       <PackagePath>Assets\Icons\BusDirectionNE20.png</PackagePath>
-      <Modified>2015-06-23T21:30:58.587</Modified>
+      <Modified>2015-07-10T05:40:52.486</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\Assets\Icons\BusDirectionNE40.png">
       <PackagePath>Assets\Icons\BusDirectionNE40.png</PackagePath>
-      <Modified>2015-06-23T06:24:11.186</Modified>
+      <Modified>2015-07-10T05:40:52.490</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\Assets\Icons\BusDirectionNW.png">
       <PackagePath>Assets\Icons\BusDirectionNW.png</PackagePath>
-      <Modified>2015-06-23T06:10:41.240</Modified>
+      <Modified>2015-07-10T05:40:52.496</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\Assets\Icons\BusDirectionNW20.png">
       <PackagePath>Assets\Icons\BusDirectionNW20.png</PackagePath>
-      <Modified>2015-06-23T21:31:57.830</Modified>
+      <Modified>2015-07-10T05:40:52.501</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\Assets\Icons\BusDirectionNW40.png">
       <PackagePath>Assets\Icons\BusDirectionNW40.png</PackagePath>
-      <Modified>2015-06-23T06:23:40.108</Modified>
+      <Modified>2015-07-10T05:40:52.506</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\Assets\Icons\BusDirectionS.png">
       <PackagePath>Assets\Icons\BusDirectionS.png</PackagePath>
-      <Modified>2015-06-23T06:08:35.482</Modified>
+      <Modified>2015-07-10T05:40:52.510</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\Assets\Icons\BusDirectionS20.png">
       <PackagePath>Assets\Icons\BusDirectionS20.png</PackagePath>
-      <Modified>2015-06-23T21:33:36.934</Modified>
+      <Modified>2015-07-10T05:40:52.516</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\Assets\Icons\BusDirectionS40.png">
       <PackagePath>Assets\Icons\BusDirectionS40.png</PackagePath>
-      <Modified>2015-06-23T06:23:05.702</Modified>
+      <Modified>2015-07-10T05:40:52.520</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\Assets\Icons\BusDirectionSE.png">
       <PackagePath>Assets\Icons\BusDirectionSE.png</PackagePath>
-      <Modified>2015-06-23T06:08:00.158</Modified>
+      <Modified>2015-07-10T05:40:52.524</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\Assets\Icons\BusDirectionSE20.png">
       <PackagePath>Assets\Icons\BusDirectionSE20.png</PackagePath>
-      <Modified>2015-06-23T21:36:36.213</Modified>
+      <Modified>2015-07-10T05:40:52.528</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\Assets\Icons\BusDirectionSE40.png">
       <PackagePath>Assets\Icons\BusDirectionSE40.png</PackagePath>
-      <Modified>2015-06-23T06:22:38.484</Modified>
+      <Modified>2015-07-10T05:40:52.533</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\Assets\Icons\BusDirectionSW.png">
       <PackagePath>Assets\Icons\BusDirectionSW.png</PackagePath>
-      <Modified>2015-06-23T06:09:35.752</Modified>
+      <Modified>2015-07-10T05:40:52.537</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\Assets\Icons\BusDirectionSW20.png">
       <PackagePath>Assets\Icons\BusDirectionSW20.png</PackagePath>
-      <Modified>2015-06-23T21:40:25.021</Modified>
+      <Modified>2015-07-10T05:40:52.542</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\Assets\Icons\BusDirectionSW40.png">
       <PackagePath>Assets\Icons\BusDirectionSW40.png</PackagePath>
-      <Modified>2015-06-23T06:22:03.568</Modified>
+      <Modified>2015-07-10T05:40:52.546</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\Assets\Icons\BusDirectionW.png">
       <PackagePath>Assets\Icons\BusDirectionW.png</PackagePath>
-      <Modified>2015-06-23T06:10:09.751</Modified>
+      <Modified>2015-07-10T05:40:52.551</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\Assets\Icons\BusDirectionW20.png">
       <PackagePath>Assets\Icons\BusDirectionW20.png</PackagePath>
-      <Modified>2015-06-23T21:41:33.811</Modified>
+      <Modified>2015-07-10T05:40:52.556</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\Assets\Icons\BusDirectionW40.png">
       <PackagePath>Assets\Icons\BusDirectionW40.png</PackagePath>
-      <Modified>2015-06-23T06:21:38.240</Modified>
+      <Modified>2015-07-10T05:40:52.561</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\Assets\Icons\BusGeneric16.png">
       <PackagePath>Assets\Icons\BusGeneric16.png</PackagePath>
-      <Modified>2015-06-23T17:33:36.864</Modified>
+      <Modified>2015-07-10T05:40:52.565</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\Assets\Logo.scale-100.png">
       <PackagePath>Assets\Logo.scale-100.png</PackagePath>
@@ -206,15 +206,15 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\OneAppAway.csproj.AppLocalNetFX.GenerateResource.Cache">
       <PackagePath>OneAppAway.csproj.AppLocalNetFX.GenerateResource.Cache</PackagePath>
-      <Modified>2015-05-23T04:23:31.483</Modified>
+      <Modified>2015-07-10T05:49:03.015</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\OneAppAway.exe">
       <PackagePath>OneAppAway.exe</PackagePath>
-      <Modified>2015-07-06T05:13:12.211</Modified>
+      <Modified>2015-07-10T06:05:52.137</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\OneAppAway.xr.xml">
       <PackagePath>OneAppAway.xr.xml</PackagePath>
-      <Modified>2015-07-06T05:13:11.882</Modified>
+      <Modified>2015-07-10T06:04:19.112</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\Properties\Default.rd.xml">
       <PackagePath>Properties\Default.rd.xml</PackagePath>
@@ -222,7 +222,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2015-07-06T05:13:13.626</Modified>
+      <Modified>2015-07-10T06:05:53.574</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\System.AppContext.dll">
       <PackagePath>System.AppContext.dll</PackagePath>

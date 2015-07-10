@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -42,11 +43,31 @@ namespace OneAppAway
             BusStop value = (BusStop)e.NewValue;
             typedSender.NameBlock.Text = value.Name;
             typedSender.DirectionImage.Source = new BitmapImage(new Uri(value.Direction == StopDirection.Unspecified ? "ms-appx:///Assets/Icons/BusBase20.png" : "ms-appx:///Assets/Icons/BusDirection" + value.Direction.ToString() + "20.png"));
-            foreach (var item in await ApiLayer.GetBusArrivals(value.ID))
-            {
-                typedSender.MainStackPanel.Children.Add(new BusArrivalBox() { Arrival = item });
-            }
+            await typedSender.RefreshArrivals();
         }
         #endregion
+
+        private async void HyperlinkButton_Click(object sender, RoutedEventArgs e)
+        {
+            await RefreshArrivals();
+        }
+
+        private async Task RefreshArrivals()
+        {
+            ProgressIndicator.IsActive = true;
+            var arrivals = await ApiLayer.GetBusArrivals(Stop.ID);
+            var removals = MainStackPanel.Children.Where(child => !arrivals.Contains(((BusArrivalBox)child).Arrival));
+            foreach (var item in removals)
+                MainStackPanel.Children.Remove(item);
+            foreach (var item in arrivals)
+            {
+                if (MainStackPanel.Children.Any(child => ((BusArrivalBox)child).Arrival == item))
+                    ((BusArrivalBox)MainStackPanel.Children.First(child => ((BusArrivalBox)child).Arrival == item)).Arrival = item;
+                else
+                    MainStackPanel.Children.Add(new BusArrivalBox() { Arrival = item });
+            }
+            LastRefreshBox.Text = "Last update: " + DateTime.Now.ToString("h:mm:ss");
+            ProgressIndicator.IsActive = false;
+        }
     }
 }

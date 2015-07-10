@@ -10,14 +10,14 @@
     d:DesignHeight="400"
     d:DesignWidth="150">
 
-    <Grid>
+    <Grid x:Name="MainGrid">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="ArrivalBoxVisualStates">
                 <VisualState x:Name="ArrivalBoxShown">
                     <Storyboard>
                         <DoubleAnimation Duration="0:0:0.15" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="StopArrivalBox" d:IsOptimized="True"/>
                         <DoubleAnimation Duration="0:0:0.15" To="0" Storyboard.TargetProperty="(CompositeTransform.TranslateY)" Storyboard.TargetName="StopArrivalBoxTranslation" d:IsOptimized="True"/>
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="StopArrivalBox" d:IsOptimized="True">
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="StopArrivalGrid" d:IsOptimized="True">
                             <ObjectAnimationUsingKeyFrames.KeyFrames>
                                 <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
                             </ObjectAnimationUsingKeyFrames.KeyFrames>
@@ -28,7 +28,7 @@
                     <Storyboard>
                         <DoubleAnimation Duration="0:0:0.15" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="StopArrivalBox" d:IsOptimized="True"/>
                         <DoubleAnimation Duration="0:0:0.15" To="25" Storyboard.TargetProperty="(CompositeTransform.TranslateY)" Storyboard.TargetName="StopArrivalBoxTranslation" d:IsOptimized="True"/>
-                        <ObjectAnimationUsingKeyFrames Duration="0:0:0.15" Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="StopArrivalBox" d:IsOptimized="True">
+                        <ObjectAnimationUsingKeyFrames Duration="0:0:0.15" Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="StopArrivalGrid" d:IsOptimized="True">
                             <ObjectAnimationUsingKeyFrames.KeyFrames>
                                 <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
                                 <DiscreteObjectKeyFrame KeyTime="1" Value="Collapsed"/>
@@ -37,13 +37,31 @@
                     </Storyboard>
                 </VisualState>
             </VisualStateGroup>
+            <VisualStateGroup x:Name="WindowSizeVisualStates" CurrentStateChanging="WindowSizeVisualStates_CurrentStateChanging">
+                <VisualState x:Name="NarrowState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1"/>
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:Name="NormalState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="400"/>
+                    </VisualState.StateTriggers>
+                </VisualState>
+            </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <Maps:MapControl TransitFeaturesVisible="False" PedestrianFeaturesVisible="True" TiltInteractionMode="Disabled" MapElementClick="MainMap_MapElementClick" SizeChanged="MainMap_SizeChanged" ZoomLevelChanged="MainMap_ZoomLevelChanged" CenterChanged="MainMap_CenterChanged" RotateInteractionMode="Disabled" x:Name="MainMap" MapServiceToken="s5030Pi5RRfQpmN9G31Y~Av27qRni0nZtyuLdCWdmgw~AroE4QWDxcQzLO1BLE1Dsm9t_hi6TG9z-8Kxr6v5D01QZFP4BacIgGWRRnuYcRJM" ActualCameraChanged="MainMap_ActualCameraChanged" >
-            <local:MultiStopArrivalsBox Width="350" Height="450" x:Name="StopArrivalBox" CloseRequested="StopArrivalBox_CloseRequested" Visibility="Collapsed" Maps:MapControl.NormalizedAnchorPoint="0.5, 1" Opacity="0">
-                <local:MultiStopArrivalsBox.RenderTransform>
-                    <CompositeTransform TranslateY="25" x:Name="StopArrivalBoxTranslation"/>
-                </local:MultiStopArrivalsBox.RenderTransform>
-            </local:MultiStopArrivalsBox>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Maps:MapControl Grid.RowSpan="2" TransitFeaturesVisible="False" PedestrianFeaturesVisible="True" TiltInteractionMode="Disabled" MapElementClick="MainMap_MapElementClick" SizeChanged="MainMap_SizeChanged" ZoomLevelChanged="MainMap_ZoomLevelChanged" CenterChanged="MainMap_CenterChanged" RotateInteractionMode="Disabled" x:Name="MainMap" MapServiceToken="s5030Pi5RRfQpmN9G31Y~Av27qRni0nZtyuLdCWdmgw~AroE4QWDxcQzLO1BLE1Dsm9t_hi6TG9z-8Kxr6v5D01QZFP4BacIgGWRRnuYcRJM" ActualCameraChanged="MainMap_ActualCameraChanged" >
+            <Grid x:Name="StopArrivalGrid" Visibility="Collapsed" Maps:MapControl.NormalizedAnchorPoint="0.5, 1" Width="350" Height="450">
+                <local:MultiStopArrivalsBox x:Name="StopArrivalBox" CloseRequested="StopArrivalBox_CloseRequested" Opacity="0">
+                    <local:MultiStopArrivalsBox.RenderTransform>
+                        <CompositeTransform TranslateY="25" x:Name="StopArrivalBoxTranslation"/>
+                    </local:MultiStopArrivalsBox.RenderTransform>
+                </local:MultiStopArrivalsBox>
+            </Grid>
         </Maps:MapControl>
     </Grid>
 </UserControl>

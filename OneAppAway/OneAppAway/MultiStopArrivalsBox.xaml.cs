@@ -30,19 +30,23 @@ namespace OneAppAway
         public void SetStops(params BusStop[] stops)
         {
             ItemsPanel.Children.Clear();
+            SingleStopControl.Children.Clear();
+            scrollViewer.HorizontalScrollBarVisibility = stops.Length == 1 ? ScrollBarVisibility.Hidden : ScrollBarVisibility.Auto;
+            scrollViewer.HorizontalScrollMode = stops.Length == 1 ? ScrollMode.Disabled : ScrollMode.Enabled;
             foreach (BusStop stop in stops)
             {
                 StopArrivalsBox box = new StopArrivalsBox() { Stop = stop };
                 if (stops.Length == 1)
                 {
-                    Binding sizeBinding = new Binding() { Source = scrollViewer, Path = new PropertyPath("ActualWidth") };
-                    box.SetBinding(FrameworkElement.WidthProperty, sizeBinding);
+                    //Binding sizeBinding = new Binding() { Source = SingleStopControl, Path = new PropertyPath("ActualWidth"), Mode = BindingMode.OneWay };
+                    //box.SetBinding(FrameworkElement.WidthProperty, sizeBinding);
+                    SingleStopControl.Children.Add(box);
                 }
                 else
                 {
                     box.Width = 300;
+                    ItemsPanel.Children.Add(box);
                 }
-                ItemsPanel.Children.Add(box);
             }
             StopsCount = stops.Length;
             if (_Caption == null)

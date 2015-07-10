@@ -24,14 +24,14 @@
                 </ScrollViewer>
                 <Polygon Grid.Row="1" Points="0, 0, 30, 30, 60, 0" Fill="White" VerticalAlignment="Center" HorizontalAlignment="Center"/>
             </Grid>
-            <StackPanel VerticalAlignment="Top" Background="White" Orientation="Horizontal">
+            <!--<StackPanel VerticalAlignment="Top" Background="White" Orientation="Horizontal">
                 <TextBlock Margin="5,0,0,5" Foreground="Black" FontSize="16">Zoom Level:</TextBlock>
                 <TextBlock Margin="5,0,0,5" Foreground="Black" FontSize="16" Text="{Binding ElementName=MainBusMap, Path=ZoomLevel}"/>
                 <TextBlock Margin="10,0,0,5" Foreground="Black" FontSize="16">Top Left:</TextBlock>
                 <TextBlock Margin="5,0,0,5" Foreground="Black" FontSize="16" Text="{Binding ElementName=MainBusMap, Path=TopLeft, Converter={StaticResource BasicGeopositionStringConverter}, ConverterParameter=F5}"/>
                 <TextBlock Margin="10,0,0,5" Foreground="Black" FontSize="16">Bottom Right:</TextBlock>
                 <TextBlock Margin="5,0,0,5" Foreground="Black" FontSize="16" Text="{Binding ElementName=MainBusMap, Path=BottomRight, Converter={StaticResource BasicGeopositionStringConverter}, ConverterParameter=F5}"/>
-            </StackPanel>
+            </StackPanel>-->
         </Grid>
         <SplitView.Pane>
             <StackPanel Background="#303030" Margin="0, 0,0,0">

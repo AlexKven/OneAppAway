@@ -62,12 +62,20 @@ namespace OneAppAway
 
         public string Destination { get; set; }
 
-        public string Timeliness
+        public int MinutesLate
+        {
+            get
+            {
+                return (int)(PredictedArrivalTime.Value - ScheduledArrivalTime).TotalMinutes;
+            }
+        }
+
+        public string TimelinessDescription
         {
             get
             {
                 if (PredictedArrivalTime == null) return "Unknown";
-                int late = (int)(PredictedArrivalTime.Value - ScheduledArrivalTime).TotalMinutes;
+                int late = MinutesLate;
                 if (late == 0)
                     return "On Time";
                 else if (late > 0)
@@ -75,6 +83,28 @@ namespace OneAppAway
                 else
                     return (-late).ToString() + "m Early";
             }
+        }
+
+        public static bool operator ==(BusArrival lhs, BusArrival rhs)
+        {
+            return lhs.TripID == rhs.TripID && lhs.StopID == rhs.StopID;
+        }
+
+        public static bool operator !=(BusArrival lhs, BusArrival rhs)
+        {
+            return !(lhs == rhs);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null) return false;
+            if (!(obj is BusArrival)) return false;
+            return this == (BusArrival)obj;
+        }
+
+        public override int GetHashCode()
+        {
+            return (TripID + StopID).GetHashCode();
         }
     }
 }
