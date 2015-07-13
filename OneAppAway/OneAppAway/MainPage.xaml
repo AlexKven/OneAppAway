@@ -8,37 +8,8 @@
     xmlns:Maps="using:Windows.UI.Xaml.Controls.Maps"
     xmlns:converters="using:OneAppAway.Converters"
     mc:Ignorable="d" SizeChanged="Page_SizeChanged">
-    <Page.Resources>
-        <converters:BasicGeopositionToStringConverter x:Key="BasicGeopositionStringConverter"/>
-    </Page.Resources>
-    <SplitView CompactPaneLength="50" DisplayMode="CompactOverlay" x:Name="MainSplitView">
-        <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-            <local:BusMap x:Name="MainBusMap" PropertyChanged="MainBusMap_PropertyChanged"/>
-            <Grid Width="400" Height="500" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,50" x:Name="StopInfoPanel" Visibility="Collapsed" Opacity="0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="30"/>
-                </Grid.RowDefinitions>
-                <ScrollViewer Background="White">
-                    <StackPanel x:Name="StopView"/>
-                </ScrollViewer>
-                <Polygon Grid.Row="1" Points="0, 0, 30, 30, 60, 0" Fill="White" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-            </Grid>
-            <!--<StackPanel VerticalAlignment="Top" Background="White" Orientation="Horizontal">
-                <TextBlock Margin="5,0,0,5" Foreground="Black" FontSize="16">Zoom Level:</TextBlock>
-                <TextBlock Margin="5,0,0,5" Foreground="Black" FontSize="16" Text="{Binding ElementName=MainBusMap, Path=ZoomLevel}"/>
-                <TextBlock Margin="10,0,0,5" Foreground="Black" FontSize="16">Top Left:</TextBlock>
-                <TextBlock Margin="5,0,0,5" Foreground="Black" FontSize="16" Text="{Binding ElementName=MainBusMap, Path=TopLeft, Converter={StaticResource BasicGeopositionStringConverter}, ConverterParameter=F5}"/>
-                <TextBlock Margin="10,0,0,5" Foreground="Black" FontSize="16">Bottom Right:</TextBlock>
-                <TextBlock Margin="5,0,0,5" Foreground="Black" FontSize="16" Text="{Binding ElementName=MainBusMap, Path=BottomRight, Converter={StaticResource BasicGeopositionStringConverter}, ConverterParameter=F5}"/>
-            </StackPanel>-->
-        </Grid>
-        <SplitView.Pane>
-            <StackPanel Background="#303030" Margin="0, 0,0,0">
-                <Button Background="#303030" RequestedTheme="Dark" FontFamily="Segoe MDL2 Assets" FontSize="19" Content="&#xE700;" Width="50" Height="50" Click="HamburgerButton_Click"/>
-                <Button Click="Button_Click">+</Button>
-                <local:MultiStopArrivalsBox Width="200" Height="400"/>
-            </StackPanel>
-        </SplitView.Pane>
-    </SplitView>
+    <Grid>
+        <local:BusMap Grid.Row="1" x:Name="MainBusMap" PropertyChanged="MainBusMap_PropertyChanged"/>
+        <Button VerticalAlignment="Top" HorizontalAlignment="Left" Click="Button_Click">Button</Button>
+    </Grid>
 </Page>

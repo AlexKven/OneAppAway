@@ -107,4 +107,6 @@ namespace OneAppAway
             return (TripID + StopID).GetHashCode();
         }
     }
+
+    public enum BandwidthOptions { Normal, Low, None, Auto }
 }

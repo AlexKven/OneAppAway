@@ -95,26 +95,36 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ApplicationSettings.cs" />
     <Compile Include="BusArrivalBox.xaml.cs">
       <DependentUpon>BusArrivalBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="BusMap.xaml.cs">
       <DependentUpon>BusMap.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ComboBoxIconAndText.cs" />
     <Compile Include="Converters\AddSubtractConverter.cs" />
+    <Compile Include="Converters\BandwidthOptionsRowHeightConverter.cs" />
     <Compile Include="Converters\BasicGeopositionToStringConverter.cs" />
     <Compile Include="Converters\ColorToBrushConverter.cs" />
     <Compile Include="Converters\DoubleToGridlengthConverter.cs" />
     <Compile Include="Converters\LightenColorConverter.cs" />
+    <Compile Include="Converters\MaxMinConverter.cs" />
     <Compile Include="Converters\RandomConverter.cs" />
     <Compile Include="Converters\ValueConverterGroup.cs" />
     <Compile Include="Data.cs" />
+    <Compile Include="HamburgerBar.xaml.cs">
+      <DependentUpon>HamburgerBar.xaml</DependentUpon>
+    </Compile>
     <Compile Include="HelperFunctions.cs" />
     <Compile Include="MultiStopArrivalsBox.xaml.cs">
       <DependentUpon>MultiStopArrivalsBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="StopArrivalsBox.xaml.cs">
       <DependentUpon>StopArrivalsBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="StopViewPage.xaml.cs">
+      <DependentUpon>StopViewPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Structs.cs" />
     <Compile Include="MainPage.xaml.cs">
@@ -160,6 +170,7 @@
     <Content Include="Assets\Icons\BusDirectionW20.png" />
     <Content Include="Assets\Icons\BusDirectionW40.png" />
     <Content Include="Assets\Icons\BusGeneric16.png" />
+    <Content Include="Assets\Icons\LogoBase.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\Logo.scale-100.png" />
     <Content Include="Assets\SmallLogo.scale-100.png" />
@@ -180,6 +191,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="HamburgerBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -189,6 +204,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="StopArrivalsBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="StopViewPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -215,7 +234,11 @@
       <Private>True</Private>
     </Reference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <SDKReference Include="WindowsMobile, Version=10.0.0.1">
+      <Name>Microsoft Mobile Extension SDK for Universal App Platform</Name>
+    </SDKReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
