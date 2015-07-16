@@ -47,7 +47,7 @@ namespace OneAppAway
         }
         #endregion
 
-        private async void HyperlinkButton_Click(object sender, RoutedEventArgs e)
+        private async void RefreshButton_Click(object sender, RoutedEventArgs e)
         {
             await RefreshArrivals();
         }
@@ -68,6 +68,11 @@ namespace OneAppAway
             }
             LastRefreshBox.Text = "Last update: " + DateTime.Now.ToString("h:mm:ss");
             ProgressIndicator.IsActive = false;
+        }
+
+        private void StopButton_Click(object sender, RoutedEventArgs e)
+        {
+            ((App)App.Current).RootFrame.Navigate(typeof(StopViewPage), Stop.Code);
         }
     }
 }

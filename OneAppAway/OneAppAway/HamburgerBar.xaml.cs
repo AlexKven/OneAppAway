@@ -34,10 +34,12 @@ namespace OneAppAway
             MainSplitView = HelperFunctions.FindControl<SplitView>(this, "MainSplitView");
         }
 
+#pragma warning disable CS1998
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
 
         }
+#pragma warning restore CS1998
 
         private void HamburgerButton_Click(object sender, RoutedEventArgs e)
         {
@@ -50,6 +52,11 @@ namespace OneAppAway
             ApplicationSettings settings = (ApplicationSettings)App.Current.Resources["Settings"];
             settings.BandwidthSetting = (BandwidthOptions)(((int)settings.BandwidthSetting + 1) % 4);
             App.Current.Resources["Settings"] = settings;
+        }
+
+        private void CenterOnLocationButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

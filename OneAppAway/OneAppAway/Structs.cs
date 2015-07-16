@@ -17,7 +17,7 @@ namespace OneAppAway
         public string Name { get; set; }
         public string Code { get; set; }
         public int LocationType { get; set; }
-        public string[] RouteIds { get; set; }
+        public string[] Routes { get; set; }
 
         public static bool operator ==(BusStop lhs, BusStop rhs)
         {
@@ -106,6 +106,26 @@ namespace OneAppAway
         {
             return (TripID + StopID).GetHashCode();
         }
+    }
+
+    public struct BusRoute
+    {
+        public string ID { get; set; }
+
+        public string Name { get; set; }
+
+        public string Description { get; set; }
+
+        public string Agency { get; set; }
+    }
+
+    public struct TransitAgency
+    {
+        public string Name { get; set; }
+
+        public string Id { get; set; }
+
+        public string Url { get; set; }
     }
 
     public enum BandwidthOptions { Normal, Low, None, Auto }

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources targetOsVersion="10.0.0" majorVersion="1">
-  <index root="\" startIndexAt="obj\x86\Debug\System.Numerics.Vectors\layout.resfiles">
+  <index root="\" startIndexAt="obj\x86\Debug\Microsoft.Diagnostics.Tracing.EventSource\layout.resfiles">
     <default>
       <qualifier name="Language" value="en-US" />
       <qualifier name="Contrast" value="standard" />
@@ -15,7 +15,7 @@
     </default>
     <indexer-config type="RESFILES" qualifierDelimiter="." />
   </index>
-  <index root="\" startIndexAt="obj\x86\Debug\System.Numerics.Vectors\Resources.resfiles">
+  <index root="\" startIndexAt="obj\x86\Debug\Microsoft.Diagnostics.Tracing.EventSource\Resources.resfiles">
     <default>
       <qualifier name="Language" value="en-US" />
       <qualifier name="Contrast" value="standard" />
@@ -32,7 +32,7 @@
     <indexer-config type="RESJSON" />
     <indexer-config type="RESFILES" qualifierDelimiter="." />
   </index>
-  <index root="\" startIndexAt="obj\x86\Debug\System.Numerics.Vectors\pri.resfiles">
+  <index root="\" startIndexAt="obj\x86\Debug\Microsoft.Diagnostics.Tracing.EventSource\pri.resfiles">
     <default>
       <qualifier name="Language" value="en-US" />
       <qualifier name="Contrast" value="standard" />

@@ -424,7 +424,7 @@ namespace OneAppAway
             {
                 bounds = new GeoboundingBox(TopLeft, BottomRight);
             }
-            catch (Exception ex) { return; }
+            catch (Exception) { return; }
             long lm = DateTime.Now.Ticks;
             LastMove = lm;
             await Task.Delay(50);

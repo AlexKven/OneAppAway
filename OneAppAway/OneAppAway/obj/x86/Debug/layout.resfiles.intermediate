@@ -1,4 +1,5 @@
 WinMetadata\Windows.winmd
+Assets\Icons\BusAnalyticsIcon.png
 Assets\Icons\BusBase.png
 Assets\Icons\BusBase20.png
 Assets\Icons\BusBase40.png
@@ -27,6 +28,7 @@ Assets\Icons\BusDirectionW.png
 Assets\Icons\BusDirectionW20.png
 Assets\Icons\BusDirectionW40.png
 Assets\Icons\BusGeneric16.png
+Assets\Icons\BusRoutesIcon.png
 Assets\Icons\LogoBase.png
 Assets\Logo.scale-100.png
 Assets\SmallLogo.scale-100.png

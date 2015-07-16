@@ -16,6 +16,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
 // The Blank Application template is documented at http://go.microsoft.com/fwlink/?LinkId=402347&clcid=0x409
@@ -32,7 +33,7 @@ namespace OneAppAway
         /// </summary>
         public static Microsoft.ApplicationInsights.TelemetryClient TelemetryClient;
         private HamburgerBar MainHamburgerBar = new HamburgerBar();
-        private Frame RootFrame;
+        public Frame RootFrame;
 
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
@@ -71,6 +72,10 @@ namespace OneAppAway
                 RootFrame = new Frame();
 
                 RootFrame.NavigationFailed += OnNavigationFailed;
+
+                TransitionCollection transitions = new TransitionCollection();
+                transitions.Add(new EntranceThemeTransition() { FromHorizontalOffset = 200 });
+                RootFrame.ContentTransitions = transitions;
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
@@ -118,7 +123,7 @@ namespace OneAppAway
             deferral.Complete();
         }
 
-        private void SetTitleBar()
+        internal void SetTitleBar()
         {
             Func<Color, Color> darken = clr => Color.FromArgb(clr.A, (byte)(clr.R / 2), (byte)(clr.G / 2), (byte)(clr.B / 2));
             Func<Color, Color> lighten = clr => Color.FromArgb(clr.A, (byte)(128 + clr.R / 2), (byte)(128 + clr.G / 2), (byte)(1287 + clr.B / 2));
@@ -143,7 +148,10 @@ namespace OneAppAway
         private void App_BackRequested(object sender, BackRequestedEventArgs e)
         {
             if (RootFrame.CanGoBack)
+            {
                 RootFrame.GoBack();
+                e.Handled = true;
+            }
         }
     }
 }

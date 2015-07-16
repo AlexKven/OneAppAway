@@ -19,6 +19,9 @@
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\ApplicationInsights.config">
       <PackagePath>ApplicationInsights.config</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\Assets\Icons\BusAnalyticsIcon.png">
+      <PackagePath>Assets\Icons\BusAnalyticsIcon.png</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\Assets\Icons\BusBase.png">
       <PackagePath>Assets\Icons\BusBase.png</PackagePath>
     </AppxPackagedFile>
@@ -102,6 +105,9 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\Assets\Icons\BusGeneric16.png">
       <PackagePath>Assets\Icons\BusGeneric16.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\Assets\Icons\BusRoutesIcon.png">
+      <PackagePath>Assets\Icons\BusRoutesIcon.png</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\Assets\Icons\LogoBase.png">
       <PackagePath>Assets\Icons\LogoBase.png</PackagePath>

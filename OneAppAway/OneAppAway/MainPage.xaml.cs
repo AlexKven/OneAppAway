@@ -24,6 +24,7 @@ using Windows.UI.Xaml.Media.Imaging;
 using System.Diagnostics;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Core;
+using Windows.ApplicationModel.Core;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -41,7 +42,7 @@ namespace OneAppAway
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(Page));
+            Frame.Navigate(typeof(RouteViewPage));
         }
 
         private async void CenterOnCurrentLocation()

@@ -15,13 +15,20 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
         <Image Margin="2" Width="20" Height="20" HorizontalAlignment="Left" VerticalAlignment="Center" x:Name="DirectionImage"/>
-        <TextBlock x:Name="NameBlock" Margin="26, 2, 2, 2" VerticalAlignment="Center" HorizontalAlignment="Left" TextWrapping="WrapWholeWords" FontSize="18"/>
-        <Button HorizontalAlignment="Right" VerticalAlignment="Center" Click="HyperlinkButton_Click" FontFamily="Segoe UI Symbol"></Button>
-        <ScrollViewer Grid.Row="1">
+        <Button Background="#22444444" Template="{ThemeResource SimpleButtonTemplate}" Grid.Column="1" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontSize="18" Click="StopButton_Click">
+            <TextBlock x:Name="NameBlock" TextWrapping="WrapWholeWords" HorizontalAlignment="Left" VerticalAlignment="Stretch"></TextBlock>
+        </Button>
+        <Button Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center" Click="RefreshButton_Click" FontFamily="Segoe UI Symbol"></Button>
+        <ScrollViewer Grid.Row="1" Grid.ColumnSpan="3">
             <StackPanel x:Name="MainStackPanel"/>
         </ScrollViewer>
-        <ProgressRing Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" x:Name="ProgressIndicator" IsHitTestVisible="False"/>
-        <TextBlock Grid.Row="2" x:Name="LastRefreshBox"/>
+        <ProgressRing Grid.ColumnSpan="3" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" x:Name="ProgressIndicator" IsHitTestVisible="False"/>
+        <TextBlock Grid.ColumnSpan="3" Grid.Row="2" x:Name="LastRefreshBox"/>
     </Grid>
 </UserControl>

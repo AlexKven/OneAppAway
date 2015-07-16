@@ -120,6 +120,9 @@
     <Compile Include="MultiStopArrivalsBox.xaml.cs">
       <DependentUpon>MultiStopArrivalsBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="RouteViewPage.xaml.cs">
+      <DependentUpon>RouteViewPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="StopArrivalsBox.xaml.cs">
       <DependentUpon>StopArrivalsBox.xaml</DependentUpon>
     </Compile>
@@ -142,6 +145,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Icons\BusAnalyticsIcon.png" />
+    <Content Include="Assets\Icons\BusRoutesIcon.png" />
     <Content Include="Assets\Icons\BusBase.png" />
     <Content Include="Assets\Icons\BusBase20.png" />
     <Content Include="Assets\Icons\BusBase40.png" />
@@ -200,6 +205,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="MultiStopArrivalsBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RouteViewPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
