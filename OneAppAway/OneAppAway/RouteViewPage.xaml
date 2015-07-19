@@ -1,4 +1,4 @@
-﻿<Page
+﻿<local:NavigationFriendlyPage
     x:Class="OneAppAway.RouteViewPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -21,4 +21,4 @@
             <Maps:MapControl MapServiceToken="s5030Pi5RRfQpmN9G31Y~Av27qRni0nZtyuLdCWdmgw~AroE4QWDxcQzLO1BLE1Dsm9t_hi6TG9z-8Kxr6v5D01QZFP4BacIgGWRRnuYcRJM" ZoomInteractionMode="Disabled" RotateInteractionMode="Disabled" PanInteractionMode="Disabled" TiltInteractionMode="Disabled" Width="500" Margin="20" Grid.Row="1" ManipulationMode="None"/>
         </Grid>
     </ScrollViewer>
-</Page>
+</local:NavigationFriendlyPage>

@@ -14,14 +14,23 @@ namespace OneAppAway
 {
     public static class ApiLayer
     {
+        public static async Task<string> SendRequest(string compactRequest, Dictionary<string, string> parameters, CancellationToken cancellationToken)
+        {
+            HttpClient client = new HttpClient();
+            var resp = await client.SendAsync(new HttpRequestMessage(HttpMethod.Get, "http://api.pugetsound.onebusaway.org/api/where/" + compactRequest + ".xml?key=TEST" + parameters?.Aggregate("", (acc, item) => acc + "&" + item.Key + "=" + item.Value) ?? ""), cancellationToken);
+            if (cancellationToken.IsCancellationRequested) return null;
+            return await resp.Content.ReadAsStringAsync();
+        }
+
+        public static async Task<string> SendRequest(string compactRequest, Dictionary<string, string> parameters)
+        {
+            return await SendRequest(compactRequest, parameters, new CancellationToken());
+        }
+
         public static async Task<BusStop[]> GetBusStops(BasicGeoposition center, double latSpan, double lonSpan, CancellationToken cancellationToken)
         {
             List<BusStop> result = new List<BusStop>();
-            HttpClient client = new HttpClient();
-            var resp = await client.SendAsync(new HttpRequestMessage(HttpMethod.Get, "http://api.pugetsound.onebusaway.org/api/where/stops-for-location.xml?key=TEST&lat=" + center.Latitude.ToString() + "&lon=" + center.Longitude.ToString() + "&latSpan=" + latSpan.ToString() + "&lonSpan=" + lonSpan.ToString()), cancellationToken);
-            if (cancellationToken.IsCancellationRequested) return new BusStop[0];
-
-            var responseString = await resp.Content.ReadAsStringAsync();
+            var responseString = await SendRequest("stops-for-location", new Dictionary<string, string>() { ["lat"] = center.Latitude.ToString(), ["lon"] = center.Longitude.ToString(), ["latSpan"] = latSpan.ToString(), ["lonSpan"] = lonSpan.ToString() });
 
             StringReader reader = new StringReader(responseString);
             XDocument xDoc = XDocument.Load(reader);
@@ -56,12 +65,7 @@ namespace OneAppAway
         public static async Task<BusArrival[]> GetBusArrivals(string id)
         {
             List<BusArrival> result = new List<BusArrival>();
-            HttpClient client = new HttpClient();
-            var resp = await client.SendAsync(new HttpRequestMessage(HttpMethod.Get, "http://api.pugetsound.onebusaway.org/api/where/arrivals-and-departures-for-stop/" + id + ".xml?key=TEST"));
-
-            var responseString = await resp.Content.ReadAsStringAsync();
-
-            StringReader reader = new StringReader(responseString);
+            StringReader reader = new StringReader(await SendRequest("arrivals-and-departures-for-stop/" + id, null));
             XDocument xDoc = XDocument.Load(reader);
 
             XElement el = xDoc.Element("response");
@@ -85,22 +89,39 @@ namespace OneAppAway
                 DateTime? predictedArrival = predictedArrivalLong == 0 ? null : new DateTime?((new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc) + TimeSpan.FromMilliseconds(predictedArrivalLong)).ToLocalTime());
                 DateTime scheduledArrival = (new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc) + TimeSpan.FromMilliseconds(scheduledArrivalLong)).ToLocalTime();
                 DateTime? lastUpdate = lastUpdateLong == null ? null : new DateTime?((new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc) + TimeSpan.FromMilliseconds(lastUpdateLong.Value)).ToLocalTime());
-                BusArrival arrival = new BusArrival() { RouteName = routeName, PredictedArrivalTime = predictedArrival, ScheduledArrivalTime = scheduledArrival, LastUpdateTime = lastUpdate, RouteID = routeId, TripID = tripId, StopID = stopId, Destination = destination };
+                BusArrival arrival = new BusArrival() { RouteName = routeName, PredictedArrivalTime = predictedArrival, ScheduledArrivalTime = scheduledArrival, LastUpdateTime = lastUpdate, Route = routeId, Trip = tripId, Stop = stopId, Destination = destination };
                 result.Add(arrival);
             }
 
             return result.ToArray();
         }
 
+        public static async Task<BusStop> GetBusStop(string id)
+        {
+            StringReader reader = new StringReader(await SendRequest("stop/" + id, null));
+            XDocument xDoc = XDocument.Load(reader);
+
+            var sched = await SendRequest("schedule-for-stop/" + id, new Dictionary<string, string>() {["date"] = "2015-07-16" });
+
+            XElement el = xDoc.Element("response").Element("data").Element("entry");
+
+            string lat = el.Element("lat")?.Value;
+            string lon = el.Element("lon")?.Value;
+            string direction = el.Element("direction")?.Value;
+            string name = el.Element("name")?.Value;
+            string code = el.Element("code")?.Value;
+            string locationType = el.Element("locationType")?.Value;
+            List<string> routeIds = new List<string>();
+            foreach (XElement el2 in el.Element("routeIds").Elements("string"))
+            {
+                routeIds.Add(el2?.Value);
+            }
+            return new BusStop() { Position = new BasicGeoposition() { Latitude = double.Parse(lat), Longitude = double.Parse(lon) }, Direction = direction == null ? StopDirection.Unspecified : (StopDirection)Enum.Parse(typeof(StopDirection), direction), Name = name, ID = id, Code = code, LocationType = int.Parse(locationType), Routes = routeIds.ToArray() };
+        }
+
         public static async Task<BusRoute> GetBusRoute(string id)
         {
-            List<BusArrival> result = new List<BusArrival>();
-            HttpClient client = new HttpClient();
-            var resp = await client.SendAsync(new HttpRequestMessage(HttpMethod.Get, "http://api.pugetsound.onebusaway.org/api/where/route/" + id + ".xml?key=TEST"));
-
-            var responseString = await resp.Content.ReadAsStringAsync();
-
-            StringReader reader = new StringReader(responseString);
+            StringReader reader = new StringReader(await SendRequest("route/" + id, null));
             XDocument xDoc = XDocument.Load(reader);
 
             XElement el = xDoc.Element("response").Element("data").Element("entry");
@@ -116,13 +137,8 @@ namespace OneAppAway
 
         public static async Task<TransitAgency> GetTransitAgency(string id)
         {
-            List<BusArrival> result = new List<BusArrival>();
-            HttpClient client = new HttpClient();
-            var resp = await client.SendAsync(new HttpRequestMessage(HttpMethod.Get, "http://api.pugetsound.onebusaway.org/api/where/agency/" + id + ".xml?key=TEST"));
-
-            var responseString = await resp.Content.ReadAsStringAsync();
-
-            StringReader reader = new StringReader(responseString);
+            StringReader reader = new StringReader(await SendRequest("agency/" + id, null));
+            
             XDocument xDoc = XDocument.Load(reader);
 
             XElement el = xDoc.Element("response").Element("data").Element("entry");

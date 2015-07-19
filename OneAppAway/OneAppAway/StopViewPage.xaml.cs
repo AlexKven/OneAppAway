@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -25,11 +26,13 @@ namespace OneAppAway
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class StopViewPage : Page
+    public sealed partial class StopViewPage : NavigationFriendlyPage
     {
         public StopViewPage()
         {
             this.InitializeComponent();
+            RoutesToggle.IsChecked = true;
+            ArrivalsToggle.IsChecked = true;
         }
 
         private double? lonPP;
@@ -45,7 +48,7 @@ namespace OneAppAway
 
         private async void SetPage(string stopId)
         {
-            Stop = await Data.GetStop(stopId);
+            Stop = await Data.GetBusStop(stopId);
             TitleBlock.Text = Stop.Name;
             Uri imageUri = new Uri(Stop.Direction == StopDirection.Unspecified ? "ms-appx:///Assets/Icons/BusBase40.png" : "ms-appx:///Assets/Icons/BusDirection" + Stop.Direction.ToString() + "40.png");
             DirectionImage.Source = new BitmapImage(imageUri);
@@ -56,8 +59,11 @@ namespace OneAppAway
             MainMap.MapElements.Add(mico);
             MainMap.MapElements.Add(mico);
             MainMap.Center = new Geopoint(Stop.Position);
+#pragma warning disable CS4014
             RefreshRoutes();
             RefreshArrivals();
+            GetSchedule();
+#pragma warning restore CS4014
             SetMapCenter();
         }
 
@@ -79,10 +85,24 @@ namespace OneAppAway
 
         private void MainGrid_SizeChanged(object sender, SizeChangedEventArgs e)
         {
+            SetInnerGridSize();
+        }
+
+        private void SetInnerGridSize()
+        {
+            InnerGrid.MinWidth = InnerGrid.ColumnDefinitions.Where(cd => cd.Width.IsStar).Count() * 300 + 200;
             if (MainGrid.ActualWidth > 0)
             {
                 InnerGrid.Width = MainGrid.ActualWidth;
             }
+        }
+
+        private void SetColumns()
+        {
+            ArrivalsColumn.Width = ArrivalsToggle.IsChecked.Value ? new GridLength(1, GridUnitType.Star) : new GridLength(0);
+            ScheduleColumn.Width = ScheduleToggle.IsChecked.Value ? new GridLength(1, GridUnitType.Star) : new GridLength(0);
+            RoutesColumn.Width = RoutesToggle.IsChecked.Value ? new GridLength(1, GridUnitType.Star) : new GridLength(0);
+            SetInnerGridSize();
         }
 
         private async Task RefreshArrivals()
@@ -103,6 +123,25 @@ namespace OneAppAway
             ArrivalsProgressIndicator.IsActive = false;
         }
 
+        private async Task GetSchedule()
+        {
+            DateTime start = DateTime.Now;
+            WeekSchedule schedule = new WeekSchedule();
+            for (int i = 0; i < 7; i++)
+            {
+                DaySchedule daySched = new DaySchedule();
+                daySched.LoadFromVerboseString(await ApiLayer.SendRequest("schedule-for-stop/" + Stop.ID, new Dictionary<string, string>() {["date"] = "2015-07-" + (13 + i).ToString() }));
+                ServiceDay day = (ServiceDay)(int)Math.Pow(2, i);
+                schedule.AddServiceDay(day, daySched);
+                if (i == 0)
+                    schedule.AddServiceDay(ServiceDay.ReducedWeekday, daySched);
+            }
+            Schedule = schedule;
+            Debug.WriteLine("Schedule Time (ms): " + (DateTime.Now - start).TotalMilliseconds.ToString());
+        }
+
+        private WeekSchedule Schedule;
+
         private async Task RefreshRoutes()
         {
             RoutesProgressIndicator.IsActive = true;
@@ -122,8 +161,18 @@ namespace OneAppAway
 
         private void RefreshButton_Click(object sender, RoutedEventArgs e)
         {
+#pragma warning disable CS4014
             RefreshArrivals();
             RefreshRoutes();
+#pragma warning restore CS4014
+        }
+
+        private void AppBarToggleButton_CheckedChanged(object sender, RoutedEventArgs e)
+        {
+            if (!(ArrivalsToggle.IsChecked.Value || ScheduleToggle.IsChecked.Value || RoutesToggle.IsChecked.Value))
+                ArrivalsToggle.IsChecked = true;
+            else
+                SetColumns();
         }
     }
 }

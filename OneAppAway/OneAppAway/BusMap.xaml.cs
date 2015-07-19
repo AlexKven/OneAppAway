@@ -312,7 +312,7 @@ namespace OneAppAway
                 //await GetStopsTask;
             }
             GetStopsCancellationTokenSource = new CancellationTokenSource();
-            GetStopsTask = Data.GetStopsForArea(bounds, stopsLoadedCallback, GetStopsCancellationTokenSource.Token);
+            GetStopsTask = Data.GetBusStopsForArea(bounds, stopsLoadedCallback, GetStopsCancellationTokenSource.Token);
         }
 
         private void RefreshIconSizes()

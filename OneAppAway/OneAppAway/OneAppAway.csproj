@@ -103,6 +103,11 @@
       <DependentUpon>BusMap.xaml</DependentUpon>
     </Compile>
     <Compile Include="ComboBoxIconAndText.cs" />
+    <Compile Include="Common\NavigationFriendlyPage.cs" />
+    <Compile Include="Common\NavigationHelper.cs" />
+    <Compile Include="Common\ObservableDictionary.cs" />
+    <Compile Include="Common\RelayCommand.cs" />
+    <Compile Include="Common\SuspensionManager.cs" />
     <Compile Include="Converters\AddSubtractConverter.cs" />
     <Compile Include="Converters\BandwidthOptionsRowHeightConverter.cs" />
     <Compile Include="Converters\BasicGeopositionToStringConverter.cs" />
@@ -123,6 +128,8 @@
     <Compile Include="RouteViewPage.xaml.cs">
       <DependentUpon>RouteViewPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Schedule.cs" />
+    <Compile Include="SettingsManager.cs" />
     <Compile Include="StopArrivalsBox.xaml.cs">
       <DependentUpon>StopArrivalsBox.xaml</DependentUpon>
     </Compile>
@@ -130,8 +137,8 @@
       <DependentUpon>StopViewPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Structs.cs" />
-    <Compile Include="MainPage.xaml.cs">
-      <DependentUpon>MainPage.xaml</DependentUpon>
+    <Compile Include="BusMapPage.xaml.cs">
+      <DependentUpon>BusMapPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -200,7 +207,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainPage.xaml">
+    <Page Include="BusMapPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

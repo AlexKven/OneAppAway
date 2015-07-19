@@ -126,7 +126,7 @@
                                 </Grid.ColumnDefinitions>
                                 <Rectangle Fill="#33000000"/>
                                 <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"></TextBlock>
-                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="1">Center on Your Location</TextBlock>
+                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="1">Show Your Location</TextBlock>
                             </Grid>
                         </Button>
                     </StackPanel>

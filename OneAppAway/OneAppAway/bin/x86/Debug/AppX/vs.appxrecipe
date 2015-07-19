@@ -8,7 +8,7 @@
     <PackageArchitecture>x86</PackageArchitecture>
     <PackageIdentityName>47218a89-641f-4f6d-a5ac-82974e618780</PackageIdentityName>
     <IntermediateOutputPath>C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\obj\x86\Debug\</IntermediateOutputPath>
-    <RegisteredManifestChecksum>4517F13B0FD1B4FEBD7C4A883BE6F764AF56A64A1893C9CCB62237B5C462B8D0</RegisteredManifestChecksum>
+    <RegisteredManifestChecksum>8E480BDF038DFEFD250D0A6246C27DED0B56675AF7ADE7F834C168F556D18BF6</RegisteredManifestChecksum>
     <RegisteredPackageMoniker>47218a89-641f-4f6d-a5ac-82974e618780_1.0.0.0_x86__1fadp56eckdn0</RegisteredPackageMoniker>
     <RegisteredUserModeAppID>47218a89-641f-4f6d-a5ac-82974e618780_1fadp56eckdn0!App</RegisteredUserModeAppID>
     <RegisteredPackageID>47218a89-641f-4f6d-a5ac-82974e618780</RegisteredPackageID>
@@ -20,13 +20,13 @@
     <AppXManifest Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2015-07-16T05:50:53.219</Modified>
+      <Modified>2015-07-18T07:29:32.010</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\ApplicationInsights.config">
       <PackagePath>ApplicationInsights.config</PackagePath>
-      <Modified>2015-07-10T05:45:51.007</Modified>
+      <Modified>2015-07-18T07:29:30.894</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\Assets\Icons\BusAnalyticsIcon.png">
       <PackagePath>Assets\Icons\BusAnalyticsIcon.png</PackagePath>
@@ -216,17 +216,13 @@
       <PackagePath>Microsoft.Win32.Primitives.dll</PackagePath>
       <Modified>2015-04-18T04:59:50.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\OneAppAway.csproj.AppLocalNetFX.GenerateResource.Cache">
-      <PackagePath>OneAppAway.csproj.AppLocalNetFX.GenerateResource.Cache</PackagePath>
-      <Modified>2015-07-10T05:49:03.015</Modified>
-    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\OneAppAway.exe">
       <PackagePath>OneAppAway.exe</PackagePath>
-      <Modified>2015-07-16T05:50:52.754</Modified>
+      <Modified>2015-07-18T07:29:30.488</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\OneAppAway.xr.xml">
       <PackagePath>OneAppAway.xr.xml</PackagePath>
-      <Modified>2015-07-16T05:33:41.191</Modified>
+      <Modified>2015-07-17T06:36:17.776</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\Properties\Default.rd.xml">
       <PackagePath>Properties\Default.rd.xml</PackagePath>
@@ -234,7 +230,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2015-07-16T05:50:54.043</Modified>
+      <Modified>2015-07-18T07:29:35.518</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\System.AppContext.dll">
       <PackagePath>System.AppContext.dll</PackagePath>

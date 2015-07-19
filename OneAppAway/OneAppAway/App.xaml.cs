@@ -18,6 +18,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
+using static OneAppAway.ServiceDay;
 
 // The Blank Application template is documented at http://go.microsoft.com/fwlink/?LinkId=402347&clcid=0x409
 
@@ -52,9 +53,10 @@ namespace OneAppAway
         /// will be used such as when the application is launched to open a specific file.
         /// </summary>
         /// <param name="e">Details about the launch request and process.</param>
-        protected override void OnLaunched(LaunchActivatedEventArgs e)
+        protected override async void OnLaunched(LaunchActivatedEventArgs e)
         {
             ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(300, 300));
+            Common.SuspensionManager.KnownTypes.Add(typeof(string[]));
 #if DEBUG
             if (System.Diagnostics.Debugger.IsAttached)
             {
@@ -70,6 +72,7 @@ namespace OneAppAway
             {
                 // Create a Frame to act as the navigation context and navigate to the first page
                 RootFrame = new Frame();
+                Common.SuspensionManager.RegisterFrame(RootFrame, "appFrame");
 
                 RootFrame.NavigationFailed += OnNavigationFailed;
 
@@ -79,7 +82,7 @@ namespace OneAppAway
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
-                    //TODO: Load state from previously suspended application
+                    await Common.SuspensionManager.RestoreAsync();
                 }
 
                 // Place the frame in the current Window
@@ -91,12 +94,18 @@ namespace OneAppAway
                 // When the navigation stack isn't restored navigate to the first page,
                 // configuring the new page by passing required information as a navigation
                 // parameter
-                RootFrame.Navigate(typeof(MainPage), e.Arguments);
+                RootFrame.Navigate(typeof(BusMapPage), "CurrentLocation");
             }
             // Ensure the current window is active
             Window.Current.Content = MainHamburgerBar;
             Window.Current.Activate();
             SetTitleBar();
+            //DaySchedule sch = new DaySchedule();
+            //sch.LoadFromVerboseString(await ApiLayer.SendRequest("schedule-for-stop/1_320", new Dictionary<string, string>() {["date"] = "2015-07-13" }));
+            //string monday = await ApiLayer.SendRequest("schedule-for-stop/1_61378", new Dictionary<string, string>() {["date"] = "2015-07-13" });
+            //string tuesday = await ApiLayer.SendRequest("schedule-for-stop/1_431", new Dictionary<string, string>() {["date"] = "2015-07-14" });
+            //tuesday.ToString();
+            //sch.ToString();
         }
 
         /// <summary>
@@ -116,10 +125,10 @@ namespace OneAppAway
         /// </summary>
         /// <param name="sender">The source of the suspend request.</param>
         /// <param name="e">Details about the suspend request.</param>
-        private void OnSuspending(object sender, SuspendingEventArgs e)
+        private async void OnSuspending(object sender, SuspendingEventArgs e)
         {
             var deferral = e.SuspendingOperation.GetDeferral();
-            //TODO: Save application state and stop any background activity
+            await Common.SuspensionManager.SaveAsync();
             deferral.Complete();
         }
 
@@ -141,16 +150,14 @@ namespace OneAppAway
             //titleBar.InactiveForegroundColor = Colors.White;
             titleBar.ButtonInactiveBackgroundColor = titleBar.InactiveBackgroundColor;
             titleBar.ButtonInactiveForegroundColor = titleBar.InactiveForegroundColor;
-            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
             SystemNavigationManager.GetForCurrentView().BackRequested += App_BackRequested;
         }
 
         private void App_BackRequested(object sender, BackRequestedEventArgs e)
         {
-            if (RootFrame.CanGoBack)
+            if (RootFrame.Content is NavigationFriendlyPage)
             {
-                RootFrame.GoBack();
-                e.Handled = true;
+                e.Handled = ((NavigationFriendlyPage)RootFrame.Content).GoBack();
             }
         }
     }

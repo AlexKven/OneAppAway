@@ -20,15 +20,21 @@ namespace OneAppAway
 {
     public sealed partial class MultiStopArrivalsBox : UserControl
     {
-        private int StopsCount = 0;
+        private BusStop[] Stops = new BusStop[0];
 
         public MultiStopArrivalsBox()
         {
             this.InitializeComponent();
         }
 
+        public BusStop[] GetStops()
+        {
+            return Stops.ToArray();
+        }
+
         public void SetStops(params BusStop[] stops)
         {
+            Stops = stops.ToArray();
             ItemsPanel.Children.Clear();
             SingleStopControl.Children.Clear();
             scrollViewer.HorizontalScrollBarVisibility = stops.Length == 1 ? ScrollBarVisibility.Hidden : ScrollBarVisibility.Auto;
@@ -48,9 +54,8 @@ namespace OneAppAway
                     ItemsPanel.Children.Add(box);
                 }
             }
-            StopsCount = stops.Length;
             if (_Caption == null)
-                CaptionBox.Text = StopsCount.ToString() + (StopsCount == 1 ? " Stop" : " Stops");
+                CaptionBox.Text = Stops.Length.ToString() + (Stops.Length == 1 ? " Stop" : " Stops");
         }
 
         private string _Caption = null;
@@ -61,7 +66,7 @@ namespace OneAppAway
             {
                 _Caption = value;
                 if (_Caption == null)
-                    CaptionBox.Text = StopsCount.ToString() + (StopsCount == 1 ? " Stop" : " Stops");
+                    CaptionBox.Text = Stops.Length.ToString() + (Stops.Length == 1 ? " Stop" : " Stops");
                 else
                     CaptionBox.Text = _Caption;
             }

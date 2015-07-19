@@ -1,4 +1,4 @@
-﻿<Page
+﻿<local:NavigationFriendlyPage
     x:Class="OneAppAway.StopViewPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -13,7 +13,7 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <ScrollViewer VerticalScrollMode="Disabled" VerticalScrollBarVisibility="Disabled" HorizontalScrollMode="Auto" HorizontalScrollBarVisibility="Auto">
-            <Grid MinWidth="800" x:Name="InnerGrid" SizeChanged="InnerGrid_SizeChanged">
+            <Grid x:Name="InnerGrid" SizeChanged="InnerGrid_SizeChanged">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
@@ -21,13 +21,14 @@
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*" x:Name="ArrivalsColumn"/>
+                    <ColumnDefinition Width="*" x:Name="ScheduleColumn"/>
+                    <ColumnDefinition Width="*" x:Name="RoutesColumn"/>
                     <ColumnDefinition Width="200"/>
                 </Grid.ColumnDefinitions>
-                <Maps:MapControl Grid.ColumnSpan="3" Grid.RowSpan="4" x:Name="MainMap" MapServiceToken="s5030Pi5RRfQpmN9G31Y~Av27qRni0nZtyuLdCWdmgw~AroE4QWDxcQzLO1BLE1Dsm9t_hi6TG9z-8Kxr6v5D01QZFP4BacIgGWRRnuYcRJM" ZoomLevel="15"/>
-                <Rectangle Fill="#DD3D3D3D" Grid.RowSpan="4" Grid.ColumnSpan="2"/>
-                <StackPanel Orientation="Horizontal" Grid.ColumnSpan="3">
+                <Maps:MapControl Grid.ColumnSpan="4" Grid.RowSpan="4" x:Name="MainMap" MapServiceToken="s5030Pi5RRfQpmN9G31Y~Av27qRni0nZtyuLdCWdmgw~AroE4QWDxcQzLO1BLE1Dsm9t_hi6TG9z-8Kxr6v5D01QZFP4BacIgGWRRnuYcRJM" ZoomLevel="15"/>
+                <Rectangle Fill="#DD3D3D3D" Grid.RowSpan="4" Grid.ColumnSpan="3"/>
+                <StackPanel Orientation="Horizontal" Grid.ColumnSpan="4">
                     <Image x:Name="DirectionImage" Margin="5"/>
                     <TextBlock FontSize="24" Margin="10" x:Name="TitleBlock"/>
                 </StackPanel>
@@ -37,12 +38,20 @@
                 </ScrollViewer>
                 <TextBlock Margin="1" FontSize="18" Grid.Row="3" x:Name="LastRefreshBox"/>
                 <ProgressRing Grid.Row="2" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" x:Name="ArrivalsProgressIndicator" IsHitTestVisible="False"/>
-                <TextBlock FontSize="24" Margin="5" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center">Routes</TextBlock>
-                <ScrollViewer Grid.Row="2" Grid.Column="1" Grid.RowSpan="2">
+                <TextBlock FontSize="24" Margin="5" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">Schedule</TextBlock>
+                <ContentControl Grid.Row="2" Grid.Column="1" Grid.RowSpan="1"/>
+                <ComboBox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" SelectedIndex="0">
+                    <ComboBoxItem>Weekday</ComboBoxItem>
+                    <ComboBoxItem>Saturday</ComboBoxItem>
+                    <ComboBoxItem>Sunday</ComboBoxItem>
+                </ComboBox>
+                <ProgressRing Grid.Column="1" Grid.Row="2" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" x:Name="ScheduleProgressIndicator" IsHitTestVisible="False"/>
+                <TextBlock FontSize="24" Margin="5" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Center">Routes</TextBlock>
+                <ScrollViewer Grid.Row="2" Grid.Column="2" Grid.RowSpan="2">
                     <ItemsControl x:Name="RoutesControl">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Button Template="{StaticResource SimpleButtonTemplate}" HorizontalAlignment="Stretch" Background="Transparent">
+                                <Button Margin="10,0,15,0" Template="{StaticResource SimpleButtonTemplate}" HorizontalAlignment="Stretch" Background="Transparent">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="auto" MinWidth="40"/>
@@ -61,34 +70,34 @@
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
                 </ScrollViewer>
-                <ProgressRing Grid.Column="1" Grid.Row="2" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" x:Name="RoutesProgressIndicator" IsHitTestVisible="False"/>
-                <Rectangle Grid.RowSpan="4" Grid.Column="2" Fill="#01000000"/>
+                <ProgressRing Grid.Column="2" Grid.Row="2" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" x:Name="RoutesProgressIndicator" IsHitTestVisible="False"/>
+                <Rectangle Grid.RowSpan="4" Grid.Column="3" Fill="#01000000"/>
             </Grid>
         </ScrollViewer>
         <CommandBar Grid.Row="1" VerticalAlignment="Top" ClosedDisplayMode="Compact" x:Name="MainAppBar">
             <CommandBar.SecondaryCommands>
+                <AppBarButton Label="Service Analysis">
+                    <AppBarButton.Icon>
+                        <BitmapIcon UriSource="/Assets/Icons/BusAnalyticsIcon.png" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
             </CommandBar.SecondaryCommands>
             <AppBarButton Icon="Refresh" Label="Refresh" Click="RefreshButton_Click"/>
-            <AppBarButton Label="Service Analysis">
-                <AppBarButton.Icon>
-                    <BitmapIcon UriSource="/Assets/Icons/BusAnalyticsIcon.png" />
-                </AppBarButton.Icon>
-            </AppBarButton>
-            <AppBarToggleButton Label="Real-Time Arrivals" IsChecked="True">
+            <AppBarToggleButton Label="Real-Time Arrivals" x:Name="ArrivalsToggle" Checked="AppBarToggleButton_CheckedChanged" Unchecked="AppBarToggleButton_CheckedChanged">
                 <AppBarToggleButton.Icon>
                     <FontIcon FontFamily="Segoe UI Symbol" Glyph="⏰"/>
                 </AppBarToggleButton.Icon>
             </AppBarToggleButton>
-            <AppBarToggleButton Label="View Schedule">
+            <AppBarToggleButton Label="View Schedule" x:Name="ScheduleToggle" Checked="AppBarToggleButton_CheckedChanged" Unchecked="AppBarToggleButton_CheckedChanged">
                 <AppBarToggleButton.Icon>
                     <SymbolIcon Symbol="List"/>
                 </AppBarToggleButton.Icon>
             </AppBarToggleButton>
-            <AppBarToggleButton Label="Show Routes">
+            <AppBarToggleButton Label="Show Routes" x:Name="RoutesToggle" Checked="AppBarToggleButton_CheckedChanged" Unchecked="AppBarToggleButton_CheckedChanged">
                 <AppBarToggleButton.Icon>
                     <BitmapIcon UriSource="/Assets/Icons/BusRoutesIcon.png" />
                 </AppBarToggleButton.Icon>
             </AppBarToggleButton>
         </CommandBar>
     </Grid>
-</Page>
+</local:NavigationFriendlyPage>

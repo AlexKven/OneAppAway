@@ -44,11 +44,11 @@ namespace OneAppAway
 
     public struct BusArrival
     {
-        public string RouteID { get; set; }
+        public string Route { get; set; }
 
-        public string TripID { get; set; }
+        public string Trip { get; set; }
 
-        public string StopID { get; set; }
+        public string Stop { get; set; }
 
         public string RouteName { get; set; }
 
@@ -87,7 +87,7 @@ namespace OneAppAway
 
         public static bool operator ==(BusArrival lhs, BusArrival rhs)
         {
-            return lhs.TripID == rhs.TripID && lhs.StopID == rhs.StopID;
+            return lhs.Trip == rhs.Trip && lhs.Stop == rhs.Stop;
         }
 
         public static bool operator !=(BusArrival lhs, BusArrival rhs)
@@ -104,7 +104,44 @@ namespace OneAppAway
 
         public override int GetHashCode()
         {
-            return (TripID + StopID).GetHashCode();
+            return (Trip + Stop).GetHashCode();
+        }
+    }
+
+    public struct ScheduledArrival
+    {
+        public string Route { get; set; }
+
+        public string Trip { get; set; }
+
+        public string Stop { get; set; }
+
+        public string RouteName { get; set; }
+
+        public DateTime ScheduledArrivalTime { get; set; }
+
+        public string Destination { get; set; }
+
+        public static bool operator ==(ScheduledArrival lhs, ScheduledArrival rhs)
+        {
+            return lhs.Trip == rhs.Trip && lhs.Stop == rhs.Stop;
+        }
+
+        public static bool operator !=(ScheduledArrival lhs, ScheduledArrival rhs)
+        {
+            return !(lhs == rhs);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null) return false;
+            if (!(obj is ScheduledArrival)) return false;
+            return this == (ScheduledArrival)obj;
+        }
+
+        public override int GetHashCode()
+        {
+            return (Trip + Stop).GetHashCode();
         }
     }
 

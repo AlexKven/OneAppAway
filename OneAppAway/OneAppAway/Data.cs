@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Windows.Devices.Geolocation;
 using Windows.Foundation;
+using Windows.Storage;
 
 namespace OneAppAway
 {
@@ -23,28 +24,27 @@ namespace OneAppAway
         {
             if (CachedRoutes.Keys.Contains(id))
                 return CachedRoutes[id];
-            else
-                CachedRoutes.Add(id, await ApiLayer.GetBusRoute(id));
+            CachedRoutes.Add(id, await ApiLayer.GetBusRoute(id));
             return await GetRoute(id);
         }
 
-#pragma warning disable CS1998
-        public static async Task<BusStop> GetStop(string id)
+        public static async Task<BusStop> GetBusStop(string id)
         {
-            return CachedStops[id];
+            if (CachedStops.ContainsKey(id))
+                return CachedStops[id];
+            CachedStops.Add(id, await ApiLayer.GetBusStop(id));
+            return await GetBusStop(id);
         }
-#pragma warning restore CS1998
 
         public static async Task<TransitAgency> GetTransitAgency(string id)
         {
             if (CachedTransitAgencies.Keys.Contains(id))
                 return CachedTransitAgencies[id];
-            else
-                CachedTransitAgencies.Add(id, await ApiLayer.GetTransitAgency(id));
+            CachedTransitAgencies.Add(id, await ApiLayer.GetTransitAgency(id));
             return await GetTransitAgency(id);
         }
 
-        public static async Task<BusStop[]> GetStopsForArea(GeoboundingBox bounds, Action<BusStop[], GeoboundingBox> stopsLoadedCallback, CancellationToken cancellationToken)
+        public static async Task<BusStop[]> GetBusStopsForArea(GeoboundingBox bounds, Action<BusStop[], GeoboundingBox> stopsLoadedCallback, CancellationToken cancellationToken)
         {
             List<BusStop> totalFoundStops = new List<BusStop>();
             double latRange = bounds.NorthwestCorner.Latitude - bounds.SoutheastCorner.Latitude;
@@ -73,6 +73,36 @@ namespace OneAppAway
             return totalFoundStops.ToArray();
         }
 
+        public static async Task<BasicGeoposition?> GetCurrentLocation(PositionAccuracy acc)
+        {
+            var loc = new Geolocator();
+            try
+            {
+                loc.DesiredAccuracy = acc;
+                var result = (await loc.GetGeopositionAsync()).Coordinate.Point.Position;
+                SettingsManager.SetSetting<double[]>("LastLocation", true, new double[] { result.Latitude, result.Longitude });
+                return result;
+            }
+            catch (Exception) { }
+            return null;
+        }
 
+        public static BasicGeoposition? GetLastKnownLocation()
+        {
+            double[] data = SettingsManager.GetSetting<double[]>("LastLocation", true);
+            if (data == null) return null;
+            return new BasicGeoposition() { Latitude = data[0], Longitude = data[1] };
+        }
+
+        public static async void ProgressivelyAcquireLocation(Action<BasicGeoposition> OnLocationFound)
+        {
+            var task = GetCurrentLocation(PositionAccuracy.Default);
+            var loc = GetLastKnownLocation();
+            if (loc != null && !task.IsCompleted)
+                OnLocationFound(loc.Value);
+            loc = await task;
+            if (loc != null)
+                OnLocationFound(loc.Value);
+        }
     }
 }

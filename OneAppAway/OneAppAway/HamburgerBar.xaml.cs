@@ -56,7 +56,14 @@ namespace OneAppAway
 
         private void CenterOnLocationButton_Click(object sender, RoutedEventArgs e)
         {
-
+            if (((App)(App.Current)).RootFrame.Content is BusMapPage)
+            {
+                ((BusMapPage)((App)(App.Current)).RootFrame.Content).CenterOnCurrentLocation();
+            }
+            else
+            {
+                ((App)(App.Current)).RootFrame.Navigate(typeof(BusMapPage), "CurrentLocation");
+            }
         }
     }
 }

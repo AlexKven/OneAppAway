@@ -160,9 +160,6 @@
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\Microsoft.Win32.Primitives.dll">
       <PackagePath>Microsoft.Win32.Primitives.dll</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\OneAppAway.csproj.AppLocalNetFX.GenerateResource.Cache">
-      <PackagePath>OneAppAway.csproj.AppLocalNetFX.GenerateResource.Cache</PackagePath>
-    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\OneAppAway.exe">
       <PackagePath>OneAppAway.exe</PackagePath>
     </AppxPackagedFile>

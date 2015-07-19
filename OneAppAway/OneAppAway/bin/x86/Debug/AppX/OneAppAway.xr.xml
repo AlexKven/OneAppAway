@@ -39,7 +39,6 @@
       <RootProperty Name="HorizontalAlignment" />
       <RootProperty Name="Background" />
       <RootProperty Name="RequestedTheme" />
-      <RootProperty Name="MinWidth" />
       <RootEvent Name="SizeChanged" />
       <RootMethod Name="GetRowSpan" />
       <RootMethod Name="SetRowSpan" />
@@ -56,6 +55,7 @@
     <RootType FullName="Windows.UI.Xaml.VisualStateGroup">
       <RootProperty Name="States" />
       <RootEvent Name="CurrentStateChanging" />
+      <RootEvent Name="CurrentStateChanged" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.VisualState">
       <RootProperty Name="Storyboard" />
@@ -168,9 +168,7 @@
     <RootType FullName="Windows.UI.Xaml.Media.CompositeTransform">
       <RootProperty Name="TranslateY" />
     </RootType>
-    <RootType FullName="OneAppAway.BusMap">
-      <RootEvent Name="PropertyChanged" />
-    </RootType>
+    <RootType FullName="OneAppAway.BusMap" />
     <RootType FullName="Windows.UI.Xaml.Controls.ContentControl">
       <RootProperty Name="Template" />
     </RootType>
@@ -217,12 +215,12 @@
       <RootProperty Name="VerticalAlignment" />
     </RootType>
     <RootType FullName="OneAppAway.HamburgerBar" />
-    <RootType FullName="Windows.UI.Xaml.Controls.Page">
+    <RootType FullName="OneAppAway.NavigationFriendlyPage">
       <RootProperty Name="Content" />
       <RootProperty Name="RequestedTheme" />
       <RootEvent Name="SizeChanged" />
     </RootType>
-    <RootType FullName="OneAppAway.MainPage" />
+    <RootType FullName="OneAppAway.BusMapPage" />
     <RootType FullName="Windows.UI.Xaml.Controls.ScrollViewer">
       <RootProperty Name="Background" />
       <RootProperty Name="Margin" />
@@ -256,17 +254,18 @@
       <RootProperty Name="PrimaryCommands" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.AppBarButton">
-      <RootProperty Name="Icon" />
       <RootProperty Name="Label" />
+      <RootProperty Name="Icon" />
       <RootEvent Name="Click" />
-    </RootType>
-    <RootType FullName="Windows.UI.Xaml.Controls.AppBarToggleButton">
-      <RootProperty Name="Label" />
-      <RootProperty Name="IsChecked" />
-      <RootProperty Name="Icon" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.BitmapIcon">
       <RootProperty Name="UriSource" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.AppBarToggleButton">
+      <RootProperty Name="Label" />
+      <RootProperty Name="Icon" />
+      <RootEvent Name="Checked" />
+      <RootEvent Name="Unchecked" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.SymbolIcon">
       <RootProperty Name="Symbol" />
@@ -275,11 +274,20 @@
       <RootProperty Name="FontFamily" />
       <RootProperty Name="Glyph" />
     </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.ComboBox">
+      <RootProperty Name="HorizontalAlignment" />
+      <RootProperty Name="VerticalAlignment" />
+      <RootProperty Name="SelectedIndex" />
+      <RootProperty Name="Items" />
+    </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.ItemsControl">
       <RootProperty Name="ItemTemplate" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.DataTemplate">
       <RootProperty Name="Template" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.ComboBoxItem">
+      <RootProperty Name="Content" />
     </RootType>
     <RootType FullName="OneAppAway.StopViewPage" />
   </Roots.RootTypes>

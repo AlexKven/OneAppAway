@@ -72,7 +72,7 @@ namespace OneAppAway
 
         private void StopButton_Click(object sender, RoutedEventArgs e)
         {
-            ((App)App.Current).RootFrame.Navigate(typeof(StopViewPage), Stop.Code);
+            ((App)App.Current).RootFrame.Navigate(typeof(StopViewPage), Stop.ID);
         }
     }
 }
