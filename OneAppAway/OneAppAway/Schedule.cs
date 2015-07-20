@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -68,12 +69,18 @@ namespace OneAppAway
         }
     }
 
-    public class DaySchedule
+    public class DaySchedule : IEnumerable<ScheduledArrival>
     {
         private Tuple<string, string, Tuple<short, string>[]>[] Data;
         private string[] TripIds;
+        public string Stop { get; set; }
 
-        public DaySchedule(){}
+        public DaySchedule() { }
+
+        public DaySchedule(string stop)
+        {
+            Stop = stop;
+        }
 
         public void LoadFromVerboseString(string str)
         {
@@ -136,6 +143,76 @@ namespace OneAppAway
             }
             else
                 return TripIds.ToList();
+        }
+
+        public IEnumerator<ScheduledArrival> GetEnumerator()
+        {
+            return new ScheduleEnumerator(Stop, Data);
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+    }
+
+    public class ScheduleEnumerator : IEnumerator<ScheduledArrival>
+    {
+        private Tuple<string, string, Tuple<short, string>[]>[] Data;
+        private string Stop;
+        private int curRouteDirection = -1;
+        private int curTrip = -1;
+
+        public ScheduleEnumerator(string stop, Tuple<string, string, Tuple<short, string>[]>[] data)
+        {
+            Data = data;
+            Stop = stop;
+        }
+
+        public ScheduledArrival Current
+        {
+            get
+            {
+                if (curRouteDirection == -1)
+                    throw new IndexOutOfRangeException("Run MoveNext() before accessing Current.");
+                if (curRouteDirection >= Data.Length)
+                    throw new IndexOutOfRangeException("You have moved past the last element.");
+                var item1 = Data[curRouteDirection];
+                var item2 = item1.Item3[curTrip];
+                DateTime time = DateTime.Now;
+                time = new DateTime(time.Year, time.Month, time.Day, item2.Item1 / 60, item2.Item1 % 60, 0);
+                return new ScheduledArrival() { Destination = item1.Item2, Route = item1.Item1, ScheduledArrivalTime = time, Stop = Stop, Trip = item2.Item2 };
+            }
+        }
+
+        object IEnumerator.Current
+        {
+            get
+            {
+                return Current;
+            }
+        }
+
+        public void Dispose() { }
+
+        public bool MoveNext()
+        {
+            if (curRouteDirection == -1)
+                curRouteDirection = 0;
+            var item1 = Data[curRouteDirection];
+            curTrip++;
+            if (curTrip >= item1.Item3.Length)
+            {
+                curTrip = 0;
+                curRouteDirection++;
+            }
+            return curRouteDirection < Data.Length;
+        }
+
+        public void Reset()
+        {
+            curTrip = 0;
+            curRouteDirection = 0;
         }
     }
 }

@@ -62,5 +62,6 @@
             </Grid>
         </Maps:MapControl>
         <Button VerticalAlignment="Top" HorizontalAlignment="Left" Click="Button_Click">Button</Button>
+        <ProgressBar HorizontalAlignment="Stretch" VerticalAlignment="Top" IsHitTestVisible="False" Visibility="Collapsed" x:Name="LoadingIndicator"/>
     </Grid>
 </local:NavigationFriendlyPage>
