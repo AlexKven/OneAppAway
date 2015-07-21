@@ -18,7 +18,7 @@
                 <ColumnDefinition Width="1200"/>
             </Grid.ColumnDefinitions>
             <TextBlock FontSize="36" VerticalAlignment="Center" HorizontalAlignment="Center">Route 187</TextBlock>
-            <Maps:MapControl MapServiceToken="s5030Pi5RRfQpmN9G31Y~Av27qRni0nZtyuLdCWdmgw~AroE4QWDxcQzLO1BLE1Dsm9t_hi6TG9z-8Kxr6v5D01QZFP4BacIgGWRRnuYcRJM" ZoomInteractionMode="Disabled" RotateInteractionMode="Disabled" PanInteractionMode="Disabled" TiltInteractionMode="Disabled" Width="500" Margin="20" Grid.Row="1" ManipulationMode="None"/>
+            <Maps:MapControl ZoomInteractionMode="Disabled" RotateInteractionMode="Disabled" PanInteractionMode="Disabled" TiltInteractionMode="Disabled" Width="500" Margin="20" Grid.Row="1" ManipulationMode="None"/>
         </Grid>
     </ScrollViewer>
 </local:NavigationFriendlyPage>

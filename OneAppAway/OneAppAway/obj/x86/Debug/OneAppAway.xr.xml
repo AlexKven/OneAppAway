@@ -19,6 +19,7 @@
     <RootType FullName="OneAppAway.ApplicationSettings">
       <RootProperty Name="BandwidthSetting" />
     </RootType>
+    <RootType FullName="OneAppAway.Converters.ValueConverterGroup" />
     <RootType FullName="OneAppAway.Converters.MaxConverter" />
     <RootType FullName="OneAppAway.Converters.MinConverter" />
     <RootType FullName="OneAppAway.Converters.BasicGeopositionToStringConverter" />
@@ -97,14 +98,13 @@
       <RootProperty Name="IsHitTestVisible" />
     </RootType>
     <RootType FullName="Microsoft.Xaml.DirectUI.ProxyTypes.TemplateBindingExtension" />
+    <RootType FullName="OneAppAway.Converters.LightenColorConverter" />
+    <RootType FullName="OneAppAway.Converters.ColorToBrushConverter" />
     <RootType FullName="Windows.UI.Xaml.Controls.UserControl">
       <RootProperty Name="RequestedTheme" />
       <RootProperty Name="Content" />
     </RootType>
-    <RootType FullName="OneAppAway.Converters.ValueConverterGroup" />
     <RootType FullName="OneAppAway.Converters.RandomConverter" />
-    <RootType FullName="OneAppAway.Converters.LightenColorConverter" />
-    <RootType FullName="OneAppAway.Converters.ColorToBrushConverter" />
     <RootType FullName="Windows.UI.Xaml.Controls.ColumnDefinition">
       <RootProperty Name="Width" />
       <RootProperty Name="MinWidth" />
@@ -123,7 +123,6 @@
       <RootProperty Name="MaxHeight" />
       <RootProperty Name="TextTrimming" />
       <RootProperty Name="Inlines" />
-      <RootProperty Name="Opacity" />
       <RootProperty Name="Text" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Data.Binding">
@@ -144,7 +143,6 @@
       <RootProperty Name="PedestrianFeaturesVisible" />
       <RootProperty Name="TiltInteractionMode" />
       <RootProperty Name="RotateInteractionMode" />
-      <RootProperty Name="MapServiceToken" />
       <RootProperty Name="Children" />
       <RootProperty Name="ZoomInteractionMode" />
       <RootProperty Name="PanInteractionMode" />
@@ -188,6 +186,7 @@
       <RootProperty Name="Children" />
       <RootProperty Name="Margin" />
       <RootProperty Name="HorizontalAlignment" />
+      <RootProperty Name="Tag" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.Button">
       <RootProperty Name="Background" />
@@ -220,6 +219,12 @@
       <RootProperty Name="RequestedTheme" />
       <RootEvent Name="SizeChanged" />
     </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.ProgressBar">
+      <RootProperty Name="HorizontalAlignment" />
+      <RootProperty Name="VerticalAlignment" />
+      <RootProperty Name="IsHitTestVisible" />
+      <RootProperty Name="Visibility" />
+    </RootType>
     <RootType FullName="OneAppAway.BusMapPage" />
     <RootType FullName="Windows.UI.Xaml.Controls.ScrollViewer">
       <RootProperty Name="Background" />
@@ -239,6 +244,8 @@
       <RootProperty Name="HorizontalAlignment" />
     </RootType>
     <RootType FullName="OneAppAway.RouteViewPage" />
+    <RootType FullName="Windows.UI.Xaml.Controls.ListView" />
+    <RootType FullName="OneAppAway.ScheduleBrowser" />
     <RootType FullName="Windows.UI.Xaml.Controls.ProgressRing">
       <RootProperty Name="HorizontalAlignment" />
       <RootProperty Name="VerticalAlignment" />
@@ -290,5 +297,6 @@
       <RootProperty Name="Content" />
     </RootType>
     <RootType FullName="OneAppAway.StopViewPage" />
+    <RootType FullName="OneAppAway.TestPage" />
   </Roots.RootTypes>
 </Roots>

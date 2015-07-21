@@ -8,6 +8,10 @@
     RequestedTheme="Light">
     <Application.Resources>
         <local:ApplicationSettings x:Key="Settings" BandwidthSetting="Auto"/>
+        <converters:ValueConverterGroup x:Key="ThemeBrushConverters">
+            <converters:LightenColorConverter/>
+            <converters:ColorToBrushConverter/>
+        </converters:ValueConverterGroup>
         <converters:MaxConverter x:Key="MaxConverter"/>
         <converters:MinConverter x:Key="MinConverter"/>
         <converters:BasicGeopositionToStringConverter x:Key="BasicGeopositionStringConverter"/>

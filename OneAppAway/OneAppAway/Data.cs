@@ -94,7 +94,7 @@ namespace OneAppAway
             return new BasicGeoposition() { Latitude = data[0], Longitude = data[1] };
         }
 
-        public static async void ProgressivelyAcquireLocation(Action<BasicGeoposition> OnLocationFound)
+        public static async Task ProgressivelyAcquireLocation(Action<BasicGeoposition> OnLocationFound)
         {
             var task = GetCurrentLocation(PositionAccuracy.Default);
             var loc = GetLastKnownLocation();

@@ -7,7 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-    <Grid x:ConnectionId='1' Background="White" RequestedTheme="Dark" x:Name="MainGrid"                                   >
+    <Grid x:ConnectionId='1' Background="Black" RequestedTheme="Dark" x:Name="MainGrid"                                   >
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
@@ -26,20 +26,22 @@
                     <ColumnDefinition x:ConnectionId='10' Width="*" x:Name="RoutesColumn"/>
                     <ColumnDefinition Width="200"/>
                 </Grid.ColumnDefinitions>
-                <Maps:MapControl x:ConnectionId='11' Grid.ColumnSpan="4" Grid.RowSpan="4" x:Name="MainMap" MapServiceToken="s5030Pi5RRfQpmN9G31Y~Av27qRni0nZtyuLdCWdmgw~AroE4QWDxcQzLO1BLE1Dsm9t_hi6TG9z-8Kxr6v5D01QZFP4BacIgGWRRnuYcRJM" ZoomLevel="15"/>
+                <Maps:MapControl x:ConnectionId='11' Grid.ColumnSpan="4" Grid.RowSpan="4" x:Name="MainMap" ZoomLevel="15"/>
                 <Rectangle Fill="#DD3D3D3D" Grid.RowSpan="4" Grid.ColumnSpan="3"/>
                 <StackPanel Orientation="Horizontal" Grid.ColumnSpan="4">
-                    <Image x:ConnectionId='18' x:Name="DirectionImage" Margin="5"/>
-                    <TextBlock x:ConnectionId='19' FontSize="24" Margin="10" x:Name="TitleBlock"/>
+                    <Image x:ConnectionId='19' x:Name="DirectionImage" Margin="5"/>
+                    <TextBlock x:ConnectionId='20' FontSize="24" Margin="10" x:Name="TitleBlock"/>
                 </StackPanel>
                 <TextBlock FontSize="24" Margin="5" Grid.Row="1" HorizontalAlignment="Center">Arrivals</TextBlock>
                 <ScrollViewer Grid.Row="2">
-                    <StackPanel x:ConnectionId='17' x:Name="ArrivalsStackPanel"/>
+                    <StackPanel x:ConnectionId='18' x:Name="ArrivalsStackPanel"/>
                 </ScrollViewer>
                 <TextBlock x:ConnectionId='12' Margin="1" FontSize="18" Grid.Row="3" x:Name="LastRefreshBox"/>
                 <ProgressRing x:ConnectionId='13' Grid.Row="2" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" x:Name="ArrivalsProgressIndicator" IsHitTestVisible="False"/>
                 <TextBlock FontSize="24" Margin="5" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">Schedule</TextBlock>
-                <ContentControl Grid.Row="2" Grid.Column="1" Grid.RowSpan="1"/>
+                <ScrollViewer Grid.Row="2" Grid.Column="1" Grid.RowSpan="1">
+                    <StackPanel x:ConnectionId='17' x:Name="ScheduledArrivalsPanel"/>
+                </ScrollViewer>
                 <ComboBox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" SelectedIndex="0">
                     <ComboBoxItem>Weekday</ComboBoxItem>
                     <ComboBoxItem>Saturday</ComboBoxItem>
@@ -61,8 +63,8 @@
                                             <RowDefinition Height="auto"/>
                                             <RowDefinition Height="auto"/>
                                         </Grid.RowDefinitions>
-                                        <TextBlock FontSize="26" Text="{Binding Name}" Grid.RowSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                        <TextBlock FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Description}" TextWrapping="WrapWholeWords" Grid.Column="1"/>
+                                        <TextBlock FontSize="26" Text="{Binding Name}" Grid.RowSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{Binding ElementName=RouteNumberBlock, Path=Tag, Converter={StaticResource ThemeBrushConverters}, ConverterParameter=1.2}"/>
+                                        <TextBlock FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Description}" TextWrapping="WrapWholeWords" Grid.Column="1" x:Name="RouteNumberBlock" Tag="{ThemeResource SystemColorControlAccentColor}"/>
                                         <TextBlock FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Agency}" Grid.Row="1" Grid.Column="2"/>
                                     </Grid>
                                 </Button>

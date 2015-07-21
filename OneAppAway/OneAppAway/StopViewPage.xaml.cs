@@ -31,6 +31,7 @@ namespace OneAppAway
         public StopViewPage()
         {
             this.InitializeComponent();
+            MainMap.MapServiceToken = Keys.BingMapKey; //Comment out if you don't have Keys.cs
             RoutesToggle.IsChecked = true;
             ArrivalsToggle.IsChecked = true;
         }
@@ -125,19 +126,20 @@ namespace OneAppAway
 
         private async Task GetSchedule()
         {
-            DateTime start = DateTime.Now;
-            WeekSchedule schedule = new WeekSchedule();
+            Schedule = new WeekSchedule();
             for (int i = 0; i < 7; i++)
             {
                 DaySchedule daySched = new DaySchedule();
                 daySched.LoadFromVerboseString(await ApiLayer.SendRequest("schedule-for-stop/" + Stop.ID, new Dictionary<string, string>() {["date"] = "2015-07-" + (13 + i).ToString() }));
                 ServiceDay day = (ServiceDay)(int)Math.Pow(2, i);
-                schedule.AddServiceDay(day, daySched);
+                Schedule.AddServiceDay(day, daySched);
                 if (i == 0)
-                    schedule.AddServiceDay(ServiceDay.ReducedWeekday, daySched);
+                    Schedule.AddServiceDay(ServiceDay.ReducedWeekday, daySched);
             }
-            Schedule = schedule;
-            Debug.WriteLine("Schedule Time (ms): " + (DateTime.Now - start).TotalMilliseconds.ToString());
+            foreach (var item in Schedule[ServiceDay.Weekdays])
+            {
+                ScheduledArrivalsPanel.Children.Add(new TextBlock() { Text = item.ScheduledArrivalTime.ToString("h:mm") + " to " + item.Destination, FontWeight = item.ScheduledArrivalTime.Hour >= 12 ? Windows.UI.Text.FontWeights.Bold : Windows.UI.Text.FontWeights.Normal });
+            }
         }
 
         private WeekSchedule Schedule;

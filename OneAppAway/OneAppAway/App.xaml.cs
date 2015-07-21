@@ -94,7 +94,8 @@ namespace OneAppAway
                 // When the navigation stack isn't restored navigate to the first page,
                 // configuring the new page by passing required information as a navigation
                 // parameter
-                RootFrame.Navigate(typeof(BusMapPage), "CurrentLocation");
+                //RootFrame.Navigate(typeof(BusMapPage), "CurrentLocation");
+                RootFrame.Navigate(typeof(TestPage));
             }
             // Ensure the current window is active
             Window.Current.Content = MainHamburgerBar;

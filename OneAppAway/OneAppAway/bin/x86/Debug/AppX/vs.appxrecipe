@@ -20,7 +20,7 @@
     <AppXManifest Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2015-07-18T07:29:32.010</Modified>
+      <Modified>2015-07-20T23:10:50.147</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
@@ -216,13 +216,17 @@
       <PackagePath>Microsoft.Win32.Primitives.dll</PackagePath>
       <Modified>2015-04-18T04:59:50.000</Modified>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\OneAppAway.csproj.AppLocalNetFX.GenerateResource.Cache">
+      <PackagePath>OneAppAway.csproj.AppLocalNetFX.GenerateResource.Cache</PackagePath>
+      <Modified>2015-07-18T07:29:34.559</Modified>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\OneAppAway.exe">
       <PackagePath>OneAppAway.exe</PackagePath>
-      <Modified>2015-07-18T07:29:30.488</Modified>
+      <Modified>2015-07-20T23:10:49.627</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\OneAppAway.xr.xml">
       <PackagePath>OneAppAway.xr.xml</PackagePath>
-      <Modified>2015-07-17T06:36:17.776</Modified>
+      <Modified>2015-07-20T23:10:48.999</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\Properties\Default.rd.xml">
       <PackagePath>Properties\Default.rd.xml</PackagePath>
@@ -230,7 +234,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2015-07-18T07:29:35.518</Modified>
+      <Modified>2015-07-20T23:10:51.455</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\System.AppContext.dll">
       <PackagePath>System.AppContext.dll</PackagePath>

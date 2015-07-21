@@ -86,10 +86,10 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <Button x:ConnectionId='6' Background="#303030" RequestedTheme="Dark" FontFamily="Segoe MDL2 Assets" FontSize="19" Content="&#xE700;" Width="50" Height="50"                              />
-                            <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Center">
+                            <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Center" x:Name="MainPanel" Tag="{ThemeResource SystemColorControlAccentColor}">
                                 <Image Width="40" Height="40" Source="Assets/Icons/LogoBase.png" Stretch="Uniform" Margin="0,0,5,0"/>
                                 <TextBlock FontSize="28" VerticalAlignment="Center" Foreground="White">One</TextBlock>
-                                <TextBlock FontSize="28" VerticalAlignment="Center" Foreground="White" Opacity=".6">App</TextBlock>
+                                <TextBlock FontSize="28" VerticalAlignment="Center" Foreground="{Binding ElementName=MainPanel, Path=Tag, Converter={StaticResource ThemeBrushConverters}, ConverterParameter=1.2}">App</TextBlock>
                                 <TextBlock FontSize="28" VerticalAlignment="Center" Foreground="White">Away</TextBlock>
                             </StackPanel>
                         </Grid>

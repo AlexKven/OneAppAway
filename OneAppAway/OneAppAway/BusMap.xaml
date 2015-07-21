@@ -54,7 +54,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
-        <Maps:MapControl Grid.RowSpan="2" TransitFeaturesVisible="False" PedestrianFeaturesVisible="True" TiltInteractionMode="Disabled" MapElementClick="MainMap_MapElementClick" SizeChanged="MainMap_SizeChanged" ZoomLevelChanged="MainMap_ZoomLevelChanged" CenterChanged="MainMap_CenterChanged" RotateInteractionMode="Disabled" x:Name="MainMap" MapServiceToken="s5030Pi5RRfQpmN9G31Y~Av27qRni0nZtyuLdCWdmgw~AroE4QWDxcQzLO1BLE1Dsm9t_hi6TG9z-8Kxr6v5D01QZFP4BacIgGWRRnuYcRJM" ActualCameraChanged="MainMap_ActualCameraChanged" >
+        <Maps:MapControl Grid.RowSpan="2" TransitFeaturesVisible="False" PedestrianFeaturesVisible="True" TiltInteractionMode="Disabled" MapElementClick="MainMap_MapElementClick" SizeChanged="MainMap_SizeChanged" ZoomLevelChanged="MainMap_ZoomLevelChanged" CenterChanged="MainMap_CenterChanged" RotateInteractionMode="Disabled" x:Name="MainMap" ActualCameraChanged="MainMap_ActualCameraChanged" >
             <Grid x:Name="StopArrivalGrid" Visibility="Collapsed" Maps:MapControl.NormalizedAnchorPoint="0.5, 1" Width="350" Height="450">
                 <local:MultiStopArrivalsBox x:Name="StopArrivalBox" CloseRequested="StopArrivalBox_CloseRequested" Opacity="0">
                     <local:MultiStopArrivalsBox.RenderTransform>

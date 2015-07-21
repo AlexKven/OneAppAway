@@ -116,8 +116,6 @@ namespace OneAppAway
 
         public string Stop { get; set; }
 
-        public string RouteName { get; set; }
-
         public DateTime ScheduledArrivalTime { get; set; }
 
         public string Destination { get; set; }

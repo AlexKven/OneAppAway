@@ -30,6 +30,7 @@ namespace OneAppAway
         public BusMapPage()
         {
             this.InitializeComponent();
+            MainMap.MapServiceToken = Keys.BingMapKey; //Comment out if you don't have Keys.cs
             _ShownStops.CollectionChanged += _ShownStops_CollectionChanged;
             this.PropertyChanged += BusMap_PropertyChanged;
         }
@@ -84,14 +85,16 @@ namespace OneAppAway
             str2.ToString();
         }
 
-        public void CenterOnCurrentLocation()
+        public async void CenterOnCurrentLocation()
         {
-            Data.ProgressivelyAcquireLocation(delegate (BasicGeoposition pos)
+            LoadingIndicator.IsIndeterminate = true;
+            LoadingIndicator.Visibility = Visibility.Visible;
+            await Data.ProgressivelyAcquireLocation(async delegate (BasicGeoposition pos)
             {
-#pragma warning disable CS4014
-                MainMap.TrySetViewAsync(new Geopoint(pos), 17, null, null, MapAnimationKind.Linear);
-#pragma warning restore CS4014
+                await MainMap.TrySetViewAsync(new Geopoint(pos), 17, null, null, MapAnimationKind.Linear);
             });
+            LoadingIndicator.Visibility = Visibility.Collapsed;
+            LoadingIndicator.IsIndeterminate = false;
         }
 
         private void MainBusMap_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
