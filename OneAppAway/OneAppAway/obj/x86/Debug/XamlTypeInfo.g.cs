@@ -132,13 +132,18 @@ namespace OneAppAway.OneAppAway_XamlTypeInfo
 
         private void InitTypeTables()
         {
+<<<<<<< HEAD
             _typeNameTable = new string[39];
+=======
+            _typeNameTable = new string[37];
+>>>>>>> origin/master
             _typeNameTable[0] = "OneAppAway.ApplicationSettings";
             _typeNameTable[1] = "Windows.UI.Xaml.DependencyObject";
             _typeNameTable[2] = "OneAppAway.BandwidthOptions";
             _typeNameTable[3] = "System.Enum";
             _typeNameTable[4] = "System.ValueType";
             _typeNameTable[5] = "Object";
+<<<<<<< HEAD
             _typeNameTable[6] = "OneAppAway.Converters.ValueConverterGroup";
             _typeNameTable[7] = "System.Collections.Generic.List`1<Windows.UI.Xaml.Data.IValueConverter>";
             _typeNameTable[8] = "Windows.UI.Xaml.Data.IValueConverter";
@@ -150,6 +155,19 @@ namespace OneAppAway.OneAppAway_XamlTypeInfo
             _typeNameTable[14] = "OneAppAway.Converters.LightenColorConverter";
             _typeNameTable[15] = "OneAppAway.Converters.ColorToBrushConverter";
             _typeNameTable[16] = "OneAppAway.Converters.RandomConverter";
+=======
+            _typeNameTable[6] = "OneAppAway.Converters.MaxConverter";
+            _typeNameTable[7] = "OneAppAway.Converters.MinConverter";
+            _typeNameTable[8] = "OneAppAway.Converters.BasicGeopositionToStringConverter";
+            _typeNameTable[9] = "OneAppAway.Converters.BandwidthOptionsRowHeightConverter";
+            _typeNameTable[10] = "OneAppAway.Converters.ValueConverterGroup";
+            _typeNameTable[11] = "System.Collections.Generic.List`1<Windows.UI.Xaml.Data.IValueConverter>";
+            _typeNameTable[12] = "Windows.UI.Xaml.Data.IValueConverter";
+            _typeNameTable[13] = "Int32";
+            _typeNameTable[14] = "OneAppAway.Converters.RandomConverter";
+            _typeNameTable[15] = "OneAppAway.Converters.LightenColorConverter";
+            _typeNameTable[16] = "OneAppAway.Converters.ColorToBrushConverter";
+>>>>>>> origin/master
             _typeNameTable[17] = "OneAppAway.BusArrivalBox";
             _typeNameTable[18] = "Windows.UI.Xaml.Controls.UserControl";
             _typeNameTable[19] = "OneAppAway.BusArrival";
@@ -167,6 +185,7 @@ namespace OneAppAway.OneAppAway_XamlTypeInfo
             _typeNameTable[31] = "OneAppAway.Common.ObservableDictionary";
             _typeNameTable[32] = "OneAppAway.BusMapPage";
             _typeNameTable[33] = "OneAppAway.RouteViewPage";
+<<<<<<< HEAD
             _typeNameTable[34] = "OneAppAway.ScheduleBrowser";
             _typeNameTable[35] = "OneAppAway.StopArrivalsBox";
             _typeNameTable[36] = "OneAppAway.BusStop";
@@ -174,12 +193,20 @@ namespace OneAppAway.OneAppAway_XamlTypeInfo
             _typeNameTable[38] = "OneAppAway.TestPage";
 
             _typeTable = new global::System.Type[39];
+=======
+            _typeNameTable[34] = "OneAppAway.StopArrivalsBox";
+            _typeNameTable[35] = "OneAppAway.BusStop";
+            _typeNameTable[36] = "OneAppAway.StopViewPage";
+
+            _typeTable = new global::System.Type[37];
+>>>>>>> origin/master
             _typeTable[0] = typeof(global::OneAppAway.ApplicationSettings);
             _typeTable[1] = typeof(global::Windows.UI.Xaml.DependencyObject);
             _typeTable[2] = typeof(global::OneAppAway.BandwidthOptions);
             _typeTable[3] = typeof(global::System.Enum);
             _typeTable[4] = typeof(global::System.ValueType);
             _typeTable[5] = typeof(global::System.Object);
+<<<<<<< HEAD
             _typeTable[6] = typeof(global::OneAppAway.Converters.ValueConverterGroup);
             _typeTable[7] = typeof(global::System.Collections.Generic.List<global::Windows.UI.Xaml.Data.IValueConverter>);
             _typeTable[8] = typeof(global::Windows.UI.Xaml.Data.IValueConverter);
@@ -191,6 +218,19 @@ namespace OneAppAway.OneAppAway_XamlTypeInfo
             _typeTable[14] = typeof(global::OneAppAway.Converters.LightenColorConverter);
             _typeTable[15] = typeof(global::OneAppAway.Converters.ColorToBrushConverter);
             _typeTable[16] = typeof(global::OneAppAway.Converters.RandomConverter);
+=======
+            _typeTable[6] = typeof(global::OneAppAway.Converters.MaxConverter);
+            _typeTable[7] = typeof(global::OneAppAway.Converters.MinConverter);
+            _typeTable[8] = typeof(global::OneAppAway.Converters.BasicGeopositionToStringConverter);
+            _typeTable[9] = typeof(global::OneAppAway.Converters.BandwidthOptionsRowHeightConverter);
+            _typeTable[10] = typeof(global::OneAppAway.Converters.ValueConverterGroup);
+            _typeTable[11] = typeof(global::System.Collections.Generic.List<global::Windows.UI.Xaml.Data.IValueConverter>);
+            _typeTable[12] = typeof(global::Windows.UI.Xaml.Data.IValueConverter);
+            _typeTable[13] = typeof(global::System.Int32);
+            _typeTable[14] = typeof(global::OneAppAway.Converters.RandomConverter);
+            _typeTable[15] = typeof(global::OneAppAway.Converters.LightenColorConverter);
+            _typeTable[16] = typeof(global::OneAppAway.Converters.ColorToBrushConverter);
+>>>>>>> origin/master
             _typeTable[17] = typeof(global::OneAppAway.BusArrivalBox);
             _typeTable[18] = typeof(global::Windows.UI.Xaml.Controls.UserControl);
             _typeTable[19] = typeof(global::OneAppAway.BusArrival);
@@ -208,11 +248,17 @@ namespace OneAppAway.OneAppAway_XamlTypeInfo
             _typeTable[31] = typeof(global::OneAppAway.Common.ObservableDictionary);
             _typeTable[32] = typeof(global::OneAppAway.BusMapPage);
             _typeTable[33] = typeof(global::OneAppAway.RouteViewPage);
+<<<<<<< HEAD
             _typeTable[34] = typeof(global::OneAppAway.ScheduleBrowser);
             _typeTable[35] = typeof(global::OneAppAway.StopArrivalsBox);
             _typeTable[36] = typeof(global::OneAppAway.BusStop);
             _typeTable[37] = typeof(global::OneAppAway.StopViewPage);
             _typeTable[38] = typeof(global::OneAppAway.TestPage);
+=======
+            _typeTable[34] = typeof(global::OneAppAway.StopArrivalsBox);
+            _typeTable[35] = typeof(global::OneAppAway.BusStop);
+            _typeTable[36] = typeof(global::OneAppAway.StopViewPage);
+>>>>>>> origin/master
         }
 
         private int LookupTypeIndexByName(string typeName)
@@ -248,6 +294,7 @@ namespace OneAppAway.OneAppAway_XamlTypeInfo
         }
 
         private object Activate_0_ApplicationSettings() { return new global::OneAppAway.ApplicationSettings(); }
+<<<<<<< HEAD
         private object Activate_6_ValueConverterGroup() { return new global::OneAppAway.Converters.ValueConverterGroup(); }
         private object Activate_7_List() { return new global::System.Collections.Generic.List<global::Windows.UI.Xaml.Data.IValueConverter>(); }
         private object Activate_10_MaxConverter() { return new global::OneAppAway.Converters.MaxConverter(); }
@@ -257,6 +304,17 @@ namespace OneAppAway.OneAppAway_XamlTypeInfo
         private object Activate_14_LightenColorConverter() { return new global::OneAppAway.Converters.LightenColorConverter(); }
         private object Activate_15_ColorToBrushConverter() { return new global::OneAppAway.Converters.ColorToBrushConverter(); }
         private object Activate_16_RandomConverter() { return new global::OneAppAway.Converters.RandomConverter(); }
+=======
+        private object Activate_6_MaxConverter() { return new global::OneAppAway.Converters.MaxConverter(); }
+        private object Activate_7_MinConverter() { return new global::OneAppAway.Converters.MinConverter(); }
+        private object Activate_8_BasicGeopositionToStringConverter() { return new global::OneAppAway.Converters.BasicGeopositionToStringConverter(); }
+        private object Activate_9_BandwidthOptionsRowHeightConverter() { return new global::OneAppAway.Converters.BandwidthOptionsRowHeightConverter(); }
+        private object Activate_10_ValueConverterGroup() { return new global::OneAppAway.Converters.ValueConverterGroup(); }
+        private object Activate_11_List() { return new global::System.Collections.Generic.List<global::Windows.UI.Xaml.Data.IValueConverter>(); }
+        private object Activate_14_RandomConverter() { return new global::OneAppAway.Converters.RandomConverter(); }
+        private object Activate_15_LightenColorConverter() { return new global::OneAppAway.Converters.LightenColorConverter(); }
+        private object Activate_16_ColorToBrushConverter() { return new global::OneAppAway.Converters.ColorToBrushConverter(); }
+>>>>>>> origin/master
         private object Activate_17_BusArrivalBox() { return new global::OneAppAway.BusArrivalBox(); }
         private object Activate_21_MultiStopArrivalsBox() { return new global::OneAppAway.MultiStopArrivalsBox(); }
         private object Activate_23_BusMap() { return new global::OneAppAway.BusMap(); }
@@ -265,17 +323,27 @@ namespace OneAppAway.OneAppAway_XamlTypeInfo
         private object Activate_31_ObservableDictionary() { return new global::OneAppAway.Common.ObservableDictionary(); }
         private object Activate_32_BusMapPage() { return new global::OneAppAway.BusMapPage(); }
         private object Activate_33_RouteViewPage() { return new global::OneAppAway.RouteViewPage(); }
+<<<<<<< HEAD
         private object Activate_34_ScheduleBrowser() { return new global::OneAppAway.ScheduleBrowser(); }
         private object Activate_35_StopArrivalsBox() { return new global::OneAppAway.StopArrivalsBox(); }
         private object Activate_37_StopViewPage() { return new global::OneAppAway.StopViewPage(); }
         private object Activate_38_TestPage() { return new global::OneAppAway.TestPage(); }
         private void VectorAdd_6_ValueConverterGroup(object instance, object item)
+=======
+        private object Activate_34_StopArrivalsBox() { return new global::OneAppAway.StopArrivalsBox(); }
+        private object Activate_36_StopViewPage() { return new global::OneAppAway.StopViewPage(); }
+        private void VectorAdd_10_ValueConverterGroup(object instance, object item)
+>>>>>>> origin/master
         {
             var collection = (global::System.Collections.Generic.ICollection<global::Windows.UI.Xaml.Data.IValueConverter>)instance;
             var newItem = (global::Windows.UI.Xaml.Data.IValueConverter)item;
             collection.Add(newItem);
         }
+<<<<<<< HEAD
         private void VectorAdd_7_List(object instance, object item)
+=======
+        private void VectorAdd_11_List(object instance, object item)
+>>>>>>> origin/master
         {
             var collection = (global::System.Collections.Generic.ICollection<global::Windows.UI.Xaml.Data.IValueConverter>)instance;
             var newItem = (global::Windows.UI.Xaml.Data.IValueConverter)item;
@@ -341,14 +409,21 @@ namespace OneAppAway.OneAppAway_XamlTypeInfo
                 xamlType = new global::OneAppAway.OneAppAway_XamlTypeInfo.XamlSystemBaseType(typeName, type);
                 break;
 
+<<<<<<< HEAD
             case 6:   //  OneAppAway.Converters.ValueConverterGroup
                 userType = new global::OneAppAway.OneAppAway_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("System.Collections.Generic.List`1<Windows.UI.Xaml.Data.IValueConverter>"));
                 userType.Activator = Activate_6_ValueConverterGroup;
                 userType.CollectionAdd = VectorAdd_6_ValueConverterGroup;
+=======
+            case 6:   //  OneAppAway.Converters.MaxConverter
+                userType = new global::OneAppAway.OneAppAway_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Object"));
+                userType.Activator = Activate_6_MaxConverter;
+>>>>>>> origin/master
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
+<<<<<<< HEAD
             case 7:   //  System.Collections.Generic.List`1<Windows.UI.Xaml.Data.IValueConverter>
                 userType = new global::OneAppAway.OneAppAway_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Object"));
                 userType.Activator = Activate_7_List;
@@ -369,24 +444,50 @@ namespace OneAppAway.OneAppAway_XamlTypeInfo
             case 10:   //  OneAppAway.Converters.MaxConverter
                 userType = new global::OneAppAway.OneAppAway_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Object"));
                 userType.Activator = Activate_10_MaxConverter;
+=======
+            case 7:   //  OneAppAway.Converters.MinConverter
+                userType = new global::OneAppAway.OneAppAway_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Object"));
+                userType.Activator = Activate_7_MinConverter;
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
+            case 8:   //  OneAppAway.Converters.BasicGeopositionToStringConverter
+                userType = new global::OneAppAway.OneAppAway_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Object"));
+                userType.Activator = Activate_8_BasicGeopositionToStringConverter;
+>>>>>>> origin/master
+                userType.SetIsLocalType();
+                xamlType = userType;
+                break;
+
+<<<<<<< HEAD
             case 11:   //  OneAppAway.Converters.MinConverter
                 userType = new global::OneAppAway.OneAppAway_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Object"));
                 userType.Activator = Activate_11_MinConverter;
+=======
+            case 9:   //  OneAppAway.Converters.BandwidthOptionsRowHeightConverter
+                userType = new global::OneAppAway.OneAppAway_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Object"));
+                userType.Activator = Activate_9_BandwidthOptionsRowHeightConverter;
+>>>>>>> origin/master
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
+<<<<<<< HEAD
             case 12:   //  OneAppAway.Converters.BasicGeopositionToStringConverter
                 userType = new global::OneAppAway.OneAppAway_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Object"));
                 userType.Activator = Activate_12_BasicGeopositionToStringConverter;
+=======
+            case 10:   //  OneAppAway.Converters.ValueConverterGroup
+                userType = new global::OneAppAway.OneAppAway_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("System.Collections.Generic.List`1<Windows.UI.Xaml.Data.IValueConverter>"));
+                userType.Activator = Activate_10_ValueConverterGroup;
+                userType.CollectionAdd = VectorAdd_10_ValueConverterGroup;
+>>>>>>> origin/master
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
+<<<<<<< HEAD
             case 13:   //  OneAppAway.Converters.BandwidthOptionsRowHeightConverter
                 userType = new global::OneAppAway.OneAppAway_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Object"));
                 userType.Activator = Activate_13_BandwidthOptionsRowHeightConverter;
@@ -397,20 +498,54 @@ namespace OneAppAway.OneAppAway_XamlTypeInfo
             case 14:   //  OneAppAway.Converters.LightenColorConverter
                 userType = new global::OneAppAway.OneAppAway_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Object"));
                 userType.Activator = Activate_14_LightenColorConverter;
+=======
+            case 11:   //  System.Collections.Generic.List`1<Windows.UI.Xaml.Data.IValueConverter>
+                userType = new global::OneAppAway.OneAppAway_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Object"));
+                userType.Activator = Activate_11_List;
+                userType.CollectionAdd = VectorAdd_11_List;
+                userType.AddMemberName("Capacity");
+                userType.AddMemberName("Count");
+                xamlType = userType;
+                break;
+
+            case 12:   //  Windows.UI.Xaml.Data.IValueConverter
+                xamlType = new global::OneAppAway.OneAppAway_XamlTypeInfo.XamlSystemBaseType(typeName, type);
+                break;
+
+            case 13:   //  Int32
+                xamlType = new global::OneAppAway.OneAppAway_XamlTypeInfo.XamlSystemBaseType(typeName, type);
+                break;
+
+            case 14:   //  OneAppAway.Converters.RandomConverter
+                userType = new global::OneAppAway.OneAppAway_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Object"));
+                userType.Activator = Activate_14_RandomConverter;
+>>>>>>> origin/master
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
+<<<<<<< HEAD
             case 15:   //  OneAppAway.Converters.ColorToBrushConverter
                 userType = new global::OneAppAway.OneAppAway_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Object"));
                 userType.Activator = Activate_15_ColorToBrushConverter;
+=======
+            case 15:   //  OneAppAway.Converters.LightenColorConverter
+                userType = new global::OneAppAway.OneAppAway_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Object"));
+                userType.Activator = Activate_15_LightenColorConverter;
+>>>>>>> origin/master
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
+<<<<<<< HEAD
             case 16:   //  OneAppAway.Converters.RandomConverter
                 userType = new global::OneAppAway.OneAppAway_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Object"));
                 userType.Activator = Activate_16_RandomConverter;
+=======
+            case 16:   //  OneAppAway.Converters.ColorToBrushConverter
+                userType = new global::OneAppAway.OneAppAway_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Object"));
+                userType.Activator = Activate_16_ColorToBrushConverter;
+>>>>>>> origin/master
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
@@ -534,6 +669,7 @@ namespace OneAppAway.OneAppAway_XamlTypeInfo
                 xamlType = userType;
                 break;
 
+<<<<<<< HEAD
             case 34:   //  OneAppAway.ScheduleBrowser
                 userType = new global::OneAppAway.OneAppAway_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.UserControl"));
                 userType.Activator = Activate_34_ScheduleBrowser;
@@ -544,18 +680,28 @@ namespace OneAppAway.OneAppAway_XamlTypeInfo
             case 35:   //  OneAppAway.StopArrivalsBox
                 userType = new global::OneAppAway.OneAppAway_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.UserControl"));
                 userType.Activator = Activate_35_StopArrivalsBox;
+=======
+            case 34:   //  OneAppAway.StopArrivalsBox
+                userType = new global::OneAppAway.OneAppAway_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.UserControl"));
+                userType.Activator = Activate_34_StopArrivalsBox;
+>>>>>>> origin/master
                 userType.AddMemberName("Stop");
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
+<<<<<<< HEAD
             case 36:   //  OneAppAway.BusStop
+=======
+            case 35:   //  OneAppAway.BusStop
+>>>>>>> origin/master
                 userType = new global::OneAppAway.OneAppAway_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("System.ValueType"));
                 userType.SetIsReturnTypeStub();
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
+<<<<<<< HEAD
             case 37:   //  OneAppAway.StopViewPage
                 userType = new global::OneAppAway.OneAppAway_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("OneAppAway.NavigationFriendlyPage"));
                 userType.Activator = Activate_37_StopViewPage;
@@ -566,6 +712,11 @@ namespace OneAppAway.OneAppAway_XamlTypeInfo
             case 38:   //  OneAppAway.TestPage
                 userType = new global::OneAppAway.OneAppAway_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("OneAppAway.NavigationFriendlyPage"));
                 userType.Activator = Activate_38_TestPage;
+=======
+            case 36:   //  OneAppAway.StopViewPage
+                userType = new global::OneAppAway.OneAppAway_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("OneAppAway.NavigationFriendlyPage"));
+                userType.Activator = Activate_36_StopViewPage;
+>>>>>>> origin/master
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;

@@ -20,7 +20,11 @@
     <AppXManifest Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+<<<<<<< HEAD
       <Modified>2015-07-20T23:10:50.147</Modified>
+=======
+      <Modified>2015-07-20T00:02:54.585</Modified>
+>>>>>>> origin/master
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
@@ -222,11 +226,19 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\OneAppAway.exe">
       <PackagePath>OneAppAway.exe</PackagePath>
+<<<<<<< HEAD
       <Modified>2015-07-20T23:10:49.627</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\OneAppAway.xr.xml">
       <PackagePath>OneAppAway.xr.xml</PackagePath>
       <Modified>2015-07-20T23:10:48.999</Modified>
+=======
+      <Modified>2015-07-20T00:02:53.601</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\OneAppAway.xr.xml">
+      <PackagePath>OneAppAway.xr.xml</PackagePath>
+      <Modified>2015-07-19T21:48:37.362</Modified>
+>>>>>>> origin/master
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\Properties\Default.rd.xml">
       <PackagePath>Properties\Default.rd.xml</PackagePath>
@@ -234,7 +246,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\resources.pri">
       <PackagePath>resources.pri</PackagePath>
+<<<<<<< HEAD
       <Modified>2015-07-20T23:10:51.455</Modified>
+=======
+      <Modified>2015-07-20T00:02:55.679</Modified>
+>>>>>>> origin/master
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\System.AppContext.dll">
       <PackagePath>System.AppContext.dll</PackagePath>

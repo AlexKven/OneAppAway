@@ -332,6 +332,7 @@ C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\obj\x86\Deb
 C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\obj\x86\Debug\AppLocalNetFXResources\priconfig.netfx.xml
 C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\OneAppAway.csproj.AppLocalNetFX.GenerateResource.Cache
 C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\obj\x86\Debug\OneAppAway.csprojResolveAssemblyReference.cache
+<<<<<<< HEAD
 C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\ScheduleBrowser.xbf
 C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\obj\x86\Debug\ScheduleBrowser.g.i.cs
 C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\obj\x86\Debug\ScheduleBrowser.g.cs
@@ -342,3 +343,13 @@ C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\obj\x86\Deb
 C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\obj\x86\Debug\TestPage.g.cs
 C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\obj\x86\Debug\TestPage.xaml
 C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\obj\x86\Debug\TestPage.xbf
+=======
+C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\obj\x86\Debug\Microsoft.Diagnostics.Tracing.EventSource\layout.resfiles
+C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\obj\x86\Debug\Microsoft.Diagnostics.Tracing.EventSource\layout.resfiles.intermediate
+C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\obj\x86\Debug\Microsoft.Diagnostics.Tracing.EventSource\Resources.resfiles
+C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\obj\x86\Debug\Microsoft.Diagnostics.Tracing.EventSource\Resources.resfiles.intermediate
+C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\obj\x86\Debug\Microsoft.Diagnostics.Tracing.EventSource\pri.resfiles
+C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\obj\x86\Debug\Microsoft.Diagnostics.Tracing.EventSource\pri.resfiles.intermediate
+C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\obj\x86\Debug\Microsoft.Diagnostics.Tracing.EventSource\priconfig.xml
+C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\obj\x86\Debug\Microsoft.Diagnostics.Tracing.EventSource\priconfig.xml.intermediate
+>>>>>>> origin/master
