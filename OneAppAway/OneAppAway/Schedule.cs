@@ -38,6 +38,7 @@ namespace OneAppAway
 
         public void AddServiceDay(ServiceDay day, DaySchedule schedule)
         {
+            if (schedule.IsEmpty) return;
             for (int i = 0; i < Days.Count; i++)
             {
                 if (DaySchedules[i].IsIdenticalTo(schedule))
@@ -80,6 +81,11 @@ namespace OneAppAway
         public DaySchedule(string stop)
         {
             Stop = stop;
+        }
+
+        public bool IsEmpty
+        {
+            get { return Data == null || Data.Length == 0; }
         }
 
         public void LoadFromVerboseString(string str)

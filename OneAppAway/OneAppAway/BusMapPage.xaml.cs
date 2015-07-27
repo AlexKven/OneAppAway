@@ -17,6 +17,7 @@ using Windows.Storage.Pickers;
 using System.IO;
 using System.Xml.Linq;
 using System.Text;
+using System.Diagnostics;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -38,6 +39,7 @@ namespace OneAppAway
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
+            WindowStateChanging();
         }
 
         private async void Button_Click(object sender, RoutedEventArgs e)
@@ -87,21 +89,18 @@ namespace OneAppAway
 
         public async void CenterOnCurrentLocation()
         {
-            LoadingIndicator.IsIndeterminate = true;
-            LoadingIndicator.Visibility = Visibility.Visible;
+            await SetLoadingIndicator(true);
             await Data.ProgressivelyAcquireLocation(async delegate (BasicGeoposition pos)
             {
                 await MainMap.TrySetViewAsync(new Geopoint(pos), 17, null, null, MapAnimationKind.Linear);
             });
-            LoadingIndicator.Visibility = Visibility.Collapsed;
-            LoadingIndicator.IsIndeterminate = false;
+            await SetLoadingIndicator(false);
         }
 
         private void MainBusMap_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             //if (e.PropertyName == "ZoomLevel")
             //    MainBusMap.UnOverlapIcons();
-            //Debug.WriteLine(MainBusMap.LatitudePerPixel / MainBusMap.LongitudePerPixel);
         }
 
         private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -524,7 +523,12 @@ namespace OneAppAway
 
         private void WindowSizeVisualStates_CurrentStateChanging(object sender, VisualStateChangedEventArgs e)
         {
-            if (e.NewState.Name == "NarrowState")
+            WindowStateChanging();
+        }
+
+        private void WindowStateChanging()
+        {
+            if (WindowSizeVisualStates.CurrentState.Name == "NarrowState")
             {
                 if (StopArrivalGrid.Children.Contains(StopArrivalBox))
                     StopArrivalGrid.Children.Remove(StopArrivalBox);
@@ -533,7 +537,7 @@ namespace OneAppAway
                 StopArrivalBox.Width = double.NaN;
                 StopArrivalBox.Height = double.NaN;
             }
-            else if (e.NewState.Name == "NormalState")
+            else if (WindowSizeVisualStates.CurrentState.Name == "NormalState")
             {
                 if (MainGrid.Children.Contains(StopArrivalBox))
                     MainGrid.Children.Remove(StopArrivalBox);
@@ -589,6 +593,24 @@ namespace OneAppAway
             else if (navigationParameter?.ToString() == "CurrentLocation")
             {
                 CenterOnCurrentLocation();
+
+            }
+        }
+
+        private async Task SetLoadingIndicator(bool value)
+        {
+            if (Windows.Foundation.Metadata.ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar"))
+            {
+                var bar = StatusBar.GetForCurrentView();
+                if (value)
+                    await bar.ProgressIndicator.ShowAsync();
+                else
+                    await bar.ProgressIndicator.HideAsync();
+            }
+            else
+            {
+                LoadingIndicator.IsIndeterminate = value;
+                LoadingIndicator.Visibility = value ? Visibility.Visible : Visibility.Collapsed;
             }
         }
     }

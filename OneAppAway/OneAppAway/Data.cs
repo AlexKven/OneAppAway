@@ -16,34 +16,6 @@ namespace OneAppAway
         public const double MAX_LAT_RANGE = 0.01;
         public const double MAX_LON_RANGE = 0.015;
 
-        private static Dictionary<string, BusStop> CachedStops = new Dictionary<string, BusStop>();
-        private static Dictionary<string, BusRoute> CachedRoutes = new Dictionary<string, BusRoute>();
-        private static Dictionary<string, TransitAgency> CachedTransitAgencies = new Dictionary<string, TransitAgency>();
-
-        public static async Task<BusRoute> GetRoute(string id)
-        {
-            if (CachedRoutes.Keys.Contains(id))
-                return CachedRoutes[id];
-            CachedRoutes.Add(id, await ApiLayer.GetBusRoute(id));
-            return await GetRoute(id);
-        }
-
-        public static async Task<BusStop> GetBusStop(string id)
-        {
-            if (CachedStops.ContainsKey(id))
-                return CachedStops[id];
-            CachedStops.Add(id, await ApiLayer.GetBusStop(id));
-            return await GetBusStop(id);
-        }
-
-        public static async Task<TransitAgency> GetTransitAgency(string id)
-        {
-            if (CachedTransitAgencies.Keys.Contains(id))
-                return CachedTransitAgencies[id];
-            CachedTransitAgencies.Add(id, await ApiLayer.GetTransitAgency(id));
-            return await GetTransitAgency(id);
-        }
-
         public static async Task<BusStop[]> GetBusStopsForArea(GeoboundingBox bounds, Action<BusStop[], GeoboundingBox> stopsLoadedCallback, CancellationToken cancellationToken)
         {
             List<BusStop> totalFoundStops = new List<BusStop>();
@@ -73,6 +45,60 @@ namespace OneAppAway
             return totalFoundStops.ToArray();
         }
 
+        public static async Task<WeekSchedule> GetScheduleForStop(string id)
+        {
+            WeekSchedule result = new WeekSchedule();
+            for (int i = 0; i < 7; i++)
+            {
+                DaySchedule daySched = new DaySchedule();
+                daySched.LoadFromVerboseString(await ApiLayer.SendRequest("schedule-for-stop/" + id, new Dictionary<string, string>() {["date"] = "2015-07-" + (13 + i).ToString() }));
+                ServiceDay day = (ServiceDay)(int)Math.Pow(2, i);
+                result.AddServiceDay(day, daySched);
+                if (i == 0)
+                    result.AddServiceDay(ServiceDay.ReducedWeekday, daySched);
+            }
+            return result;
+        }
+
+        #region Cached Objects
+        private static Dictionary<string, BusStop> CachedStops = new Dictionary<string, BusStop>();
+        private static Dictionary<string, BusRoute> CachedRoutes = new Dictionary<string, BusRoute>();
+        private static Dictionary<string, TransitAgency> CachedTransitAgencies = new Dictionary<string, TransitAgency>();
+        #endregion
+
+        #region Get Objects By ID
+        public static async Task<BusStop> GetBusStop(string id)
+        {
+            if (CachedStops.ContainsKey(id))
+                return CachedStops[id];
+            var result = await ApiLayer.GetBusStop(id);
+            if (CachedStops.ContainsKey(id))
+                CachedStops.Add(id, result);
+            return result;
+        }
+
+        public static async Task<TransitAgency> GetTransitAgency(string id)
+        {
+            if (CachedTransitAgencies.ContainsKey(id))
+                return CachedTransitAgencies[id];
+            var result = await ApiLayer.GetTransitAgency(id);
+            if (!CachedTransitAgencies.ContainsKey(id))
+                CachedTransitAgencies.Add(id, result);
+            return result;
+        }
+
+        public static async Task<BusRoute> GetRoute(string id)
+        {
+            if (CachedRoutes.ContainsKey(id))
+                return CachedRoutes[id];
+            var result = await ApiLayer.GetBusRoute(id);
+            if (!CachedRoutes.ContainsKey(id))
+                CachedRoutes.Add(id, result);
+            return result;
+        }
+        #endregion
+
+        #region Location
         public static async Task<BasicGeoposition?> GetCurrentLocation(PositionAccuracy acc)
         {
             var loc = new Geolocator();
@@ -104,5 +130,6 @@ namespace OneAppAway
             if (loc != null)
                 OnLocationFound(loc.Value);
         }
+        #endregion
     }
 }

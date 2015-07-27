@@ -123,6 +123,7 @@
       <RootProperty Name="MaxHeight" />
       <RootProperty Name="TextTrimming" />
       <RootProperty Name="Inlines" />
+      <RootProperty Name="FontWeight" />
       <RootProperty Name="Text" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Data.Binding">
@@ -237,6 +238,10 @@
       <RootProperty Name="VerticalScrollBarVisibility" />
       <RootProperty Name="Content" />
     </RootType>
+    <RootType FullName="OneAppAway.ScrollViewerSnapping">
+      <RootMethod Name="GetSnapInterval" />
+      <RootMethod Name="SetSnapInterval" />
+    </RootType>
     <RootType FullName="Windows.UI.Xaml.Shapes.Polygon">
       <RootProperty Name="Points" />
       <RootProperty Name="Fill" />
@@ -244,8 +249,29 @@
       <RootProperty Name="HorizontalAlignment" />
     </RootType>
     <RootType FullName="OneAppAway.RouteViewPage" />
-    <RootType FullName="Windows.UI.Xaml.Controls.ListView" />
-    <RootType FullName="OneAppAway.ScheduleBrowser" />
+    <RootType FullName="Windows.UI.Xaml.Controls.ItemsControl">
+      <RootProperty Name="ItemsPanel" />
+      <RootProperty Name="ItemTemplate" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.Control">
+      <RootProperty Name="Background" />
+      <RootProperty Name="Template" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Setter">
+      <RootProperty Name="Property" />
+      <RootProperty Name="Value" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.ItemsPanelTemplate">
+      <RootProperty Name="Template" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.WrapGrid">
+      <RootProperty Name="ItemWidth" />
+      <RootProperty Name="Orientation" />
+    </RootType>
+    <RootType FullName="OneAppAway.ScheduleBrowser">
+      <RootProperty Name="HorizontalAlignment" />
+      <RootProperty Name="Width" />
+    </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.ProgressRing">
       <RootProperty Name="HorizontalAlignment" />
       <RootProperty Name="VerticalAlignment" />
@@ -285,10 +311,8 @@
       <RootProperty Name="HorizontalAlignment" />
       <RootProperty Name="VerticalAlignment" />
       <RootProperty Name="SelectedIndex" />
+      <RootProperty Name="IsEnabled" />
       <RootProperty Name="Items" />
-    </RootType>
-    <RootType FullName="Windows.UI.Xaml.Controls.ItemsControl">
-      <RootProperty Name="ItemTemplate" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.DataTemplate">
       <RootProperty Name="Template" />

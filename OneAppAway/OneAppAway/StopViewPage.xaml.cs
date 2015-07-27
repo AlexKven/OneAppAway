@@ -30,10 +30,9 @@ namespace OneAppAway
     {
         public StopViewPage()
         {
+            this.NavigationCacheMode = NavigationCacheMode.Disabled;
             this.InitializeComponent();
             MainMap.MapServiceToken = Keys.BingMapKey; //Comment out if you don't have Keys.cs
-            RoutesToggle.IsChecked = true;
-            ArrivalsToggle.IsChecked = true;
         }
 
         private double? lonPP;
@@ -44,7 +43,18 @@ namespace OneAppAway
             if (e.Parameter != null && e.Parameter is string)
             {
                 SetPage((string)e.Parameter);
+                RoutesToggle.IsChecked = SettingsManager.GetSetting<bool>("StopViewPage.RoutesToggleChecked", false, true);
+                ArrivalsToggle.IsChecked = SettingsManager.GetSetting<bool>("StopViewPage.ArrivalsToggleChecked", false, true);
+                ScheduleToggle.IsChecked = SettingsManager.GetSetting<bool>("StopViewPage.ScheduleToggleChecked", false, false);
             }
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom(e);
+            SettingsManager.SetSetting<bool>("StopViewPage.RoutesToggleChecked", false, RoutesToggle.IsChecked.Value);
+            SettingsManager.SetSetting<bool>("StopViewPage.ArrivalsToggleChecked", false, ArrivalsToggle.IsChecked.Value);
+            SettingsManager.SetSetting<bool>("StopViewPage.ScheduleToggleChecked", false, ScheduleToggle.IsChecked.Value);
         }
 
         private async void SetPage(string stopId)
@@ -63,7 +73,8 @@ namespace OneAppAway
 #pragma warning disable CS4014
             RefreshRoutes();
             RefreshArrivals();
-            GetSchedule();
+            if (ScheduleToggle.IsChecked.Value && LoadSchedulesButton.Visibility == Visibility.Visible && BandwidthManager.EffectiveBandwidthOptions == BandwidthOptions.Normal)
+                GetSchedule();
 #pragma warning restore CS4014
             SetMapCenter();
         }
@@ -91,7 +102,7 @@ namespace OneAppAway
 
         private void SetInnerGridSize()
         {
-            InnerGrid.MinWidth = InnerGrid.ColumnDefinitions.Where(cd => cd.Width.IsStar).Count() * 300 + 200;
+            InnerGrid.MinWidth = InnerGrid.ColumnDefinitions.Where(cd => cd.Width.IsStar).Count() * 285 + 200;
             if (MainGrid.ActualWidth > 0)
             {
                 InnerGrid.Width = MainGrid.ActualWidth;
@@ -126,20 +137,33 @@ namespace OneAppAway
 
         private async Task GetSchedule()
         {
-            Schedule = new WeekSchedule();
-            for (int i = 0; i < 7; i++)
+            ScheduleProgressIndicator.IsActive = true;
+            LoadSchedulesButton.Visibility = Visibility.Collapsed;
+            Schedule = await Data.GetScheduleForStop(Stop.ID);
+            DayScheduleSelector.Items.Clear();
+            DayScheduleSelector.SelectedIndex = -1;
+            foreach (var day in Schedule.DayGroups)
             {
-                DaySchedule daySched = new DaySchedule();
-                daySched.LoadFromVerboseString(await ApiLayer.SendRequest("schedule-for-stop/" + Stop.ID, new Dictionary<string, string>() {["date"] = "2015-07-" + (13 + i).ToString() }));
-                ServiceDay day = (ServiceDay)(int)Math.Pow(2, i);
-                Schedule.AddServiceDay(day, daySched);
-                if (i == 0)
-                    Schedule.AddServiceDay(ServiceDay.ReducedWeekday, daySched);
+                DayScheduleSelector.Items.Add(new ComboBoxItem() { Content = day.GetFriendlyName(), Tag = day });
             }
-            foreach (var item in Schedule[ServiceDay.Weekdays])
+            if (DayScheduleSelector.Items.Count == 0)
             {
-                ScheduledArrivalsPanel.Children.Add(new TextBlock() { Text = item.ScheduledArrivalTime.ToString("h:mm") + " to " + item.Destination, FontWeight = item.ScheduledArrivalTime.Hour >= 12 ? Windows.UI.Text.FontWeights.Bold : Windows.UI.Text.FontWeights.Normal });
+                DayScheduleSelector.IsEnabled = false;
+                DayScheduleSelector.Items.Add("No Schedules Available");
+                DayScheduleSelector.SelectedIndex = 0;
             }
+            else
+            {
+                DayScheduleSelector.IsEnabled = true;
+                DayScheduleSelector.SelectionChanged += DayScheduleSelector_SelectionChanged;
+                DayScheduleSelector.SelectedIndex = 0;
+            }
+            ScheduleProgressIndicator.IsActive = false;
+        }
+
+        private void DayScheduleSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            MainScheduleBrowser.Schedule = Schedule[(ServiceDay)((ComboBoxItem)DayScheduleSelector.SelectedItem).Tag];
         }
 
         private WeekSchedule Schedule;
@@ -151,7 +175,7 @@ namespace OneAppAway
             foreach (string rte in Stop.Routes)
             {
                 BusRoute route = await Data.GetRoute(rte);
-                RoutesControl.Items.Add(new { Name = route.Name, Description = route.Description, Agency = (await Data.GetTransitAgency(route.Agency)).Name });
+                RoutesControl.Items.Add(new { Name = route.Name, Description = route.Description, Agency = (await Data.GetTransitAgency(route.Agency)).Name, RouteId = route.ID });
             }
             RoutesProgressIndicator.IsActive = false;
         }
@@ -175,6 +199,16 @@ namespace OneAppAway
                 ArrivalsToggle.IsChecked = true;
             else
                 SetColumns();
+        }
+
+        private async void LoadSchedulesButton_Click(object sender, RoutedEventArgs e)
+        {
+            await GetSchedule();
+        }
+
+        private void RouteButton_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(RouteViewPage), ((Button)sender).Tag.ToString());
         }
     }
 }

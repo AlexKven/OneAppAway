@@ -36,14 +36,14 @@
                 </VisualState>
             </VisualStateGroup>
             <VisualStateGroup x:ConnectionId='4' x:Name="WindowSizeVisualStates"                                                                   >
-                <VisualState x:ConnectionId='5' x:Name="NarrowState">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="1"/>
-                    </VisualState.StateTriggers>
-                </VisualState>
-                <VisualState x:ConnectionId='6' x:Name="NormalState">
+                <VisualState x:ConnectionId='5' x:Name="NormalState">
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="400"/>
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:ConnectionId='6' x:Name="NarrowState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1"/>
                     </VisualState.StateTriggers>
                 </VisualState>
             </VisualStateGroup>
@@ -52,11 +52,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
-<<<<<<< HEAD
         <Maps:MapControl x:ConnectionId='9' Grid.RowSpan="2" TransitFeaturesVisible="False" PedestrianFeaturesVisible="True" TiltInteractionMode="Disabled"                                                                                                                                                               RotateInteractionMode="Disabled" x:Name="MainMap"                                                   >
-=======
-        <Maps:MapControl x:ConnectionId='9' Grid.RowSpan="2" TransitFeaturesVisible="False" PedestrianFeaturesVisible="True" TiltInteractionMode="Disabled"                                                                                                                                                               RotateInteractionMode="Disabled" x:Name="MainMap" MapServiceToken="s5030Pi5RRfQpmN9G31Y~Av27qRni0nZtyuLdCWdmgw~AroE4QWDxcQzLO1BLE1Dsm9t_hi6TG9z-8Kxr6v5D01QZFP4BacIgGWRRnuYcRJM"                                                   >
->>>>>>> origin/master
             <Grid x:ConnectionId='12' x:Name="StopArrivalGrid" Visibility="Collapsed" Maps:MapControl.NormalizedAnchorPoint="0.5, 1" Width="350" Height="450">
                 <local:MultiStopArrivalsBox x:ConnectionId='13' x:Name="StopArrivalBox"                                                Opacity="0">
                     <local:MultiStopArrivalsBox.RenderTransform>

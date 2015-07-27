@@ -96,11 +96,9 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="ApplicationSettings.cs" />
+    <Compile Include="BandwidthManager.cs" />
     <Compile Include="BusArrivalBox.xaml.cs">
       <DependentUpon>BusArrivalBox.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="BusMap.xaml.cs">
-      <DependentUpon>BusMap.xaml</DependentUpon>
     </Compile>
     <Compile Include="ComboBoxIconAndText.cs" />
     <Compile Include="Common\NavigationFriendlyPage.cs" />
@@ -134,6 +132,7 @@
       <DependentUpon>ScheduleBrowser.xaml</DependentUpon>
     </Compile>
     <Compile Include="SettingsManager.cs" />
+    <Compile Include="ScrollViewerSnapping.cs" />
     <Compile Include="StopArrivalsBox.xaml.cs">
       <DependentUpon>StopArrivalsBox.xaml</DependentUpon>
     </Compile>
@@ -206,10 +205,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="BusMap.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="HamburgerBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -266,8 +261,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <SDKReference Include="WindowsMobile, Version=10.0.0.1">
-      <Name>Microsoft Mobile Extension SDK for Universal App Platform</Name>
+    <SDKReference Include="WindowsDesktop, Version=10.0.10166.0">
+      <Name>Windows Desktop Extensions for the UWP</Name>
+    </SDKReference>
+    <SDKReference Include="WindowsMobile, Version=10.0.10166.0">
+      <Name>Windows Mobile Extensions for the UWP</Name>
     </SDKReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

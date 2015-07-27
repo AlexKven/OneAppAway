@@ -17,7 +17,7 @@ namespace OneAppAway
         public static async Task<string> SendRequest(string compactRequest, Dictionary<string, string> parameters, CancellationToken cancellationToken)
         {
             HttpClient client = new HttpClient();
-            var resp = await client.SendAsync(new HttpRequestMessage(HttpMethod.Get, "http://api.pugetsound.onebusaway.org/api/where/" + compactRequest + ".xml?key=TEST" + parameters?.Aggregate("", (acc, item) => acc + "&" + item.Key + "=" + item.Value) ?? ""), cancellationToken);
+            var resp = await client.SendAsync(new HttpRequestMessage(HttpMethod.Get, "http://api.pugetsound.onebusaway.org/api/where/" + compactRequest + ".xml?key=" + Keys.ObaKey + parameters?.Aggregate("", (acc, item) => acc + "&" + item.Key + "=" + item.Value) ?? ""), cancellationToken);
             if (cancellationToken.IsCancellationRequested) return null;
             return await resp.Content.ReadAsStringAsync();
         }
@@ -58,7 +58,6 @@ namespace OneAppAway
             }
 
             XElement elRoutes = el.Element("references").Element("routes");
-            Debug.WriteLine(result.Count);
             return result.ToArray();
         }
 
@@ -145,6 +144,45 @@ namespace OneAppAway
             string agencyName = el.Element("name")?.Value;
             string agencyUrl = el.Element("url")?.Value;
             return new TransitAgency() { Id = id, Name = agencyName, Url = agencyUrl};
+        }
+
+        public static async Task<BusTrip[]> GetTripsForRoute(string route)
+        {
+            List<string> tripIds = new List<string>();
+
+            StringReader reader = new StringReader(await SendRequest("trips-for-route/" + route, null));
+            XDocument xDoc = XDocument.Load(reader);
+
+            foreach (var el in xDoc.Element("response").Element("data").Element("list").Elements("tripDetails"))
+            {
+                tripIds.Add(el.Element("tripId")?.Value);
+            }
+
+            List<BusTrip> result = new List<BusTrip>();
+
+            foreach (var tripId in tripIds)
+            {
+                reader = new StringReader(await SendRequest("trip/" + tripId, null));
+                xDoc = XDocument.Load(reader);
+                var el = xDoc.Element("response").Element("data").Element("entry");
+                string shapeId = el.Element("shapeId")?.Value;
+                string routeId = el.Element("routeId")?.Value;
+                string destination = el.Element("tripHeadsign")?.Value;
+                if (routeId == route)
+                    result.Add(new BusTrip() { Route = routeId, Shape = shapeId, Destination = destination });
+            }
+
+            return result.ToArray();
+        }
+
+        public static async Task<string> GetShape(string id)
+        {
+            StringReader reader = new StringReader(await SendRequest("shape/" + id, null));
+
+            XDocument xDoc = XDocument.Load(reader);
+
+            XElement el = xDoc.Element("response").Element("data").Element("entry");
+            return el.Element("points")?.Value;
         }
     }
 }

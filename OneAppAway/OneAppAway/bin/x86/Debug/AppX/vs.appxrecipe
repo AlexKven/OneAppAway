@@ -8,7 +8,7 @@
     <PackageArchitecture>x86</PackageArchitecture>
     <PackageIdentityName>47218a89-641f-4f6d-a5ac-82974e618780</PackageIdentityName>
     <IntermediateOutputPath>C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\obj\x86\Debug\</IntermediateOutputPath>
-    <RegisteredManifestChecksum>8E480BDF038DFEFD250D0A6246C27DED0B56675AF7ADE7F834C168F556D18BF6</RegisteredManifestChecksum>
+    <RegisteredManifestChecksum>1E358B4D7E78AF2D9A0CD2B8EA642B211F5EF46D1F3007BC8CF567A5F9592AEE</RegisteredManifestChecksum>
     <RegisteredPackageMoniker>47218a89-641f-4f6d-a5ac-82974e618780_1.0.0.0_x86__1fadp56eckdn0</RegisteredPackageMoniker>
     <RegisteredUserModeAppID>47218a89-641f-4f6d-a5ac-82974e618780_1fadp56eckdn0!App</RegisteredUserModeAppID>
     <RegisteredPackageID>47218a89-641f-4f6d-a5ac-82974e618780</RegisteredPackageID>
@@ -20,17 +20,13 @@
     <AppXManifest Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-<<<<<<< HEAD
-      <Modified>2015-07-20T23:10:50.147</Modified>
-=======
-      <Modified>2015-07-20T00:02:54.585</Modified>
->>>>>>> origin/master
+      <Modified>2015-07-23T03:29:13.270</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\ApplicationInsights.config">
       <PackagePath>ApplicationInsights.config</PackagePath>
-      <Modified>2015-07-18T07:29:30.894</Modified>
+      <Modified>2015-07-22T04:35:08.724</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\Assets\Icons\BusAnalyticsIcon.png">
       <PackagePath>Assets\Icons\BusAnalyticsIcon.png</PackagePath>
@@ -222,23 +218,15 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\OneAppAway.csproj.AppLocalNetFX.GenerateResource.Cache">
       <PackagePath>OneAppAway.csproj.AppLocalNetFX.GenerateResource.Cache</PackagePath>
-      <Modified>2015-07-18T07:29:34.559</Modified>
+      <Modified>2015-07-22T04:35:11.716</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\OneAppAway.exe">
       <PackagePath>OneAppAway.exe</PackagePath>
-<<<<<<< HEAD
-      <Modified>2015-07-20T23:10:49.627</Modified>
+      <Modified>2015-07-23T03:29:12.766</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\OneAppAway.xr.xml">
       <PackagePath>OneAppAway.xr.xml</PackagePath>
-      <Modified>2015-07-20T23:10:48.999</Modified>
-=======
-      <Modified>2015-07-20T00:02:53.601</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\OneAppAway.xr.xml">
-      <PackagePath>OneAppAway.xr.xml</PackagePath>
-      <Modified>2015-07-19T21:48:37.362</Modified>
->>>>>>> origin/master
+      <Modified>2015-07-23T03:14:35.078</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\Properties\Default.rd.xml">
       <PackagePath>Properties\Default.rd.xml</PackagePath>
@@ -246,11 +234,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-<<<<<<< HEAD
-      <Modified>2015-07-20T23:10:51.455</Modified>
-=======
-      <Modified>2015-07-20T00:02:55.679</Modified>
->>>>>>> origin/master
+      <Modified>2015-07-23T03:29:14.388</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x86\Debug\Core\System.AppContext.dll">
       <PackagePath>System.AppContext.dll</PackagePath>

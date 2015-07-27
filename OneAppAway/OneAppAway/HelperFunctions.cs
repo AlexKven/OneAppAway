@@ -149,5 +149,52 @@ namespace OneAppAway
                 return "None";
             }
         }
+
+        public static BasicGeoposition[] DecodeShape(string encoded)
+        {
+            List<BasicGeoposition> result = new List<BasicGeoposition>();
+            int index = 0;
+            int latitude = 0;
+            int longitude = 0;
+
+            int length = encoded.Length;
+            List<Point> pointList = new List<Point>();
+
+            while (index < length)
+            {
+                latitude += DecodePoint(encoded, index, out index);
+                longitude += DecodePoint(encoded, index, out index);
+
+                BasicGeoposition point = new BasicGeoposition();
+                point.Latitude = (latitude * 1e-5);
+                point.Longitude = (longitude * 1e-5);
+
+                result.Add(point);
+            }
+
+            return result.ToArray();
+        }
+
+        private static int DecodePoint(string encoded, int startindex, out int finishindex)
+        {
+            int b;
+            int shift = 0;
+            int result = 0;
+
+            //magic google algorithm, see http://code.google.com/apis/maps/documentation/polylinealgorithm.html
+            do
+            {
+                b = Convert.ToInt32(encoded[startindex++]) - 63;
+                result |= (b & 0x1f) << shift;
+                shift += 5;
+            } while (b >= 0x20);
+            //if negative flip
+            int dlat = (((result & 1) > 0) ? ~(result >> 1) : (result >> 1));
+
+            //set output index
+            finishindex = startindex;
+
+            return dlat;
+        }
     }
 }

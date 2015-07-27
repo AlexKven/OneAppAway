@@ -1,1 +1,1 @@
-C:\Users\Alexander\Documents\GitHub\OneAppAway\New folder\OneAppAway\OneAppAway.csproj;arm
+C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\OneAppAway.csproj;arm

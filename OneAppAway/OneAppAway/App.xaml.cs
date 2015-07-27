@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -94,19 +95,14 @@ namespace OneAppAway
                 // When the navigation stack isn't restored navigate to the first page,
                 // configuring the new page by passing required information as a navigation
                 // parameter
-                //RootFrame.Navigate(typeof(BusMapPage), "CurrentLocation");
-                RootFrame.Navigate(typeof(TestPage));
+                RootFrame.Navigate(typeof(BusMapPage), "CurrentLocation");
+                //RootFrame.Navigate(typeof(TestPage));
             }
             // Ensure the current window is active
             Window.Current.Content = MainHamburgerBar;
             Window.Current.Activate();
             SetTitleBar();
-            //DaySchedule sch = new DaySchedule();
-            //sch.LoadFromVerboseString(await ApiLayer.SendRequest("schedule-for-stop/1_320", new Dictionary<string, string>() {["date"] = "2015-07-13" }));
-            //string monday = await ApiLayer.SendRequest("schedule-for-stop/1_61378", new Dictionary<string, string>() {["date"] = "2015-07-13" });
-            //string tuesday = await ApiLayer.SendRequest("schedule-for-stop/1_431", new Dictionary<string, string>() {["date"] = "2015-07-14" });
-            //tuesday.ToString();
-            //sch.ToString();
+            var opts = BandwidthManager.EffectiveBandwidthOptions;
         }
 
         /// <summary>
@@ -136,22 +132,42 @@ namespace OneAppAway
         internal void SetTitleBar()
         {
             Func<Color, Color> darken = clr => Color.FromArgb(clr.A, (byte)(clr.R / 2), (byte)(clr.G / 2), (byte)(clr.B / 2));
-            Func<Color, Color> lighten = clr => Color.FromArgb(clr.A, (byte)(128 + clr.R / 2), (byte)(128 + clr.G / 2), (byte)(1287 + clr.B / 2));
-            Color accentColor = ((Color)App.Current.Resources["SystemColorControlAccentColor"]);
+            //Func<Color, Color> lighten = clr => Color.FromArgb(clr.A, (byte)(128 + clr.R / 2), (byte)(128 + clr.G / 2), (byte)(1287 + clr.B / 2));
+            //Color accentColor = ((Color)App.Current.Resources["SystemColorControlAccentColor"]);
+            Color foreground = Colors.White;
+            var background = Color.FromArgb(255, byte.Parse("30", System.Globalization.NumberStyles.HexNumber), byte.Parse("30", System.Globalization.NumberStyles.HexNumber), byte.Parse("30", System.Globalization.NumberStyles.HexNumber));
             var titleBar = ApplicationView.GetForCurrentView().TitleBar;
-            titleBar.BackgroundColor = Color.FromArgb(255, byte.Parse("05", System.Globalization.NumberStyles.HexNumber), byte.Parse("05", System.Globalization.NumberStyles.HexNumber), byte.Parse("05", System.Globalization.NumberStyles.HexNumber));
+            titleBar.BackgroundColor = background;
             titleBar.InactiveBackgroundColor = titleBar.BackgroundColor;
-            //titleBar.BackgroundColor = darken(accentColor);
-            titleBar.ForegroundColor = accentColor;
-            titleBar.InactiveForegroundColor = darken(accentColor);
+            titleBar.ForegroundColor = foreground;
+            titleBar.InactiveForegroundColor = darken(foreground);
             titleBar.ButtonBackgroundColor = titleBar.BackgroundColor;
             titleBar.ButtonForegroundColor = titleBar.ForegroundColor;
-            //titleBar.InactiveBackgroundColor = Color.FromArgb(255, byte.Parse("20", System.Globalization.NumberStyles.HexNumber), byte.Parse("20", System.Globalization.NumberStyles.HexNumber), byte.Parse("20", System.Globalization.NumberStyles.HexNumber));
-            //titleBar.InactiveBackgroundColor = accentColor;
-            //titleBar.InactiveForegroundColor = Colors.White;
             titleBar.ButtonInactiveBackgroundColor = titleBar.InactiveBackgroundColor;
             titleBar.ButtonInactiveForegroundColor = titleBar.InactiveForegroundColor;
             SystemNavigationManager.GetForCurrentView().BackRequested += App_BackRequested;
+
+            if (Windows.Foundation.Metadata.ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar"))
+            {
+                Action setOcclusion = () =>
+                {
+                    var bar = StatusBar.GetForCurrentView();
+                    var occlusion = bar.OccludedRect;
+                    if (occlusion.Width > occlusion.Height)
+                        MainHamburgerBar.Margin = new Thickness(0, occlusion.Height, 0, 0);
+                    else if (occlusion.X == 0)
+                        MainHamburgerBar.Margin = new Thickness(occlusion.Width, 0, 0, 0);
+                    else
+                        MainHamburgerBar.Margin = new Thickness(0, 0, occlusion.Width, 0);
+
+                };
+                var statusBar = StatusBar.GetForCurrentView();
+                statusBar.BackgroundColor = background;
+                statusBar.BackgroundOpacity = 1;
+                statusBar.ForegroundColor = foreground;
+                setOcclusion();
+                Windows.UI.ViewManagement.ApplicationView.GetForCurrentView().VisibleBoundsChanged += (sender, e) => setOcclusion();
+            }
         }
 
         private void App_BackRequested(object sender, BackRequestedEventArgs e)

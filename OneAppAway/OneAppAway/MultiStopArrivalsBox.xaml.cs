@@ -50,7 +50,7 @@ namespace OneAppAway
                 }
                 else
                 {
-                    box.Width = 300;
+                    box.Width = 285;
                     ItemsPanel.Children.Add(box);
                 }
             }

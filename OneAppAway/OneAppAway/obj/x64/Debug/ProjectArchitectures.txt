@@ -1,1 +1,1 @@
-C:\Users\Alexander\Documents\GitHub\OneAppAway\New folder\OneAppAway\OneAppAway.csproj;x64
+C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\OneAppAway.csproj;x64

@@ -154,6 +154,15 @@ namespace OneAppAway
         public string Agency { get; set; }
     }
 
+    public struct BusTrip
+    {
+        public string Route { get; set; }
+        
+        public string Shape { get; set; }
+
+        public string Destination { get; set; }
+    }
+
     public struct TransitAgency
     {
         public string Name { get; set; }

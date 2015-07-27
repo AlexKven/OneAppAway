@@ -9,13 +9,15 @@ namespace OneAppAway
 {
     public static class SettingsManager
     {
-        public static T GetSetting<T>(string settingName, bool roaming)
+        public static T GetSetting<T>(string settingName, bool roaming, T def)
         {
             ApplicationDataContainer curContainer = roaming ? ApplicationData.Current.RoamingSettings : ApplicationData.Current.LocalSettings;
             object result = curContainer.Values[settingName];
-            if (result == null) return default(T);
+            if (result == null) return def;
             return (T)result;
         }
+
+        public static T GetSetting<T>(string settingName, bool roaming) => GetSetting<T>(settingName, roaming, default(T));
 
         public static void SetSetting<T>(string settingName, bool roaming, T value)
         {
