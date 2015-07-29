@@ -31,6 +31,7 @@ namespace OneAppAway
     {
         private List<ServiceDay> Days = new List<ServiceDay>();
         private List<DaySchedule> DaySchedules = new List<DaySchedule>();
+        private List<ServiceDay> TechnicalDays = new List<ServiceDay>();
 
         public WeekSchedule() { }
 
@@ -38,16 +39,27 @@ namespace OneAppAway
 
         public void AddServiceDay(ServiceDay day, DaySchedule schedule)
         {
+            ServiceDay totalDay = day;
+            List<int> psuedoIdenticalDays = new List<int>();
             if (schedule.IsEmpty) return;
-            for (int i = 0; i < Days.Count; i++)
+            for (int i = 0; i < DaySchedules.Count; i++)
             {
-                if (DaySchedules[i].IsIdenticalTo(schedule))
+                if (DaySchedules[i].IsIdenticalToByTripId(schedule))
                 {
+                    TechnicalDays[i] |= day;
                     Days[i] |= day;
                     return;
                 }
+                else if (DaySchedules[i].IsIdenticalToByTime(schedule))
+                {
+                    totalDay |= TechnicalDays[i];
+                    psuedoIdenticalDays.Add(i);
+                }
             }
-            Days.Add(day);
+            foreach (var ind in psuedoIdenticalDays)
+                Days[ind] = totalDay;
+            TechnicalDays.Add(day);
+            Days.Add(totalDay);
             DaySchedules.Add(schedule);
         }
 
@@ -55,9 +67,9 @@ namespace OneAppAway
         {
             get
             {
-                for (int i = 0; i < Days.Count; i++)
+                for (int i = 0; i < TechnicalDays.Count; i++)
                 {
-                    if (Days[i].HasFlag(day))
+                    if (day.HasFlag(TechnicalDays[i]))
                         return DaySchedules[i];
                 }
                 return null;
@@ -66,7 +78,21 @@ namespace OneAppAway
 
         public ServiceDay[] DayGroups
         {
-            get { return Days.ToArray(); }
+            get
+            {
+                List<ServiceDay> result = new List<ServiceDay>();
+                foreach (var day in Days)
+                {
+                    if (!result.Contains(day))
+                        result.Add(day);
+                }
+                return result.ToArray();
+            }
+        }
+
+        public ServiceDay[] TechnicalDayGroups
+        {
+            get { return TechnicalDays.ToArray(); }
         }
     }
 
@@ -74,6 +100,7 @@ namespace OneAppAway
     {
         private Tuple<string, string, Tuple<short, string>[]>[] Data;
         private string[] TripIds;
+        private string[] NamesAndTimes;
         public string Stop { get; set; }
 
         public DaySchedule() { }
@@ -116,10 +143,25 @@ namespace OneAppAway
             Data = data.ToArray();
         }
 
-        public bool IsIdenticalTo(DaySchedule other)
+        public bool IsIdenticalToByTime(DaySchedule other)
+        {
+            List<string> ids = GetNamesAndTimes(true);
+            List<string> otherIds = other.GetNamesAndTimes(true);
+            int lastInd = ids.Count - 1;
+            while (lastInd >= 0)
+            {
+                if (!otherIds.Remove(ids[lastInd]))
+                    return false;
+                ids.RemoveAt(lastInd);
+                lastInd--;
+            }
+            return otherIds.Count == 0;
+        }
+
+        public bool IsIdenticalToByTripId(DaySchedule other)
         {
             List<string> ids = GetTripIds(true);
-            List<string> otherIds = other.GetTripIds(false);
+            List<string> otherIds = other.GetTripIds(true);
             int lastInd = ids.Count - 1;
             while (lastInd >= 0)
             {
@@ -149,6 +191,26 @@ namespace OneAppAway
             }
             else
                 return TripIds.ToList();
+        }
+
+        private List<string> GetNamesAndTimes(bool save)
+        {
+            if (NamesAndTimes == null)
+            {
+                List<string> result = new List<string>();
+                foreach (var item0 in Data)
+                {
+                    foreach (var item1 in item0.Item3)
+                    {
+                        result.Add(item0.Item1 + item0.Item2 + item1.Item1);
+                    }
+                }
+                if (save)
+                    NamesAndTimes = result.ToArray();
+                return result;
+            }
+            else
+                return NamesAndTimes.ToList();
         }
 
         public IEnumerator<ScheduledArrival> GetEnumerator()

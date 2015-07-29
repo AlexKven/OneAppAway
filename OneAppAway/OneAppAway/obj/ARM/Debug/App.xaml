@@ -12,6 +12,7 @@
             <converters:LightenColorConverter/>
             <converters:ColorToBrushConverter/>
         </converters:ValueConverterGroup>
+        <converters:MinutesUntilArrivalConverter x:Key="MinutesUntilArrivalConverter"/>
         <converters:MaxConverter x:Key="MaxConverter"/>
         <converters:MinConverter x:Key="MinConverter"/>
         <converters:BasicGeopositionToStringConverter x:Key="BasicGeopositionStringConverter"/>

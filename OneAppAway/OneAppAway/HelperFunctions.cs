@@ -9,6 +9,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using static OneAppAway.ServiceDay;
+using static System.Math;
 
 namespace OneAppAway
 {
@@ -195,6 +196,16 @@ namespace OneAppAway
             finishindex = startindex;
 
             return dlat;
+        }
+
+        public static DateTime? DateForServiceDay(ServiceDay day)
+        {
+            if (day == ServiceDay.ReducedWeekday)
+                return null;
+            double log = Log((int)day, 2.0);
+            if (Floor(log) == log && log <= 6)
+                return new DateTime(2015, 7, 27) + TimeSpan.FromDays(log);
+            return null;
         }
     }
 }

@@ -21,6 +21,7 @@
       <RootProperty Name="BandwidthSetting" />
     </RootType>
     <RootType FullName="OneAppAway.Converters.ValueConverterGroup" />
+    <RootType FullName="OneAppAway.Converters.MinutesUntilArrivalConverter" />
     <RootType FullName="OneAppAway.Converters.MaxConverter" />
     <RootType FullName="OneAppAway.Converters.MinConverter" />
     <RootType FullName="OneAppAway.Converters.BasicGeopositionToStringConverter" />
@@ -44,10 +45,10 @@
       <RootEvent Name="SizeChanged" />
       <RootMethod Name="GetRowSpan" />
       <RootMethod Name="SetRowSpan" />
-      <RootMethod Name="GetColumn" />
-      <RootMethod Name="SetColumn" />
       <RootMethod Name="GetRow" />
       <RootMethod Name="SetRow" />
+      <RootMethod Name="GetColumn" />
+      <RootMethod Name="SetColumn" />
       <RootMethod Name="GetColumnSpan" />
       <RootMethod Name="SetColumnSpan" />
     </RootType>
@@ -56,8 +57,8 @@
     </RootType>
     <RootType FullName="Windows.UI.Xaml.VisualStateGroup">
       <RootProperty Name="States" />
-      <RootEvent Name="CurrentStateChanged" />
       <RootEvent Name="CurrentStateChanging" />
+      <RootEvent Name="CurrentStateChanged" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.VisualState">
       <RootProperty Name="Storyboard" />
@@ -137,6 +138,37 @@
     <RootType FullName="Microsoft.Xaml.DirectUI.ProxyTypes.StaticResourceExtension" />
     <RootType FullName="Microsoft.Xaml.DirectUI.ProxyTypes.ThemeResourceExtension" />
     <RootType FullName="OneAppAway.BusArrivalBox" />
+    <RootType FullName="Windows.UI.Xaml.AdaptiveTrigger">
+      <RootProperty Name="MinWindowWidth" />
+      <RootProperty Name="MinWindowHeight" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.Maps.MapControl">
+      <RootProperty Name="TransitFeaturesVisible" />
+      <RootProperty Name="PedestrianFeaturesVisible" />
+      <RootProperty Name="TiltInteractionMode" />
+      <RootProperty Name="RotateInteractionMode" />
+      <RootProperty Name="Children" />
+      <RootProperty Name="Width" />
+      <RootProperty Name="Margin" />
+      <RootProperty Name="ManipulationMode" />
+      <RootProperty Name="ZoomLevel" />
+      <RootEvent Name="MapElementClick" />
+      <RootEvent Name="SizeChanged" />
+      <RootEvent Name="ZoomLevelChanged" />
+      <RootEvent Name="CenterChanged" />
+      <RootEvent Name="ActualCameraChanged" />
+      <RootMethod Name="GetNormalizedAnchorPoint" />
+      <RootMethod Name="SetNormalizedAnchorPoint" />
+    </RootType>
+    <RootType FullName="OneAppAway.MultiStopArrivalsBox">
+      <RootProperty Name="Opacity" />
+      <RootProperty Name="RenderTransform" />
+      <RootEvent Name="CloseRequested" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Media.CompositeTransform">
+      <RootProperty Name="TranslateY" />
+    </RootType>
+    <RootType FullName="OneAppAway.BusMap" />
     <RootType FullName="Windows.UI.Xaml.Controls.ContentControl">
       <RootProperty Name="Template" />
     </RootType>
@@ -146,10 +178,6 @@
       <RootProperty Name="OpenPaneLength" />
       <RootProperty Name="Content" />
       <RootProperty Name="Pane" />
-    </RootType>
-    <RootType FullName="Windows.UI.Xaml.AdaptiveTrigger">
-      <RootProperty Name="MinWindowWidth" />
-      <RootProperty Name="MinWindowHeight" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.SplitViewDisplayMode" />
     <RootType FullName="System.Double" />
@@ -176,6 +204,7 @@
       <RootProperty Name="VerticalAlignment" />
       <RootProperty Name="Foreground" />
       <RootProperty Name="Margin" />
+      <RootProperty Name="Visibility" />
       <RootProperty Name="Tag" />
       <RootEvent Name="Click" />
     </RootType>
@@ -194,37 +223,11 @@
       <RootProperty Name="RequestedTheme" />
       <RootEvent Name="SizeChanged" />
     </RootType>
-    <RootType FullName="Windows.UI.Xaml.Controls.Maps.MapControl">
-      <RootProperty Name="TransitFeaturesVisible" />
-      <RootProperty Name="PedestrianFeaturesVisible" />
-      <RootProperty Name="TiltInteractionMode" />
-      <RootProperty Name="RotateInteractionMode" />
-      <RootProperty Name="Children" />
-      <RootProperty Name="Width" />
-      <RootProperty Name="Margin" />
-      <RootProperty Name="ManipulationMode" />
-      <RootProperty Name="ZoomLevel" />
-      <RootEvent Name="MapElementClick" />
-      <RootEvent Name="SizeChanged" />
-      <RootEvent Name="ZoomLevelChanged" />
-      <RootEvent Name="CenterChanged" />
-      <RootEvent Name="ActualCameraChanged" />
-      <RootMethod Name="GetNormalizedAnchorPoint" />
-      <RootMethod Name="SetNormalizedAnchorPoint" />
-    </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.ProgressBar">
       <RootProperty Name="HorizontalAlignment" />
       <RootProperty Name="VerticalAlignment" />
       <RootProperty Name="IsHitTestVisible" />
       <RootProperty Name="Visibility" />
-    </RootType>
-    <RootType FullName="OneAppAway.MultiStopArrivalsBox">
-      <RootProperty Name="Opacity" />
-      <RootProperty Name="RenderTransform" />
-      <RootEvent Name="CloseRequested" />
-    </RootType>
-    <RootType FullName="Windows.UI.Xaml.Media.CompositeTransform">
-      <RootProperty Name="TranslateY" />
     </RootType>
     <RootType FullName="OneAppAway.BusMapPage" />
     <RootType FullName="Windows.UI.Xaml.Controls.ScrollViewer">
@@ -251,7 +254,7 @@
     <RootType FullName="OneAppAway.RouteViewPage" />
     <RootType FullName="Windows.UI.Xaml.Controls.ItemsControl">
       <RootProperty Name="ItemsPanel" />
-      <RootProperty Name="ItemTemplate" />
+      <RootProperty Name="ItemTemplateSelector" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.Control">
       <RootProperty Name="Background" />
@@ -313,6 +316,10 @@
       <RootProperty Name="SelectedIndex" />
       <RootProperty Name="IsEnabled" />
       <RootProperty Name="Items" />
+    </RootType>
+    <RootType FullName="OneAppAway.TemplateSelectors.RouteListingTemplateSelector">
+      <RootProperty Name="ShortFormTemplate" />
+      <RootProperty Name="LongFormTemplate" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.DataTemplate">
       <RootProperty Name="Template" />

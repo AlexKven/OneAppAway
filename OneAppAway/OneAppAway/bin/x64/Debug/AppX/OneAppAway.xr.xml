@@ -21,6 +21,7 @@
       <RootProperty Name="BandwidthSetting" />
     </RootType>
     <RootType FullName="OneAppAway.Converters.ValueConverterGroup" />
+    <RootType FullName="OneAppAway.Converters.MinutesUntilArrivalConverter" />
     <RootType FullName="OneAppAway.Converters.MaxConverter" />
     <RootType FullName="OneAppAway.Converters.MinConverter" />
     <RootType FullName="OneAppAway.Converters.BasicGeopositionToStringConverter" />
@@ -44,10 +45,10 @@
       <RootEvent Name="SizeChanged" />
       <RootMethod Name="GetRowSpan" />
       <RootMethod Name="SetRowSpan" />
-      <RootMethod Name="GetColumn" />
-      <RootMethod Name="SetColumn" />
       <RootMethod Name="GetRow" />
       <RootMethod Name="SetRow" />
+      <RootMethod Name="GetColumn" />
+      <RootMethod Name="SetColumn" />
       <RootMethod Name="GetColumnSpan" />
       <RootMethod Name="SetColumnSpan" />
     </RootType>
@@ -176,6 +177,7 @@
       <RootProperty Name="VerticalAlignment" />
       <RootProperty Name="Foreground" />
       <RootProperty Name="Margin" />
+      <RootProperty Name="Visibility" />
       <RootProperty Name="Tag" />
       <RootEvent Name="Click" />
     </RootType>
@@ -251,7 +253,7 @@
     <RootType FullName="OneAppAway.RouteViewPage" />
     <RootType FullName="Windows.UI.Xaml.Controls.ItemsControl">
       <RootProperty Name="ItemsPanel" />
-      <RootProperty Name="ItemTemplate" />
+      <RootProperty Name="ItemTemplateSelector" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.Control">
       <RootProperty Name="Background" />
@@ -313,6 +315,10 @@
       <RootProperty Name="SelectedIndex" />
       <RootProperty Name="IsEnabled" />
       <RootProperty Name="Items" />
+    </RootType>
+    <RootType FullName="OneAppAway.TemplateSelectors.RouteListingTemplateSelector">
+      <RootProperty Name="ShortFormTemplate" />
+      <RootProperty Name="LongFormTemplate" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.DataTemplate">
       <RootProperty Name="Template" />

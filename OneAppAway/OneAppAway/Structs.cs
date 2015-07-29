@@ -42,7 +42,7 @@ namespace OneAppAway
         }
     }
 
-    public struct BusArrival
+    public struct RealtimeArrival
     {
         public string Route { get; set; }
 
@@ -85,12 +85,12 @@ namespace OneAppAway
             }
         }
 
-        public static bool operator ==(BusArrival lhs, BusArrival rhs)
+        public static bool operator ==(RealtimeArrival lhs, RealtimeArrival rhs)
         {
             return lhs.Trip == rhs.Trip && lhs.Stop == rhs.Stop;
         }
 
-        public static bool operator !=(BusArrival lhs, BusArrival rhs)
+        public static bool operator !=(RealtimeArrival lhs, RealtimeArrival rhs)
         {
             return !(lhs == rhs);
         }
@@ -98,8 +98,8 @@ namespace OneAppAway
         public override bool Equals(object obj)
         {
             if (obj == null) return false;
-            if (!(obj is BusArrival)) return false;
-            return this == (BusArrival)obj;
+            if (!(obj is RealtimeArrival)) return false;
+            return this == (RealtimeArrival)obj;
         }
 
         public override int GetHashCode()

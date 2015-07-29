@@ -166,7 +166,7 @@ namespace OneAppAway
                 statusBar.BackgroundOpacity = 1;
                 statusBar.ForegroundColor = foreground;
                 setOcclusion();
-                Windows.UI.ViewManagement.ApplicationView.GetForCurrentView().VisibleBoundsChanged += (sender, e) => setOcclusion();
+                ApplicationView.GetForCurrentView().VisibleBoundsChanged += (sender, e) => setOcclusion();
             }
         }
 

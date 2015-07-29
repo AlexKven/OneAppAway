@@ -20,13 +20,21 @@ namespace OneAppAway
 
         static BandwidthManager()
         {
+            ApplicationSettings.BandwidthSettingsChanged += ApplicationSettings_BandwidthSettingsChanged;
             Windows.Networking.Connectivity.NetworkInformation.NetworkStatusChanged += NetworkInformation_NetworkStatusChanged;
             GetNetworkInfo();
+        }
+
+        private static void ApplicationSettings_BandwidthSettingsChanged(object sender, EventArgs e)
+        {
+            OnEffectiveBandwidthOptionsChanged();
         }
 
         private static void NetworkInformation_NetworkStatusChanged(object sender)
         {
             GetNetworkInfo();
+            if (ApplicationSettings.BandwidthSettingStatic == BandwidthOptions.Auto)
+                OnEffectiveBandwidthOptionsChanged();
         }
 
         private static void GetNetworkInfo()
@@ -39,5 +47,13 @@ namespace OneAppAway
             else
                 _AutoBandwidthOptions = BandwidthOptions.Low;
         }
+
+        private static void OnEffectiveBandwidthOptionsChanged()
+        {
+            if (EffectiveBandwidthOptionsChanged != null)
+                EffectiveBandwidthOptionsChanged(null, new EventArgs());
+        }
+
+        public static event EventHandler EffectiveBandwidthOptionsChanged;
     }
 }

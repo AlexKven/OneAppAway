@@ -48,14 +48,16 @@ namespace OneAppAway
         public static async Task<WeekSchedule> GetScheduleForStop(string id)
         {
             WeekSchedule result = new WeekSchedule();
-            for (int i = 0; i < 7; i++)
+            for (int i = 0; i < 8; i++)
             {
                 DaySchedule daySched = new DaySchedule();
-                daySched.LoadFromVerboseString(await ApiLayer.SendRequest("schedule-for-stop/" + id, new Dictionary<string, string>() {["date"] = "2015-07-" + (13 + i).ToString() }));
                 ServiceDay day = (ServiceDay)(int)Math.Pow(2, i);
-                result.AddServiceDay(day, daySched);
-                if (i == 0)
-                    result.AddServiceDay(ServiceDay.ReducedWeekday, daySched);
+                DateTime? date = HelperFunctions.DateForServiceDay(day);
+                if (date.HasValue)
+                {
+                    daySched.LoadFromVerboseString(await ApiLayer.SendRequest("schedule-for-stop/" + id, new Dictionary<string, string>() {["date"] = date.Value.ToString("yyyy-MM-dd") }));
+                    result.AddServiceDay(day, daySched);
+                }
             }
             return result;
         }

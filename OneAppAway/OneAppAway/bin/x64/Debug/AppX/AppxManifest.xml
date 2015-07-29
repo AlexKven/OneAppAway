@@ -23,7 +23,7 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="CoreRuntime\OneAppAway.exe" EntryPoint="OneAppAway.App">
-      <uap:VisualElements DisplayName="OneAppAway" Square150x150Logo="Assets\Logo.png" Square44x44Logo="Assets\SmallLogo.png" Description="OneAppAway" BackgroundColor="#464646">
+      <uap:VisualElements DisplayName="OneAppAway" Square150x150Logo="Assets\Logo.png" Square44x44Logo="Assets\Icons\SmallLogo.png" Description="OneAppAway" BackgroundColor="transparent">
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
     </Application>
@@ -31,6 +31,18 @@
   <Capabilities>
     <Capability Name="internetClient" />
     <DeviceCapability Name="location" />
+    <!--<DeviceCapability Name="bluetooth.rfcomm" xmlns="http://schemas.microsoft.com/appx/2013/manifest">
+      <Device Id="any">
+        -->
+    <!-- Used by the Microsoft Band SDK -->
+    <!--
+        <Function Type="serviceId:A502CA9A-2BA5-413C-A4E0-13804E47B38F" />
+        -->
+    <!-- Used by the Microsoft Band SDK -->
+    <!--
+        <Function Type="serviceId:C742E1A2-6320-5ABC-9643-D206C677E580" />
+      </Device>
+    </DeviceCapability>-->
   </Capabilities>
   <build:Metadata>
     <build:Item Name="TargetFrameworkMoniker" Value=".NETCore,Version=v4.5.1" />

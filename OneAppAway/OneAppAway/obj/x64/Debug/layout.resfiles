@@ -1,4 +1,5 @@
 WinMetadata\Windows.winmd
+Assets\Icons\Agencies\Metro.png
 Assets\Icons\BusAnalyticsIcon.png
 Assets\Icons\BusBase.png
 Assets\Icons\BusBase20.png
@@ -30,8 +31,10 @@ Assets\Icons\BusDirectionW40.png
 Assets\Icons\BusGeneric16.png
 Assets\Icons\BusRoutesIcon.png
 Assets\Icons\LogoBase.png
+Assets\Icons\SmallLogo.scale-100.png
+Assets\Icons\SmallLogo.targetsize-48.png
+Assets\Icons\SmallLogo.targetsize-48_altform-unplated.png
 Assets\Logo.scale-100.png
-Assets\SmallLogo.scale-100.png
 Assets\SplashScreen.scale-100.png
 Assets\StoreLogo.scale-100.png
 Assets\WideLogo.scale-100.png

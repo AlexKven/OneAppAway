@@ -14,6 +14,23 @@ namespace OneAppAway
 {
     public static class ApiLayer
     {
+        private static BusStop ParseBusStop(XElement element)
+        {
+            string lat = element.Element("lat")?.Value;
+            string lon = element.Element("lon")?.Value;
+            string direction = element.Element("direction")?.Value;
+            string name = element.Element("name")?.Value;
+            string code = element.Element("code")?.Value;
+            string id = element.Element("id")?.Value;
+            string locationType = element.Element("locationType")?.Value;
+            List<string> routeIds = new List<string>();
+            foreach (XElement el2 in element.Element("routeIds").Elements("string"))
+            {
+                routeIds.Add(el2?.Value);
+            }
+            return new BusStop() { Position = new BasicGeoposition() { Latitude = double.Parse(lat), Longitude = double.Parse(lon) }, Direction = direction == null ? StopDirection.Unspecified : (StopDirection)Enum.Parse(typeof(StopDirection), direction), Name = name, ID = id, Code = code, LocationType = int.Parse(locationType), Routes = routeIds.ToArray() };
+        }
+
         public static async Task<string> SendRequest(string compactRequest, Dictionary<string, string> parameters, CancellationToken cancellationToken)
         {
             HttpClient client = new HttpClient();
@@ -41,29 +58,16 @@ namespace OneAppAway
 
             foreach (XElement el1 in elList.Elements("stop"))
             {
-                string lat = el1.Element("lat")?.Value;
-                string lon = el1.Element("lon")?.Value;
-                string direction = el1.Element("direction")?.Value;
-                string name = el1.Element("name")?.Value;
-                string code = el1.Element("code")?.Value;
-                string id = el1.Element("id")?.Value;
-                string locationType = el1.Element("locationType")?.Value;
-                List<string> routeIds = new List<string>();
-                foreach (XElement el2 in el1.Element("routeIds").Elements("string"))
-                {
-                    routeIds.Add(el2?.Value);
-                }
-                BusStop stop = new BusStop() { Position = new BasicGeoposition() { Latitude = double.Parse(lat), Longitude = double.Parse(lon) }, Direction = direction == null ? StopDirection.Unspecified : (StopDirection)Enum.Parse(typeof(StopDirection), direction), Name = name, ID = id, Code = code, LocationType = int.Parse(locationType), Routes = routeIds.ToArray() };
-                result.Add(stop);
+                result.Add(ParseBusStop(el1));
             }
 
             XElement elRoutes = el.Element("references").Element("routes");
             return result.ToArray();
         }
 
-        public static async Task<BusArrival[]> GetBusArrivals(string id)
+        public static async Task<RealtimeArrival[]> GetBusArrivals(string id)
         {
-            List<BusArrival> result = new List<BusArrival>();
+            List<RealtimeArrival> result = new List<RealtimeArrival>();
             StringReader reader = new StringReader(await SendRequest("arrivals-and-departures-for-stop/" + id, null));
             XDocument xDoc = XDocument.Load(reader);
 
@@ -88,7 +92,7 @@ namespace OneAppAway
                 DateTime? predictedArrival = predictedArrivalLong == 0 ? null : new DateTime?((new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc) + TimeSpan.FromMilliseconds(predictedArrivalLong)).ToLocalTime());
                 DateTime scheduledArrival = (new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc) + TimeSpan.FromMilliseconds(scheduledArrivalLong)).ToLocalTime();
                 DateTime? lastUpdate = lastUpdateLong == null ? null : new DateTime?((new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc) + TimeSpan.FromMilliseconds(lastUpdateLong.Value)).ToLocalTime());
-                BusArrival arrival = new BusArrival() { RouteName = routeName, PredictedArrivalTime = predictedArrival, ScheduledArrivalTime = scheduledArrival, LastUpdateTime = lastUpdate, Route = routeId, Trip = tripId, Stop = stopId, Destination = destination };
+                RealtimeArrival arrival = new RealtimeArrival() { RouteName = routeName, PredictedArrivalTime = predictedArrival, ScheduledArrivalTime = scheduledArrival, LastUpdateTime = lastUpdate, Route = routeId, Trip = tripId, Stop = stopId, Destination = destination };
                 result.Add(arrival);
             }
 
@@ -146,33 +150,25 @@ namespace OneAppAway
             return new TransitAgency() { Id = id, Name = agencyName, Url = agencyUrl};
         }
 
-        public static async Task<BusTrip[]> GetTripsForRoute(string route)
+        public static async Task<Tuple<BusStop[], string[]>> GetStopsForRoute(string route)
         {
-            List<string> tripIds = new List<string>();
+            List<BusStop> result = new List<BusStop>();
+            List<string> shapeResult = new List<string>();
 
-            StringReader reader = new StringReader(await SendRequest("trips-for-route/" + route, null));
+            string responseString = await SendRequest("stops-for-route/" + route, null);
+            StringReader reader = new StringReader(responseString);
             XDocument xDoc = XDocument.Load(reader);
-
-            foreach (var el in xDoc.Element("response").Element("data").Element("list").Elements("tripDetails"))
+            foreach (XElement el in xDoc.Element("response")?.Element("data")?.Element("references")?.Element("stops")?.Elements("stop"))
             {
-                tripIds.Add(el.Element("tripId")?.Value);
+                result.Add(ParseBusStop(el));
             }
 
-            List<BusTrip> result = new List<BusTrip>();
-
-            foreach (var tripId in tripIds)
+            foreach (XElement el in xDoc.Element("response")?.Element("data").Element("entry").Element("polylines").Elements("encodedPolyline"))
             {
-                reader = new StringReader(await SendRequest("trip/" + tripId, null));
-                xDoc = XDocument.Load(reader);
-                var el = xDoc.Element("response").Element("data").Element("entry");
-                string shapeId = el.Element("shapeId")?.Value;
-                string routeId = el.Element("routeId")?.Value;
-                string destination = el.Element("tripHeadsign")?.Value;
-                if (routeId == route)
-                    result.Add(new BusTrip() { Route = routeId, Shape = shapeId, Destination = destination });
+                shapeResult.Add(el.Element("points").Value);
             }
 
-            return result.ToArray();
+            return new Tuple<BusStop[], string[]>(result.ToArray(), shapeResult.ToArray());
         }
 
         public static async Task<string> GetShape(string id)

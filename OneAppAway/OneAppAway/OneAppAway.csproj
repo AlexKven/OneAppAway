@@ -97,7 +97,7 @@
     </Compile>
     <Compile Include="ApplicationSettings.cs" />
     <Compile Include="BandwidthManager.cs" />
-    <Compile Include="BusArrivalBox.xaml.cs">
+    <Compile Include="Controls\BusArrivalBox.xaml.cs">
       <DependentUpon>BusArrivalBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="ComboBoxIconAndText.cs" />
@@ -106,6 +106,7 @@
     <Compile Include="Common\ObservableDictionary.cs" />
     <Compile Include="Common\RelayCommand.cs" />
     <Compile Include="Common\SuspensionManager.cs" />
+    <Compile Include="Controls\BusMap.xaml.cs" />
     <Compile Include="Converters\AddSubtractConverter.cs" />
     <Compile Include="Converters\BandwidthOptionsRowHeightConverter.cs" />
     <Compile Include="Converters\BasicGeopositionToStringConverter.cs" />
@@ -113,38 +114,43 @@
     <Compile Include="Converters\DoubleToGridlengthConverter.cs" />
     <Compile Include="Converters\LightenColorConverter.cs" />
     <Compile Include="Converters\MaxMinConverter.cs" />
+    <Compile Include="Converters\MinutesUntilArrivalConverter.cs" />
     <Compile Include="Converters\RandomConverter.cs" />
+    <Compile Include="Converters\TimeDifferenceConverter.cs" />
+    <Compile Include="Converters\TimeSpanMinutesConverter.cs" />
     <Compile Include="Converters\ValueConverterGroup.cs" />
     <Compile Include="Data.cs" />
-    <Compile Include="HamburgerBar.xaml.cs">
+    <Compile Include="Controls\HamburgerBar.xaml.cs">
       <DependentUpon>HamburgerBar.xaml</DependentUpon>
     </Compile>
     <Compile Include="HelperFunctions.cs" />
     <Compile Include="Keys.cs" />
-    <Compile Include="MultiStopArrivalsBox.xaml.cs">
+    <Compile Include="Controls\MultiStopArrivalsBox.xaml.cs">
       <DependentUpon>MultiStopArrivalsBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="RouteViewPage.xaml.cs">
+    <Compile Include="Pages\RouteViewPage.xaml.cs">
       <DependentUpon>RouteViewPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="RealtimeMediator.cs" />
     <Compile Include="Schedule.cs" />
-    <Compile Include="ScheduleBrowser.xaml.cs">
+    <Compile Include="Controls\ScheduleBrowser.xaml.cs">
       <DependentUpon>ScheduleBrowser.xaml</DependentUpon>
     </Compile>
     <Compile Include="SettingsManager.cs" />
     <Compile Include="ScrollViewerSnapping.cs" />
-    <Compile Include="StopArrivalsBox.xaml.cs">
+    <Compile Include="Controls\StopArrivalsBox.xaml.cs">
       <DependentUpon>StopArrivalsBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="StopViewPage.xaml.cs">
+    <Compile Include="Pages\StopViewPage.xaml.cs">
       <DependentUpon>StopViewPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Structs.cs" />
-    <Compile Include="BusMapPage.xaml.cs">
+    <Compile Include="Pages\BusMapPage.xaml.cs">
       <DependentUpon>BusMapPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestPage.xaml.cs">
+    <Compile Include="TemplateSelectors\RouteListingTemplateSelector.cs" />
+    <Compile Include="Pages\TestPage.xaml.cs">
       <DependentUpon>TestPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -158,6 +164,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Icons\Agencies\Metro.png" />
     <Content Include="Assets\Icons\BusAnalyticsIcon.png" />
     <Content Include="Assets\Icons\BusRoutesIcon.png" />
     <Content Include="Assets\Icons\BusBase.png" />
@@ -189,9 +196,11 @@
     <Content Include="Assets\Icons\BusDirectionW40.png" />
     <Content Include="Assets\Icons\BusGeneric16.png" />
     <Content Include="Assets\Icons\LogoBase.png" />
+    <Content Include="Assets\Icons\SmallLogo.targetsize-48.png" />
+    <Content Include="Assets\Icons\SmallLogo.targetsize-48_altform-unplated.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\Logo.scale-100.png" />
-    <Content Include="Assets\SmallLogo.scale-100.png" />
+    <Content Include="Assets\Icons\SmallLogo.scale-100.png" />
     <Content Include="Assets\SplashScreen.scale-100.png" />
     <Content Include="Assets\StoreLogo.scale-100.png" />
     <Content Include="Assets\WideLogo.scale-100.png" />
@@ -201,39 +210,43 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="BusArrivalBox.xaml">
+    <Page Include="Controls\BusArrivalBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="HamburgerBar.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="BusMapPage.xaml">
+    <Page Include="Controls\BusMap.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="MultiStopArrivalsBox.xaml">
+    <Page Include="Controls\HamburgerBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="RouteViewPage.xaml">
+    <Page Include="Pages\BusMapPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\MultiStopArrivalsBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ScheduleBrowser.xaml">
+    <Page Include="Pages\RouteViewPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="StopArrivalsBox.xaml">
+    <Page Include="Controls\ScheduleBrowser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="StopViewPage.xaml">
+    <Page Include="Controls\StopArrivalsBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="TestPage.xaml">
+    <Page Include="Pages\StopViewPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\TestPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

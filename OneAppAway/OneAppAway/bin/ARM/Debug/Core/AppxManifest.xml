@@ -23,7 +23,7 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="CoreRuntime\OneAppAway.exe" EntryPoint="OneAppAway.App">
-      <uap:VisualElements DisplayName="OneAppAway" Square150x150Logo="Assets\Logo.png" Square44x44Logo="Assets\SmallLogo.png" Description="OneAppAway" BackgroundColor="#464646">
+      <uap:VisualElements DisplayName="OneAppAway" Square150x150Logo="Assets\Logo.png" Square44x44Logo="Assets\Icons\SmallLogo.png" Description="OneAppAway" BackgroundColor="transparent">
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
     </Application>

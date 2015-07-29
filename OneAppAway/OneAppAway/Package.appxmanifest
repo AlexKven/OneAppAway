@@ -1,17 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
-<Package
-  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
-  xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
-  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
-  IgnorableNamespaces="uap mp">
+<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
 
-  <Identity
-    Name="47218a89-641f-4f6d-a5ac-82974e618780"
-    Publisher="CN=Alexander"
-    Version="1.0.0.0" />
+  <Identity Name="47218a89-641f-4f6d-a5ac-82974e618780" Publisher="CN=Alexander" Version="1.0.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="47218a89-641f-4f6d-a5ac-82974e618780" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="47218a89-641f-4f6d-a5ac-82974e618780" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
 
   <Properties>
     <DisplayName>OneAppAway</DisplayName>
@@ -24,19 +17,12 @@
   </Dependencies>
 
   <Resources>
-    <Resource Language="x-generate"/>
+    <Resource Language="x-generate" />
   </Resources>
 
   <Applications>
-    <Application Id="App"
-      Executable="$targetnametoken$.exe"
-      EntryPoint="OneAppAway.App">
-      <uap:VisualElements
-        DisplayName="OneAppAway"
-        Square150x150Logo="Assets\Logo.png"
-        Square44x44Logo="Assets\SmallLogo.png"
-        Description="OneAppAway"
-        BackgroundColor="#464646">
+    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="OneAppAway.App">
+      <uap:VisualElements DisplayName="OneAppAway" Square150x150Logo="Assets\Logo.png" Square44x44Logo="Assets\Icons\SmallLogo.png" Description="OneAppAway" BackgroundColor="transparent">
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
     </Application>
@@ -46,4 +32,13 @@
     <Capability Name="internetClient" />
     <DeviceCapability Name="location" />
   </Capabilities>
-</Package>
+<Capabilities xmlns="http://schemas.microsoft.com/appx/2010/manifest">
+    <DeviceCapability Name="bluetooth.rfcomm" xmlns="http://schemas.microsoft.com/appx/2013/manifest">
+      <Device Id="any">
+        <!-- Used by the Microsoft Band SDK -->
+        <Function Type="serviceId:A502CA9A-2BA5-413C-A4E0-13804E47B38F" />
+        <!-- Used by the Microsoft Band SDK -->
+        <Function Type="serviceId:C742E1A2-6320-5ABC-9643-D206C677E580" />
+      </Device>
+    </DeviceCapability>
+  </Capabilities></Package>

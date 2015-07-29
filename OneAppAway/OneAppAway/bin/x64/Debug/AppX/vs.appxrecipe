@@ -8,7 +8,7 @@
     <PackageArchitecture>x64</PackageArchitecture>
     <PackageIdentityName>47218a89-641f-4f6d-a5ac-82974e618780</PackageIdentityName>
     <IntermediateOutputPath>C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\obj\x64\Debug\</IntermediateOutputPath>
-    <RegisteredManifestChecksum>FD1227A839A61C1876D445AD5962E7A82724F8754729CC1D61F283F0F56771BC</RegisteredManifestChecksum>
+    <RegisteredManifestChecksum>A9032BB0706E1B8058DBC45BD6BA3CF9F621B14B7F171364ABD459EDDEAF595D</RegisteredManifestChecksum>
     <RegisteredPackageMoniker>47218a89-641f-4f6d-a5ac-82974e618780_1.0.0.0_x64__1fadp56eckdn0</RegisteredPackageMoniker>
     <RegisteredUserModeAppID>47218a89-641f-4f6d-a5ac-82974e618780_1fadp56eckdn0!App</RegisteredUserModeAppID>
     <RegisteredPackageID>47218a89-641f-4f6d-a5ac-82974e618780</RegisteredPackageID>
@@ -20,13 +20,17 @@
     <AppXManifest Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x64\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2015-07-25T00:58:51.879</Modified>
+      <Modified>2015-07-29T18:59:34.749</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x64\Debug\Core\ApplicationInsights.config">
       <PackagePath>ApplicationInsights.config</PackagePath>
-      <Modified>2015-07-23T03:48:28.111</Modified>
+      <Modified>2015-07-29T18:17:34.506</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x64\Debug\Core\Assets\Icons\Agencies\Metro.png">
+      <PackagePath>Assets\Icons\Agencies\Metro.png</PackagePath>
+      <Modified>2015-07-27T07:01:59.298</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x64\Debug\Core\Assets\Icons\BusAnalyticsIcon.png">
       <PackagePath>Assets\Icons\BusAnalyticsIcon.png</PackagePath>
@@ -152,25 +156,33 @@
       <PackagePath>Assets\Icons\LogoBase.png</PackagePath>
       <Modified>2015-07-11T06:58:51.795</Modified>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x64\Debug\Core\Assets\Icons\SmallLogo.scale-100.png">
+      <PackagePath>Assets\Icons\SmallLogo.scale-100.png</PackagePath>
+      <Modified>2015-07-27T01:27:58.306</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x64\Debug\Core\Assets\Icons\SmallLogo.targetsize-48.png">
+      <PackagePath>Assets\Icons\SmallLogo.targetsize-48.png</PackagePath>
+      <Modified>2015-07-27T02:06:23.994</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x64\Debug\Core\Assets\Icons\SmallLogo.targetsize-48_altform-unplated.png">
+      <PackagePath>Assets\Icons\SmallLogo.targetsize-48_altform-unplated.png</PackagePath>
+      <Modified>2015-07-27T02:06:24.004</Modified>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x64\Debug\Core\Assets\Logo.scale-100.png">
       <PackagePath>Assets\Logo.scale-100.png</PackagePath>
-      <Modified>2015-04-03T00:55:54.000</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x64\Debug\Core\Assets\SmallLogo.scale-100.png">
-      <PackagePath>Assets\SmallLogo.scale-100.png</PackagePath>
-      <Modified>2015-04-03T00:55:54.000</Modified>
+      <Modified>2015-07-27T01:27:25.410</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x64\Debug\Core\Assets\SplashScreen.scale-100.png">
       <PackagePath>Assets\SplashScreen.scale-100.png</PackagePath>
-      <Modified>2015-04-03T00:55:54.000</Modified>
+      <Modified>2015-07-27T01:29:02.102</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x64\Debug\Core\Assets\StoreLogo.scale-100.png">
       <PackagePath>Assets\StoreLogo.scale-100.png</PackagePath>
-      <Modified>2015-04-03T00:55:54.000</Modified>
+      <Modified>2015-07-27T01:29:18.902</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x64\Debug\Core\Assets\WideLogo.scale-100.png">
       <PackagePath>Assets\WideLogo.scale-100.png</PackagePath>
-      <Modified>2015-04-03T00:55:54.000</Modified>
+      <Modified>2015-07-27T01:29:51.203</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x64\Debug\Core\ClrCompression.dll">
       <PackagePath>ClrCompression.dll</PackagePath>
@@ -200,6 +212,42 @@
       <PackagePath>Microsoft.ApplicationInsights.PersistenceChannel.dll</PackagePath>
       <Modified>2015-05-23T04:21:19.492</Modified>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x64\Debug\Core\Microsoft.Band.dll">
+      <PackagePath>Microsoft.Band.dll</PackagePath>
+      <Modified>2015-07-29T17:38:42.695</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x64\Debug\Core\Microsoft.Band.Store.dll">
+      <PackagePath>Microsoft.Band.Store.dll</PackagePath>
+      <Modified>2015-07-29T17:38:42.727</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x64\Debug\Core\Microsoft.Band.Store\Microsoft.Band.Store.xr.xml">
+      <PackagePath>Microsoft.Band.Store\Microsoft.Band.Store.xr.xml</PackagePath>
+      <Modified>2015-07-29T17:38:42.742</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x64\Debug\Core\Microsoft.Band.Store\Sensors\SensorConsentPage.xbf">
+      <PackagePath>Microsoft.Band.Store\Sensors\SensorConsentPage.xbf</PackagePath>
+      <Modified>2015-07-29T17:38:42.742</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x64\Debug\Core\Microsoft.Band.Store\Tiles\AddTilePage.xbf">
+      <PackagePath>Microsoft.Band.Store\Tiles\AddTilePage.xbf</PackagePath>
+      <Modified>2015-07-29T17:38:42.742</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x64\Debug\Core\Microsoft.Band.Windows.dll">
+      <PackagePath>Microsoft.Band.Windows.dll</PackagePath>
+      <Modified>2015-07-29T17:38:42.774</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x64\Debug\Core\Microsoft.Band.Windows\Microsoft.Band.Windows.xr.xml">
+      <PackagePath>Microsoft.Band.Windows\Microsoft.Band.Windows.xr.xml</PackagePath>
+      <Modified>2015-07-29T17:38:42.789</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x64\Debug\Core\Microsoft.Band.Windows\Sensors\WindowsSensorConsentPage.xbf">
+      <PackagePath>Microsoft.Band.Windows\Sensors\WindowsSensorConsentPage.xbf</PackagePath>
+      <Modified>2015-07-29T17:38:42.789</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x64\Debug\Core\Microsoft.Band.Windows\Tiles\WindowsAddTilePage.xbf">
+      <PackagePath>Microsoft.Band.Windows\Tiles\WindowsAddTilePage.xbf</PackagePath>
+      <Modified>2015-07-29T17:38:42.789</Modified>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x64\Debug\Core\Microsoft.CSharp.dll">
       <PackagePath>Microsoft.CSharp.dll</PackagePath>
       <Modified>2015-04-18T04:59:50.000</Modified>
@@ -218,15 +266,15 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x64\Debug\Core\OneAppAway.csproj.AppLocalNetFX.GenerateResource.Cache">
       <PackagePath>OneAppAway.csproj.AppLocalNetFX.GenerateResource.Cache</PackagePath>
-      <Modified>2015-07-23T03:48:34.083</Modified>
+      <Modified>2015-07-29T18:18:32.528</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x64\Debug\Core\OneAppAway.exe">
       <PackagePath>OneAppAway.exe</PackagePath>
-      <Modified>2015-07-25T00:58:50.992</Modified>
+      <Modified>2015-07-29T18:59:33.562</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x64\Debug\Core\OneAppAway.xr.xml">
       <PackagePath>OneAppAway.xr.xml</PackagePath>
-      <Modified>2015-07-25T00:48:53.836</Modified>
+      <Modified>2015-07-28T18:02:22.324</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x64\Debug\Core\Properties\Default.rd.xml">
       <PackagePath>Properties\Default.rd.xml</PackagePath>
@@ -234,7 +282,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x64\Debug\Core\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2015-07-25T00:58:53.776</Modified>
+      <Modified>2015-07-29T18:59:36.296</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x64\Debug\Core\System.AppContext.dll">
       <PackagePath>System.AppContext.dll</PackagePath>
