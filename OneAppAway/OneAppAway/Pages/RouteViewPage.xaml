@@ -7,18 +7,20 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" RequestedTheme="Dark">
-    <ScrollViewer VerticalScrollMode="Disabled" VerticalScrollBarVisibility="Hidden" HorizontalScrollMode="Auto" HorizontalScrollBarVisibility="Auto">
+    <ScrollViewer VerticalScrollMode="Disabled" VerticalScrollBarVisibility="Hidden" HorizontalScrollMode="Enabled" HorizontalScrollBarVisibility="Visible">
         <Grid Background="#505050">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
+                <ColumnDefinition x:Name="MapColumn" Width="1000"/>
                 <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="1200"/>
             </Grid.ColumnDefinitions>
-            <TextBlock FontSize="36" VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="RouteNameBlock"/>
-            <Maps:MapControl x:Name="MainMap" Width="500" Margin="20" Grid.Row="1" ManipulationMode="None"/>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock FontSize="36" x:Name="RouteNameBlock" Margin="10,10,10,0"/>
+                <local:BusMap StopVisibilityThreshold="10" x:Name="MainMap" Margin="10" Grid.Row="1"/>
+            </Grid>
         </Grid>
     </ScrollViewer>
 </local:NavigationFriendlyPage>

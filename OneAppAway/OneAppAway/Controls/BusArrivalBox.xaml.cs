@@ -33,7 +33,7 @@ namespace OneAppAway
             set
             {
                 _Arrival = value;
-                bool longForm = value.RouteName.Length > 10;
+                bool longForm = value.RouteName.Length > 8;
                 NumberColumn.Width = new GridLength(longForm ? 10 : 45);
                 LongNameRow.Height = longForm ? GridLength.Auto : new GridLength(0);
                 RouteNumberBlock.Text = value.RouteName;

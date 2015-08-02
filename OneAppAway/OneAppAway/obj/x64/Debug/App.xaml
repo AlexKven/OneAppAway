@@ -17,7 +17,7 @@
         <converters:MinConverter x:Key="MinConverter"/>
         <converters:BasicGeopositionToStringConverter x:Key="BasicGeopositionStringConverter"/>
         <converters:BandwidthOptionsRowHeightConverter x:Key="BandwidthButtonConverter"/>
-        <ControlTemplate x:Key="SimpleButtonTemplate" TargetType="Button">
+        <ControlTemplate x:Key="SimpleButtonTemplate" TargetType="ButtonBase">
             <Grid>
                 <VisualStateManager.VisualStateGroups>
                     <VisualStateGroup x:Name="CommonStates">

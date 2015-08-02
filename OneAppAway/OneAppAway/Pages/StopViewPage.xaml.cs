@@ -33,10 +33,10 @@ namespace OneAppAway
         {
             this.NavigationCacheMode = NavigationCacheMode.Disabled;
             this.InitializeComponent();
-            MainMap.MapServiceToken = Keys.BingMapKey; //Comment out if you don't have Keys.cs
         }
 
         private double? lonPP;
+        private bool ScheduleLoaded = false;
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -64,17 +64,18 @@ namespace OneAppAway
             TitleBlock.Text = Stop.Name;
             Uri imageUri = new Uri(Stop.Direction == StopDirection.Unspecified ? "ms-appx:///Assets/Icons/BusBase40.png" : "ms-appx:///Assets/Icons/BusDirection" + Stop.Direction.ToString() + "40.png");
             DirectionImage.Source = new BitmapImage(imageUri);
-            MapIcon mico = new MapIcon();
-            mico.Location = new Geopoint(Stop.Position);
-            mico.Image = RandomAccessStreamReference.CreateFromUri(imageUri);
-            mico.NormalizedAnchorPoint = new Point(0.5, 0.5); 
-            MainMap.MapElements.Add(mico);
-            MainMap.MapElements.Add(mico);
-            MainMap.Center = new Geopoint(Stop.Position);
+            //MapIcon mico = new MapIcon();
+            //mico.Location = new Geopoint(Stop.Position);
+            //mico.Image = RandomAccessStreamReference.CreateFromUri(imageUri);
+            //mico.NormalizedAnchorPoint = new Point(0.5, 0.5); 
+            //MainMap.MapElements.Add(mico);
+            //MainMap.MapElements.Add(mico);
+            //MainMap.Center = new Geopoint(Stop.Position);
+            MainMap.ShownStops.Add(Stop);
 #pragma warning disable CS4014
             RefreshRoutes();
             RefreshArrivals();
-            if (ScheduleToggle.IsChecked.Value && LoadSchedulesButton.Visibility == Visibility.Visible && BandwidthManager.EffectiveBandwidthOptions == BandwidthOptions.Normal)
+            if (ScheduleToggle.IsChecked.Value && !ScheduleLoaded && BandwidthManager.EffectiveBandwidthOptions == BandwidthOptions.Normal)
                 GetSchedule();
             else
                 LoadSchedulesButton.Visibility = Visibility.Visible;
@@ -89,11 +90,11 @@ namespace OneAppAway
             {
                 Geopoint pointOutW;
                 Geopoint pointOutE;
-                MainMap.GetLocationFromOffset(new Point(0, 0), out pointOutW);
-                MainMap.GetLocationFromOffset(new Point(InnerGrid.ActualWidth, 0), out pointOutE);
+                MainMap.MapControl.GetLocationFromOffset(new Point(0, 0), out pointOutW);
+                MainMap.MapControl.GetLocationFromOffset(new Point(InnerGrid.ActualWidth, 0), out pointOutE);
                 lonPP = (pointOutE.Position.Longitude - pointOutW.Position.Longitude) / InnerGrid.ActualWidth;
             }
-            MainMap.Center = new Geopoint(new BasicGeoposition() { Latitude = Stop.Position.Latitude, Longitude = Stop.Position.Longitude - lonPP.Value * (InnerGrid.ActualWidth - 100 - InnerGrid.ActualWidth / 2) });
+            MainMap.Center = new BasicGeoposition() { Latitude = Stop.Position.Latitude, Longitude = Stop.Position.Longitude - lonPP.Value * (InnerGrid.ActualWidth - 100 - InnerGrid.ActualWidth / 2) };
         }
 
         private BusStop Stop;
@@ -141,6 +142,7 @@ namespace OneAppAway
         private async Task GetSchedule()
         {
             ScheduleProgressIndicator.IsActive = true;
+            ScheduleNotAvailableBlock.Visibility = Visibility.Collapsed;
             LoadSchedulesButton.Visibility = Visibility.Collapsed;
             Schedule = await Data.GetScheduleForStop(Stop.ID);
             DayScheduleSelector.Items.Clear();
@@ -153,6 +155,7 @@ namespace OneAppAway
             {
                 DayScheduleSelector.IsEnabled = false;
                 DayScheduleSelector.Items.Add("No Schedules Available");
+                ScheduleNotAvailableBlock.Visibility = Visibility.Visible;
                 DayScheduleSelector.SelectedIndex = 0;
             }
             else
@@ -161,6 +164,7 @@ namespace OneAppAway
                 DayScheduleSelector.SelectionChanged += DayScheduleSelector_SelectionChanged;
                 DayScheduleSelector.SelectedIndex = 0;
             }
+            ScheduleLoaded = true;
             ScheduleProgressIndicator.IsActive = false;
         }
 

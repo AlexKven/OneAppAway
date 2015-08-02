@@ -26,6 +26,7 @@ C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x64\Deb
 C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x64\Debug\System.Numerics.Vectors.xml
 C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x64\Debug\System.Numerics.Vectors.WindowsRuntime.xml
 C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x64\Debug\Microsoft.Diagnostics.Tracing.EventSource.xml
+C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\obj\x64\Debug\OneAppAway.csprojResolveAssemblyReference.cache
 C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\obj\x64\Debug\App.g.i.cs
 C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\obj\x64\Debug\App.g.cs
 C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\obj\x64\Debug\Controls\BusArrivalBox.g.i.cs
@@ -346,4 +347,6 @@ C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\obj\x64\Deb
 C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\obj\x64\Debug\AppLocalNetFXResources\empty.pri.resfiles
 C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\obj\x64\Debug\AppLocalNetFXResources\applocalnetfxresources.resfiles
 C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\obj\x64\Debug\AppLocalNetFXResources\priconfig.netfx.xml
-C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\obj\x64\Debug\OneAppAway.csprojResolveAssemblyReference.cache
+C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x64\Debug\Core\OneAppAway.csproj.AppLocalNetFX.GenerateResource.Cache
+C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x64\Debug\Core\Assets\Icons\RefreshStopsIcon.png
+C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\obj\x64\Debug\Core\Assets\Icons\RefreshStopsIcon.png

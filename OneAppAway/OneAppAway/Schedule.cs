@@ -117,30 +117,34 @@ namespace OneAppAway
 
         public void LoadFromVerboseString(string str)
         {
-            StringReader reader = new StringReader(str);
-            XDocument xDoc = XDocument.Load(reader);
-
-            XElement el = xDoc.Element("response").Element("data").Element("entry").Element("stopRouteSchedules");
-
-            List<Tuple<string, string, Tuple<short, string>[]>> data = new List<Tuple<string, string, Tuple<short, string>[]>>();
-            foreach (var el2 in el.Elements("stopRouteSchedule"))
+            try
             {
-                string route = el2.Element("routeId")?.Value;
-                foreach (var el3 in el2.Element("stopRouteDirectionSchedules").Elements("stopRouteDirectionSchedule"))
+                StringReader reader = new StringReader(str);
+                XDocument xDoc = XDocument.Load(reader);
+
+                XElement el = xDoc.Element("response").Element("data").Element("entry").Element("stopRouteSchedules");
+
+                List<Tuple<string, string, Tuple<short, string>[]>> data = new List<Tuple<string, string, Tuple<short, string>[]>>();
+                foreach (var el2 in el.Elements("stopRouteSchedule"))
                 {
-                    string sign = el3.Element("tripHeadsign")?.Value;
-                    List<Tuple<short, string>> trips = new List<Tuple<short, string>>();
-                    foreach (var el4 in el3.Element("scheduleStopTimes").Elements("scheduleStopTime"))
+                    string route = el2.Element("routeId")?.Value;
+                    foreach (var el3 in el2.Element("stopRouteDirectionSchedules").Elements("stopRouteDirectionSchedule"))
                     {
-                        string arrivalTime = el4.Element("arrivalTime")?.Value;
-                        string tripId = el4.Element("tripId")?.Value;
-                        DateTime time = (new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc) + TimeSpan.FromMilliseconds(long.Parse(arrivalTime))).ToLocalTime();
-                        trips.Add(new Tuple<short, string>((short)(time.Hour * 60 + time.Minute), tripId));
+                        string sign = el3.Element("tripHeadsign")?.Value;
+                        List<Tuple<short, string>> trips = new List<Tuple<short, string>>();
+                        foreach (var el4 in el3.Element("scheduleStopTimes")?.Elements("scheduleStopTime"))
+                        {
+                            string arrivalTime = el4.Element("arrivalTime")?.Value;
+                            string tripId = el4.Element("tripId")?.Value;
+                            DateTime time = (new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc) + TimeSpan.FromMilliseconds(long.Parse(arrivalTime))).ToLocalTime();
+                            trips.Add(new Tuple<short, string>((short)(time.Hour * 60 + time.Minute), tripId));
+                        }
+                        data.Add(new Tuple<string, string, Tuple<short, string>[]>(route, sign, trips.ToArray()));
                     }
-                    data.Add(new Tuple<string, string, Tuple<short, string>[]>(route, sign, trips.ToArray()));
                 }
+                Data = data.ToArray();
             }
-            Data = data.ToArray();
+            catch (Exception) { }
         }
 
         public bool IsIdenticalToByTime(DaySchedule other)

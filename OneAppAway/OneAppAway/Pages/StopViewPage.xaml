@@ -27,7 +27,7 @@
                     <ColumnDefinition Width="*" x:Name="RoutesColumn"/>
                     <ColumnDefinition Width="200"/>
                 </Grid.ColumnDefinitions>
-                <Maps:MapControl Grid.ColumnSpan="4" Grid.RowSpan="4" x:Name="MainMap" ZoomLevel="15"/>
+                <local:BusMap StopVisibilityThreshold="0" StopSizeThreshold="0" Grid.ColumnSpan="4" Grid.RowSpan="4" x:Name="MainMap" ZoomLevel="15"/>
                 <Rectangle Fill="#DD3D3D3D" Grid.RowSpan="4" Grid.ColumnSpan="3"/>
                 <StackPanel Orientation="Horizontal" Grid.ColumnSpan="4">
                     <Image x:Name="DirectionImage" Margin="5"/>
@@ -44,6 +44,7 @@
                 <Button Template="{StaticResource SimpleButtonTemplate}" Grid.Row="2" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" x:Name="LoadSchedulesButton" Background="Transparent" Click="LoadSchedulesButton_Click" Visibility="Collapsed">
                     <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24" TextWrapping="WrapWholeWords">Tap to load schedules</TextBlock>
                 </Button>
+                <TextBlock Visibility="Collapsed" Grid.Row="2" Grid.Column="1" FontSize="24" TextWrapping="WrapWholeWords" VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="ScheduleNotAvailableBlock">No schedule is available for any of these routes.</TextBlock>
                 <ComboBox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" SelectedIndex="0" IsEnabled="False" x:Name="DayScheduleSelector">
                     <ComboBoxItem>(Schedule Not Loaded)</ComboBoxItem>
                 </ComboBox>
@@ -51,23 +52,6 @@
                 <TextBlock FontSize="24" Margin="5" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Center">Routes</TextBlock>
                 <ScrollViewer Grid.Row="2" Grid.Column="2" Grid.RowSpan="2">
                     <ItemsControl x:Name="RoutesControl">
-                        <!--<ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Button Margin="10,0,15,0" Template="{StaticResource SimpleButtonTemplate}" HorizontalAlignment="Stretch" Background="Transparent" Tag="{Binding RouteId}" Click="RouteButton_Click">
-                                    <RelativePanel>
-                                        <TextBlock x:Name="RouteNameBlock" FontSize="26" Text="{Binding Name}" Grid.RowSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{Binding ElementName=RouteNumberBlock, Path=Tag, Converter={StaticResource ThemeBrushConverters}, ConverterParameter=1.2}"/>
-                                        <Grid RelativePanel.AlignRightWith="RouteNameBlock">
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="auto"/>
-                                                <RowDefinition Height="auto"/>
-                                            </Grid.RowDefinitions>
-                                            <TextBlock FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Description}" TextWrapping="WrapWholeWords" Grid.Column="0" x:Name="RouteNumberBlock" Tag="{ThemeResource SystemColorControlAccentColor}"/>
-                                            <TextBlock FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Agency}" Grid.Row="1" Grid.Column="0"/>
-                                        </Grid>
-                                    </RelativePanel>
-                                </Button>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>-->
                         <ItemsControl.ItemTemplateSelector>
                             <ts:RouteListingTemplateSelector>
                                 <ts:RouteListingTemplateSelector.ShortFormTemplate>
@@ -98,7 +82,7 @@
                                                     <RowDefinition Height="auto"/>
                                                     <RowDefinition Height="auto"/>
                                                 </Grid.RowDefinitions>
-                                                <TextBlock x:Name="RouteNameBlock" FontSize="26" Text="{Binding Name}" Foreground="{Binding ElementName=RouteNumberBlock, Path=Tag, Converter={StaticResource ThemeBrushConverters}, ConverterParameter=1.2}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                                <TextBlock x:Name="RouteNameBlock" FontSize="26" Text="{Binding Name}" Foreground="{Binding ElementName=RouteNumberBlock, Path=Tag, Converter={StaticResource ThemeBrushConverters}, ConverterParameter=1.2}" VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="WrapWholeWords"/>
                                                 <TextBlock FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Description}" TextWrapping="WrapWholeWords" Grid.Row="1" Grid.Column="0" x:Name="RouteNumberBlock" Tag="{ThemeResource SystemColorControlAccentColor}"/>
                                                 <TextBlock FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Agency}" Grid.Row="2" Grid.Column="0"/>
                                             </Grid>

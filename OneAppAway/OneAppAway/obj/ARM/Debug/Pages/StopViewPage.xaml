@@ -27,15 +27,15 @@
                     <ColumnDefinition x:ConnectionId='10' Width="*" x:Name="RoutesColumn"/>
                     <ColumnDefinition Width="200"/>
                 </Grid.ColumnDefinitions>
-                <Maps:MapControl x:ConnectionId='11' Grid.ColumnSpan="4" Grid.RowSpan="4" x:Name="MainMap" ZoomLevel="15"/>
+                <local:BusMap x:ConnectionId='11' StopVisibilityThreshold="0" StopSizeThreshold="0" Grid.ColumnSpan="4" Grid.RowSpan="4" x:Name="MainMap" ZoomLevel="15"/>
                 <Rectangle Fill="#DD3D3D3D" Grid.RowSpan="4" Grid.ColumnSpan="3"/>
                 <StackPanel Orientation="Horizontal" Grid.ColumnSpan="4">
-                    <Image x:ConnectionId='23' x:Name="DirectionImage" Margin="5"/>
-                    <TextBlock x:ConnectionId='24' FontSize="24" Margin="10" x:Name="TitleBlock"/>
+                    <Image x:ConnectionId='24' x:Name="DirectionImage" Margin="5"/>
+                    <TextBlock x:ConnectionId='25' FontSize="24" Margin="10" x:Name="TitleBlock"/>
                 </StackPanel>
                 <TextBlock FontSize="24" Margin="5" Grid.Row="1" HorizontalAlignment="Center">Arrivals</TextBlock>
                 <ScrollViewer Grid.Row="2">
-                    <StackPanel x:ConnectionId='22' x:Name="ArrivalsStackPanel"/>
+                    <StackPanel x:ConnectionId='23' x:Name="ArrivalsStackPanel"/>
                 </ScrollViewer>
                 <TextBlock x:ConnectionId='12' Margin="1" FontSize="18" Grid.Row="3" x:Name="LastRefreshBox"/>
                 <ProgressRing x:ConnectionId='13' Grid.Row="2" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" x:Name="ArrivalsProgressIndicator" IsHitTestVisible="False"/>
@@ -44,35 +44,19 @@
                 <Button x:ConnectionId='15' Template="{StaticResource SimpleButtonTemplate}" Grid.Row="2" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" x:Name="LoadSchedulesButton" Background="Transparent"                                   Visibility="Collapsed">
                     <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24" TextWrapping="WrapWholeWords">Tap to load schedules</TextBlock>
                 </Button>
-                <ComboBox x:ConnectionId='16' Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" SelectedIndex="0" IsEnabled="False" x:Name="DayScheduleSelector">
+                <TextBlock x:ConnectionId='16' Visibility="Collapsed" Grid.Row="2" Grid.Column="1" FontSize="24" TextWrapping="WrapWholeWords" VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="ScheduleNotAvailableBlock">No schedule is available for any of these routes.</TextBlock>
+                <ComboBox x:ConnectionId='17' Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" SelectedIndex="0" IsEnabled="False" x:Name="DayScheduleSelector">
                     <ComboBoxItem>(Schedule Not Loaded)</ComboBoxItem>
                 </ComboBox>
-                <ProgressRing x:ConnectionId='17' Grid.Column="1" Grid.Row="2" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" x:Name="ScheduleProgressIndicator" IsHitTestVisible="False"/>
+                <ProgressRing x:ConnectionId='18' Grid.Column="1" Grid.Row="2" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" x:Name="ScheduleProgressIndicator" IsHitTestVisible="False"/>
                 <TextBlock FontSize="24" Margin="5" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Center">Routes</TextBlock>
                 <ScrollViewer Grid.Row="2" Grid.Column="2" Grid.RowSpan="2">
-                    <ItemsControl x:ConnectionId='19' x:Name="RoutesControl">
-                        <!--<ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Button Margin="10,0,15,0" Template="{StaticResource SimpleButtonTemplate}" HorizontalAlignment="Stretch" Background="Transparent" Tag="{Binding RouteId}" Click="RouteButton_Click">
-                                    <RelativePanel>
-                                        <TextBlock x:Name="RouteNameBlock" FontSize="26" Text="{Binding Name}" Grid.RowSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{Binding ElementName=RouteNumberBlock, Path=Tag, Converter={StaticResource ThemeBrushConverters}, ConverterParameter=1.2}"/>
-                                        <Grid RelativePanel.AlignRightWith="RouteNameBlock">
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="auto"/>
-                                                <RowDefinition Height="auto"/>
-                                            </Grid.RowDefinitions>
-                                            <TextBlock FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Description}" TextWrapping="WrapWholeWords" Grid.Column="0" x:Name="RouteNumberBlock" Tag="{ThemeResource SystemColorControlAccentColor}"/>
-                                            <TextBlock FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Agency}" Grid.Row="1" Grid.Column="0"/>
-                                        </Grid>
-                                    </RelativePanel>
-                                </Button>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>-->
+                    <ItemsControl x:ConnectionId='20' x:Name="RoutesControl">
                         <ItemsControl.ItemTemplateSelector>
                             <ts:RouteListingTemplateSelector>
                                 <ts:RouteListingTemplateSelector.ShortFormTemplate>
                                     <DataTemplate>
-                                        <Button x:ConnectionId='20' Margin="10,0,15,0" Template="{StaticResource SimpleButtonTemplate}" HorizontalAlignment="Stretch" Background="Transparent" Tag="{Binding RouteId}"                          >
+                                        <Button x:ConnectionId='21' Margin="10,0,15,0" Template="{StaticResource SimpleButtonTemplate}" HorizontalAlignment="Stretch" Background="Transparent" Tag="{Binding RouteId}"                          >
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="auto" MinWidth="45"/>
@@ -91,14 +75,14 @@
                                 </ts:RouteListingTemplateSelector.ShortFormTemplate>
                                 <ts:RouteListingTemplateSelector.LongFormTemplate>
                                     <DataTemplate>
-                                        <Button x:ConnectionId='21' Margin="10,0,15,0" Template="{StaticResource SimpleButtonTemplate}" HorizontalAlignment="Stretch" Background="Transparent" Tag="{Binding RouteId}"                          >
+                                        <Button x:ConnectionId='22' Margin="10,0,15,0" Template="{StaticResource SimpleButtonTemplate}" HorizontalAlignment="Stretch" Background="Transparent" Tag="{Binding RouteId}"                          >
                                             <Grid>
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition Height="auto"/>
                                                     <RowDefinition Height="auto"/>
                                                     <RowDefinition Height="auto"/>
                                                 </Grid.RowDefinitions>
-                                                <TextBlock x:Name="RouteNameBlock" FontSize="26" Text="{Binding Name}" Foreground="{Binding ElementName=RouteNumberBlock, Path=Tag, Converter={StaticResource ThemeBrushConverters}, ConverterParameter=1.2}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                                <TextBlock x:Name="RouteNameBlock" FontSize="26" Text="{Binding Name}" Foreground="{Binding ElementName=RouteNumberBlock, Path=Tag, Converter={StaticResource ThemeBrushConverters}, ConverterParameter=1.2}" VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="WrapWholeWords"/>
                                                 <TextBlock FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Description}" TextWrapping="WrapWholeWords" Grid.Row="1" Grid.Column="0" x:Name="RouteNumberBlock" Tag="{ThemeResource SystemColorControlAccentColor}"/>
                                                 <TextBlock FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Agency}" Grid.Row="2" Grid.Column="0"/>
                                             </Grid>
@@ -109,7 +93,7 @@
                         </ItemsControl.ItemTemplateSelector>
                     </ItemsControl>
                 </ScrollViewer>
-                <ProgressRing x:ConnectionId='18' Grid.Column="2" Grid.Row="2" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" x:Name="RoutesProgressIndicator" IsHitTestVisible="False"/>
+                <ProgressRing x:ConnectionId='19' Grid.Column="2" Grid.Row="2" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" x:Name="RoutesProgressIndicator" IsHitTestVisible="False"/>
                 <Rectangle Grid.RowSpan="4" Grid.Column="3" Fill="#01000000"/>
             </Grid>
         </ScrollViewer>

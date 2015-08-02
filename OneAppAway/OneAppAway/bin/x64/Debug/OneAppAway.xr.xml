@@ -35,9 +35,6 @@
       <RootProperty Name="Resources" />
       <RootProperty Name="ColumnDefinitions" />
       <RootProperty Name="RowDefinitions" />
-      <RootProperty Name="Visibility" />
-      <RootProperty Name="Width" />
-      <RootProperty Name="Height" />
       <RootProperty Name="Margin" />
       <RootProperty Name="HorizontalAlignment" />
       <RootProperty Name="Background" />
@@ -57,8 +54,8 @@
     </RootType>
     <RootType FullName="Windows.UI.Xaml.VisualStateGroup">
       <RootProperty Name="States" />
-      <RootEvent Name="CurrentStateChanging" />
       <RootEvent Name="CurrentStateChanged" />
+      <RootEvent Name="CurrentStateChanging" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.VisualState">
       <RootProperty Name="Storyboard" />
@@ -73,7 +70,6 @@
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Media.Animation.ObjectAnimationUsingKeyFrames">
       <RootProperty Name="KeyFrames" />
-      <RootProperty Name="Duration" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Media.Animation.DiscreteObjectKeyFrame">
       <RootProperty Name="KeyTime" />
@@ -126,6 +122,7 @@
       <RootProperty Name="TextTrimming" />
       <RootProperty Name="Inlines" />
       <RootProperty Name="FontWeight" />
+      <RootProperty Name="Visibility" />
       <RootProperty Name="Text" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Data.Binding">
@@ -138,37 +135,26 @@
     <RootType FullName="Microsoft.Xaml.DirectUI.ProxyTypes.StaticResourceExtension" />
     <RootType FullName="Microsoft.Xaml.DirectUI.ProxyTypes.ThemeResourceExtension" />
     <RootType FullName="OneAppAway.BusArrivalBox" />
-    <RootType FullName="Windows.UI.Xaml.AdaptiveTrigger">
-      <RootProperty Name="MinWindowWidth" />
-      <RootProperty Name="MinWindowHeight" />
-    </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.Maps.MapControl">
       <RootProperty Name="TransitFeaturesVisible" />
       <RootProperty Name="PedestrianFeaturesVisible" />
       <RootProperty Name="TiltInteractionMode" />
       <RootProperty Name="RotateInteractionMode" />
-      <RootProperty Name="Children" />
-      <RootProperty Name="Width" />
-      <RootProperty Name="Margin" />
-      <RootProperty Name="ManipulationMode" />
-      <RootProperty Name="ZoomLevel" />
       <RootEvent Name="MapElementClick" />
       <RootEvent Name="SizeChanged" />
       <RootEvent Name="ZoomLevelChanged" />
       <RootEvent Name="CenterChanged" />
-      <RootEvent Name="ActualCameraChanged" />
       <RootMethod Name="GetNormalizedAnchorPoint" />
       <RootMethod Name="SetNormalizedAnchorPoint" />
     </RootType>
-    <RootType FullName="OneAppAway.MultiStopArrivalsBox">
-      <RootProperty Name="Opacity" />
-      <RootProperty Name="RenderTransform" />
-      <RootEvent Name="CloseRequested" />
+    <RootType FullName="OneAppAway.BusMap">
+      <RootProperty Name="StopVisibilityThreshold" />
+      <RootProperty Name="Margin" />
+      <RootProperty Name="StopSizeThreshold" />
+      <RootProperty Name="ZoomLevel" />
+      <RootEvent Name="StopsClicked" />
+      <RootEvent Name="PropertyChanged" />
     </RootType>
-    <RootType FullName="Windows.UI.Xaml.Media.CompositeTransform">
-      <RootProperty Name="TranslateY" />
-    </RootType>
-    <RootType FullName="OneAppAway.BusMap" />
     <RootType FullName="Windows.UI.Xaml.Controls.ContentControl">
       <RootProperty Name="Template" />
     </RootType>
@@ -178,6 +164,10 @@
       <RootProperty Name="OpenPaneLength" />
       <RootProperty Name="Content" />
       <RootProperty Name="Pane" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.AdaptiveTrigger">
+      <RootProperty Name="MinWindowWidth" />
+      <RootProperty Name="MinWindowHeight" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.SplitViewDisplayMode" />
     <RootType FullName="System.Double" />
@@ -189,6 +179,7 @@
       <RootProperty Name="Margin" />
       <RootProperty Name="HorizontalAlignment" />
       <RootProperty Name="Tag" />
+      <RootProperty Name="VerticalAlignment" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.Button">
       <RootProperty Name="Background" />
@@ -201,8 +192,8 @@
       <RootProperty Name="Template" />
       <RootProperty Name="HorizontalAlignment" />
       <RootProperty Name="HorizontalContentAlignment" />
-      <RootProperty Name="VerticalAlignment" />
       <RootProperty Name="Foreground" />
+      <RootProperty Name="VerticalAlignment" />
       <RootProperty Name="Margin" />
       <RootProperty Name="Visibility" />
       <RootProperty Name="Tag" />
@@ -223,11 +214,35 @@
       <RootProperty Name="RequestedTheme" />
       <RootEvent Name="SizeChanged" />
     </RootType>
+    <RootType FullName="OneAppAway.MultiStopArrivalsBox">
+      <RootProperty Name="Opacity" />
+      <RootProperty Name="RenderTransform" />
+      <RootEvent Name="CloseRequested" />
+    </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.ProgressBar">
       <RootProperty Name="HorizontalAlignment" />
       <RootProperty Name="VerticalAlignment" />
       <RootProperty Name="IsHitTestVisible" />
       <RootProperty Name="Visibility" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Media.CompositeTransform">
+      <RootProperty Name="TranslateY" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.Primitives.RepeatButton">
+      <RootProperty Name="Template" />
+      <RootProperty Name="Width" />
+      <RootProperty Name="Height" />
+      <RootProperty Name="Background" />
+      <RootProperty Name="Content" />
+      <RootEvent Name="Click" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.BitmapIcon">
+      <RootProperty Name="Foreground" />
+      <RootProperty Name="UriSource" />
+      <RootProperty Name="Width" />
+      <RootProperty Name="Height" />
+      <RootProperty Name="VerticalAlignment" />
+      <RootProperty Name="HorizontalAlignment" />
     </RootType>
     <RootType FullName="OneAppAway.BusMapPage" />
     <RootType FullName="Windows.UI.Xaml.Controls.ScrollViewer">
@@ -293,9 +308,6 @@
       <RootProperty Name="Label" />
       <RootProperty Name="Icon" />
       <RootEvent Name="Click" />
-    </RootType>
-    <RootType FullName="Windows.UI.Xaml.Controls.BitmapIcon">
-      <RootProperty Name="UriSource" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.AppBarToggleButton">
       <RootProperty Name="Label" />

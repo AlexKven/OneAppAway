@@ -165,6 +165,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Icons\Agencies\Metro.png" />
+    <Content Include="Assets\Icons\RefreshStopsIcon.png" />
     <Content Include="Assets\Icons\BusAnalyticsIcon.png" />
     <Content Include="Assets\Icons\BusRoutesIcon.png" />
     <Content Include="Assets\Icons\BusBase.png" />

@@ -17,6 +17,7 @@ namespace OneAppAway
             this.navigationHelper = new NavigationHelper(this);
             this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
             this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
+            this.NavigationCacheMode = NavigationCacheMode.Disabled;
         }
         
         public NavigationHelper NavigationHelper

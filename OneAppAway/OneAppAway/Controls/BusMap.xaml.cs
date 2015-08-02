@@ -30,25 +30,25 @@ namespace OneAppAway
     public sealed partial class BusMap : UserControl, INotifyPropertyChanged
     {
         #region Fields
-        public const double ZOOMLEVEL_SIZE_CUTOFF = 16;
-        public const double ZOOMLEVEL_VISIBILITY_CUTOFF = 14;
         private const double LAT_OVER_LON = .67706;
 
         private List<MapIcon> BusStopIcons = new List<MapIcon>();
         private Dictionary<MapIcon, BusStop> Stops = new Dictionary<MapIcon, BusStop>();
         private double PreviousZoomLevel;
-        private long LastMove;
-        #endregion
+        #endregion 
 
         public BusMap()
         {
             this.InitializeComponent();
             _ShownStops.CollectionChanged += _ShownStops_CollectionChanged;
+            MainMap.MapServiceToken = Keys.BingMapKey;
         }
 
         private ObservableCollection<BusStop> _ShownStops = new ObservableCollection<BusStop>();
+        private double _StopSizeThreshold = 16;
+        private double _StopVisibilityThreshold = 14;
 
-        private ICollection<BusStop> ShownStops
+        public ICollection<BusStop> ShownStops
         {
             get
             {
@@ -125,16 +125,44 @@ namespace OneAppAway
             {
                 return MainMap.ZoomLevel;
             }
+            set
+            {
+                MainMap.ZoomLevel = value;
+            }
         }
+
+        public double StopSizeThreshold
+        {
+            get { return _StopSizeThreshold; }
+            set
+            {
+                _StopSizeThreshold = value;
+                RefreshIconSizes();
+                OnPropertyChanged("StopSizeThreshold");
+            }
+        }
+        public double StopVisibilityThreshold
+        {
+            get { return _StopVisibilityThreshold; }
+            set
+            {
+                _StopVisibilityThreshold = value;
+                RefreshIconSizes();
+                OnPropertyChanged("StopVisibilityThreshold");
+            }
+        }
+
+        public MapControl MapControl => MainMap;
 
         #region Methods
         private void AddStopToMap(BusStop stop)
         {
             MapIcon mico = new MapIcon();
+            mico.ZIndex = 10;
             mico.Location = new Geopoint(stop.Position);
             mico.CollisionBehaviorDesired = MapElementCollisionBehavior.RemainVisible;
-            string size = ZoomLevel < ZOOMLEVEL_SIZE_CUTOFF ? "20" : "40";
-            bool visibility = ZoomLevel >= ZOOMLEVEL_VISIBILITY_CUTOFF;
+            string size = ZoomLevel < StopSizeThreshold ? "20" : "40";
+            bool visibility = ZoomLevel >= StopVisibilityThreshold;
             mico.Image = RandomAccessStreamReference.CreateFromUri(new Uri(stop.Direction == StopDirection.Unspecified ? "ms-appx:///Assets/Icons/BusBase" + size + ".png" : "ms-appx:///Assets/Icons/BusDirection" + stop.Direction.ToString() + size + ".png"));
             mico.NormalizedAnchorPoint = new Point(0.5, 0.5);
             mico.Visible = visibility;
@@ -156,7 +184,7 @@ namespace OneAppAway
             foreach (MapIcon img in BusStopIcons)
             {
                 BusStop stop = Stops[img];
-                string size = ZoomLevel < ZOOMLEVEL_SIZE_CUTOFF ? "20" : "40";
+                string size = ZoomLevel < StopSizeThreshold ? "20" : "40";
                 img.Image = RandomAccessStreamReference.CreateFromUri(new Uri(stop.Direction == StopDirection.Unspecified ? "ms-appx:///Assets/Icons/BusBase" + size + ".png" : "ms-appx:///Assets/Icons/BusDirection" + stop.Direction.ToString() + size + ".png"));
                 //img.Source = new BitmapMapIcon(new Uri(stop.Direction == StopDirection.Unspecified ? "ms-appx:///Assets/Icons/BusBase" + size + ".png" : "ms-appx:///Assets/Icons/BusDirection" + stop.Direction.ToString() + size + ".png"));
             }
@@ -164,7 +192,7 @@ namespace OneAppAway
 
         private void RefreshIconVisibilities()
         {
-            bool visibility = ZoomLevel >= ZOOMLEVEL_VISIBILITY_CUTOFF;
+            bool visibility = ZoomLevel >= StopVisibilityThreshold;
             foreach (MapIcon img in BusStopIcons)
             {
                 BusStop stop = Stops[img];
@@ -197,6 +225,13 @@ namespace OneAppAway
         #region Event Handlers
         private void _ShownStops_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
+            if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Reset)
+            {
+                Stops.Clear();
+                foreach (var item in BusStopIcons)
+                    MainMap.Children.Remove(item);
+                BusStopIcons.Clear();
+            }
             if (e.NewItems != null)
             {
                 foreach (BusStop item in e.NewItems)
@@ -215,9 +250,9 @@ namespace OneAppAway
 
         private void MainMap_ZoomLevelChanged(MapControl sender, object args)
         {
-            if ((ZoomLevel < ZOOMLEVEL_SIZE_CUTOFF) != (PreviousZoomLevel < ZOOMLEVEL_SIZE_CUTOFF))
+            if ((ZoomLevel < StopSizeThreshold) != (PreviousZoomLevel < StopSizeThreshold))
                 RefreshIconSizes();
-            if ((ZoomLevel < ZOOMLEVEL_VISIBILITY_CUTOFF) != (PreviousZoomLevel < ZOOMLEVEL_VISIBILITY_CUTOFF))
+            if ((ZoomLevel < StopVisibilityThreshold) != (PreviousZoomLevel < StopVisibilityThreshold))
                 RefreshIconVisibilities();
             OnPropertyChanged("ZoomLevel", "TopLeft", "BottomRight");
             PreviousZoomLevel = ZoomLevel;
@@ -239,22 +274,13 @@ namespace OneAppAway
             await MainMap.TrySetViewAsync(new Geopoint(location), zoomLevel, null, null, MapAnimationKind.None);
         }
 
-        private async void MainMap_MapElementClick(MapControl sender, MapElementClickEventArgs args)
+        private void MainMap_MapElementClick(MapControl sender, MapElementClickEventArgs args)
         {
-            Geopoint position;
-            MainMap.GetLocationFromOffset(args.Position, out position);
-            BasicGeoposition newCenter = position.Position;
-            newCenter.Latitude = position.Position.Latitude + (TopLeft.Latitude - BottomRight.Latitude) / 2 - 50 * LatitudePerPixel;
-            double halfLatSpan = (TopLeft.Latitude - BottomRight.Latitude) / 2.5;
-            double halfLonSpan = (BottomRight.Longitude - TopLeft.Longitude) / 2.5;
-            //await MainMap.TrySetViewBoundsAsync(new GeoboundingBox(TopLeft, BottomRight), new Thickness(0), MapAnimationKind.Linear);
-            await MainMap.TrySetViewBoundsAsync(new GeoboundingBox(new BasicGeoposition() { Latitude = newCenter.Latitude + halfLatSpan, Longitude = newCenter.Longitude - halfLonSpan },
-                new BasicGeoposition() { Latitude = newCenter.Latitude - halfLatSpan, Longitude = newCenter.Longitude + halfLonSpan }), null, MapAnimationKind.Linear);
-
-            BusStop[] stops = new BusStop[args.MapElements.Count];
+            var mapIcons = args.MapElements.Where(me => me is MapIcon && BusStopIcons.Contains(me));
+            BusStop[] stops = new BusStop[mapIcons.Count()];
             for (int i = 0; i < stops.Length; i++)
             {
-                stops[i] = Stops[(MapIcon)args.MapElements[i]];
+                stops[i] = Stops[(MapIcon)mapIcons.ElementAt(i)];
             }
             OnStopsClicked(stops, args.Location.Position);
         }

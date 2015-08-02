@@ -28,7 +28,6 @@ namespace OneAppAway
         public RouteViewPage()
         {
             this.InitializeComponent();
-            MainMap.MapServiceToken = Keys.BingMapKey;
         }
 
         private BusRoute Route;
@@ -42,17 +41,19 @@ namespace OneAppAway
                 Route = await Data.GetRoute(e.Parameter.ToString());
                 RouteNameBlock.Text = (Route.Name.All(chr => char.IsNumber(chr)) ? "Route " : "") + Route.Name;
                 var stopInfo = await ApiLayer.GetStopsForRoute(Route.ID);
+                foreach (var stop in stopInfo.Item1)
+                    MainMap.ShownStops.Add(stop);
                 List<BasicGeoposition> allPoints = new List<BasicGeoposition>();
                 foreach (var shape in stopInfo.Item2)
                 {
                     var points = HelperFunctions.DecodeShape(shape);
-                    MainMap.MapElements.Add(new MapPolyline() { Path = new Windows.Devices.Geolocation.Geopath(points), StrokeColor = (Color)App.Current.Resources["SystemColorControlAccentColor"], StrokeThickness = 4 });
+                    MainMap.MapControl.MapElements.Add(new MapPolyline() { Path = new Windows.Devices.Geolocation.Geopath(points), StrokeColor = (Color)App.Current.Resources["SystemColorControlAccentColor"], StrokeThickness = 4, ZIndex = 0 });
                     allPoints.AddRange(points);
                 }
                 if (allPoints.Count > 0)
                 {
                     GeoboundingBox box = GeoboundingBox.TryCompute(allPoints);
-                    await MainMap.TrySetViewBoundsAsync(box, new Thickness(0), MapAnimationKind.Bow);
+                    await MainMap.MapControl.TrySetViewBoundsAsync(box, new Thickness(0), MapAnimationKind.Bow);
                 }
             }
         }

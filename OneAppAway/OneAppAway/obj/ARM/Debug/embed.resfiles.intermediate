@@ -1,5 +1,6 @@
 App.xbf
 Controls\BusArrivalBox.xbf
+Controls\BusMap.xbf
 Controls\HamburgerBar.xbf
 Controls\MultiStopArrivalsBox.xbf
 Controls\ScheduleBrowser.xbf

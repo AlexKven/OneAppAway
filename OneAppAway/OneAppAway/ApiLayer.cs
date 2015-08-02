@@ -34,7 +34,8 @@ namespace OneAppAway
         public static async Task<string> SendRequest(string compactRequest, Dictionary<string, string> parameters, CancellationToken cancellationToken)
         {
             HttpClient client = new HttpClient();
-            var resp = await client.SendAsync(new HttpRequestMessage(HttpMethod.Get, "http://api.pugetsound.onebusaway.org/api/where/" + compactRequest + ".xml?key=" + Keys.ObaKey + parameters?.Aggregate("", (acc, item) => acc + "&" + item.Key + "=" + item.Value) ?? ""), cancellationToken);
+            string request = "http://api.pugetsound.onebusaway.org/api/where/" + compactRequest + ".xml?key=" + Keys.ObaKey + parameters?.Aggregate("", (acc, item) => acc + "&" + item.Key + "=" + item.Value) ?? "";
+            var resp = await client.SendAsync(new HttpRequestMessage(HttpMethod.Get, request), cancellationToken);
             if (cancellationToken.IsCancellationRequested) return null;
             return await resp.Content.ReadAsStringAsync();
         }
