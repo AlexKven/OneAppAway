@@ -68,11 +68,17 @@
                                 <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,15" Grid.Row="3"></TextBlock>
                                 <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,15,0,0" Grid.Row="3" FontSize="8">AUTO</TextBlock>
                             </Grid>
-                        </Button>
+                        </Button> 
                         <Button x:ConnectionId='3' RequestedTheme="Dark" Template="{StaticResource SimpleButtonTemplate}" Background="#303030" FontFamily="Segoe UI Symbol" HorizontalAlignment="Stretch" Height="50" Width="50"                                     >
                             <Grid>
                                 <Rectangle Fill="#33000000"/>
                                 <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"></TextBlock>
+                            </Grid>
+                        </Button>
+                        <Button x:ConnectionId='4' RequestedTheme="Dark" Template="{StaticResource SimpleButtonTemplate}" Background="#303030" FontFamily="Segoe UI Symbol" HorizontalAlignment="Stretch" Height="50" Width="50"                             >
+                            <Grid>
+                                <Rectangle Fill="#33000000"/>
+                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"></TextBlock>
                             </Grid>
                         </Button>
                     </StackPanel>
@@ -85,7 +91,7 @@
                                 <ColumnDefinition Width="50"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <Button x:ConnectionId='6' Background="#303030" RequestedTheme="Dark" FontFamily="Segoe MDL2 Assets" FontSize="19" Content="&#xE700;" Width="50" Height="50"                              />
+                            <Button x:ConnectionId='8' Background="#303030" RequestedTheme="Dark" FontFamily="Segoe MDL2 Assets" FontSize="19" Content="&#xE700;" Width="50" Height="50"                              />
                             <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Center" x:Name="MainPanel" Tag="{ThemeResource SystemColorControlAccentColor}">
                                 <Image Width="40" Height="40" Source="Assets/Icons/LogoBase.png" Stretch="Uniform" Margin="0,0,5,0"/>
                                 <TextBlock FontSize="28" VerticalAlignment="Center" Foreground="White">One</TextBlock>
@@ -93,7 +99,7 @@
                                 <TextBlock FontSize="28" VerticalAlignment="Center" Foreground="White">Away</TextBlock>
                             </StackPanel>
                         </Grid>
-                        <Button x:ConnectionId='4' Template="{StaticResource SimpleButtonTemplate}" Background="#303030" RequestedTheme="Dark" FontFamily="Segoe UI Symbol" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch"                              >
+                        <Button x:ConnectionId='5' Template="{StaticResource SimpleButtonTemplate}" Background="#303030" RequestedTheme="Dark" FontFamily="Segoe UI Symbol" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch"                              >
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="50"/>
@@ -118,7 +124,7 @@
                                 <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,15,0,0" Grid.Row="3" FontSize="8">AUTO</TextBlock>
                             </Grid>
                         </Button>
-                        <Button x:ConnectionId='5' RequestedTheme="Dark" Template="{StaticResource SimpleButtonTemplate}" Background="#303030" FontFamily="Segoe UI Symbol" HorizontalAlignment="Stretch" Height="50"                                     >
+                        <Button x:ConnectionId='6' RequestedTheme="Dark" Template="{StaticResource SimpleButtonTemplate}" Background="#303030" FontFamily="Segoe UI Symbol" HorizontalAlignment="Stretch" Height="50"                                     >
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="50"/>
@@ -127,6 +133,17 @@
                                 <Rectangle Fill="#33000000"/>
                                 <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"></TextBlock>
                                 <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="1">Show Your Location</TextBlock>
+                            </Grid>
+                        </Button>
+                        <Button x:ConnectionId='7' RequestedTheme="Dark" Template="{StaticResource SimpleButtonTemplate}" Background="#303030" FontFamily="Segoe UI Symbol" HorizontalAlignment="Stretch" Height="50"                             >
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="50"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Rectangle Fill="#33000000"/>
+                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"></TextBlock>
+                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="1">Settings</TextBlock>
                             </Grid>
                         </Button>
                     </StackPanel>

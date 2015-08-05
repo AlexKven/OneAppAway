@@ -68,11 +68,17 @@
                                 <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,15" Grid.Row="3"></TextBlock>
                                 <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,15,0,0" Grid.Row="3" FontSize="8">AUTO</TextBlock>
                             </Grid>
-                        </Button>
+                        </Button> 
                         <Button RequestedTheme="Dark" Template="{StaticResource SimpleButtonTemplate}" Background="#303030" FontFamily="Segoe UI Symbol" HorizontalAlignment="Stretch" Height="50" Width="50" Click="CenterOnLocationButton_Click">
                             <Grid>
                                 <Rectangle Fill="#33000000"/>
                                 <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"></TextBlock>
+                            </Grid>
+                        </Button>
+                        <Button RequestedTheme="Dark" Template="{StaticResource SimpleButtonTemplate}" Background="#303030" FontFamily="Segoe UI Symbol" HorizontalAlignment="Stretch" Height="50" Width="50" Click="SettingsButton_Click">
+                            <Grid>
+                                <Rectangle Fill="#33000000"/>
+                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"></TextBlock>
                             </Grid>
                         </Button>
                     </StackPanel>
@@ -127,6 +133,17 @@
                                 <Rectangle Fill="#33000000"/>
                                 <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"></TextBlock>
                                 <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="1">Show Your Location</TextBlock>
+                            </Grid>
+                        </Button>
+                        <Button RequestedTheme="Dark" Template="{StaticResource SimpleButtonTemplate}" Background="#303030" FontFamily="Segoe UI Symbol" HorizontalAlignment="Stretch" Height="50" Click="SettingsButton_Click">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="50"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Rectangle Fill="#33000000"/>
+                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"></TextBlock>
+                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="1">Settings</TextBlock>
                             </Grid>
                         </Button>
                     </StackPanel>

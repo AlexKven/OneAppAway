@@ -65,5 +65,10 @@ namespace OneAppAway
                 ((App)(App.Current)).RootFrame.Navigate(typeof(BusMapPage), "CurrentLocation");
             }
         }
+
+        private void SettingsButton_Click(object sender, RoutedEventArgs e)
+        {
+            ((App)(App.Current)).RootFrame.Navigate(typeof(SettingsPage));
+        }
     }
 }

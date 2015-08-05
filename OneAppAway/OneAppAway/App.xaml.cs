@@ -8,6 +8,7 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
 using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
@@ -56,7 +57,7 @@ namespace OneAppAway
         /// <param name="e">Details about the launch request and process.</param>
         protected override async void OnLaunched(LaunchActivatedEventArgs e)
         {
-            ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(300, 300));
+            ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(320, 320));
             Common.SuspensionManager.KnownTypes.Add(typeof(string[]));
 #if DEBUG
             if (System.Diagnostics.Debugger.IsAttached)
@@ -95,8 +96,8 @@ namespace OneAppAway
                 // When the navigation stack isn't restored navigate to the first page,
                 // configuring the new page by passing required information as a navigation
                 // parameter
-                RootFrame.Navigate(typeof(BusMapPage), "CurrentLocation");
-                //RootFrame.Navigate(typeof(TestPage));
+                //RootFrame.Navigate(typeof(BusMapPage), "CurrentLocation");
+                RootFrame.Navigate(typeof(RoutesPage));
             }
             // Ensure the current window is active
             Window.Current.Content = MainHamburgerBar;

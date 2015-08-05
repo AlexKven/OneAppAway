@@ -94,6 +94,12 @@ namespace OneAppAway
         {
             get { return TechnicalDays.ToArray(); }
         }
+
+        public void FilterByRoute(params string[] routeIds)
+        {
+            foreach (var sch in DaySchedules)
+                sch.FilterByRoute(routeIds);
+        }
     }
 
     public class DaySchedule : IEnumerable<ScheduledArrival>
@@ -117,6 +123,8 @@ namespace OneAppAway
 
         public void LoadFromVerboseString(string str)
         {
+            TripIds = null;
+            NamesAndTimes = null;
             try
             {
                 StringReader reader = new StringReader(str);
@@ -145,6 +153,13 @@ namespace OneAppAway
                 Data = data.ToArray();
             }
             catch (Exception) { }
+        }
+
+        public void FilterByRoute(params string[] routeIds)
+        {
+            NamesAndTimes = null;
+            TripIds = null;
+            Data = Data.Where(item => routeIds.Contains(item.Item1)).ToArray();
         }
 
         public bool IsIdenticalToByTime(DaySchedule other)

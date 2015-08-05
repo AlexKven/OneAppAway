@@ -139,6 +139,26 @@ namespace OneAppAway
             return new BusRoute() { ID = routeId, Name = routeName, Description = routeDescription, Agency = routeAgency };
         }
 
+        public static async Task<BusRoute[]> GetBusRoutes(string agencyId)
+        {
+            List<BusRoute> result = new List<BusRoute>();
+            StringReader reader = new StringReader(await SendRequest("routes-for-agency/" + agencyId, null));
+            XDocument xDoc = XDocument.Load(reader);
+
+            foreach (var el in xDoc.Element("response").Element("data").Element("list").Elements("route"))
+            {
+                string routeId = el.Element("id")?.Value;
+                var elDescription = el.Element("description");
+                var elShortName = el.Element("shortName");
+                var elLongName = el.Element("longName");
+                string routeName = elShortName == null ? elLongName == null ? "(No Name)" : elLongName.Value : elShortName.Value;
+                string routeDescription = elDescription == null ? elLongName == null ? elShortName == null ? "No Description" : elShortName.Value : elLongName.Value : elDescription.Value;
+                string routeAgency = el.Element("agencyId")?.Value;
+                result.Add(new BusRoute() { ID = routeId, Name = routeName, Description = routeDescription, Agency = routeAgency });
+            }
+            return result.ToArray();
+        }
+
         public static async Task<TransitAgency> GetTransitAgency(string id)
         {
             StringReader reader = new StringReader(await SendRequest("agency/" + id, null));
@@ -149,6 +169,23 @@ namespace OneAppAway
             string agencyName = el.Element("name")?.Value;
             string agencyUrl = el.Element("url")?.Value;
             return new TransitAgency() { Id = id, Name = agencyName, Url = agencyUrl};
+        }
+
+        public static async Task<TransitAgency[]> GetTransitAgencies()
+        {
+            List<TransitAgency> result = new List<TransitAgency>();
+            StringReader reader = new StringReader(await SendRequest("agencies-with-coverage", null));
+            XDocument xDoc = XDocument.Load(reader);
+            
+            foreach (var el in xDoc.Element("response").Element("data").Element("references").Element("agencies").Elements("agency"))
+            {
+                string agencyId = el.Element("id")?.Value;
+                string agencyName = el.Element("name")?.Value;
+                string agencyUrl = el.Element("url")?.Value;
+                result.Add(new TransitAgency() { Id = agencyId, Name = agencyName, Url = agencyUrl });
+            }
+
+            return result.ToArray();
         }
 
         public static async Task<Tuple<BusStop[], string[]>> GetStopsForRoute(string route)

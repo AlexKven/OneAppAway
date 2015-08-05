@@ -20,7 +20,7 @@
     <AppXManifest Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x64\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2015-08-01T23:19:13.666</Modified>
+      <Modified>2015-08-05T01:46:13.550</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
@@ -238,11 +238,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x64\Debug\Core\OneAppAway.exe">
       <PackagePath>OneAppAway.exe</PackagePath>
-      <Modified>2015-08-01T23:19:12.929</Modified>
+      <Modified>2015-08-05T01:46:12.378</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x64\Debug\Core\OneAppAway.xr.xml">
       <PackagePath>OneAppAway.xr.xml</PackagePath>
-      <Modified>2015-08-01T23:16:38.768</Modified>
+      <Modified>2015-08-05T01:42:49.125</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x64\Debug\Core\Properties\Default.rd.xml">
       <PackagePath>Properties\Default.rd.xml</PackagePath>
@@ -250,7 +250,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x64\Debug\Core\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2015-08-01T23:19:15.578</Modified>
+      <Modified>2015-08-05T01:46:15.457</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\bin\x64\Debug\Core\System.AppContext.dll">
       <PackagePath>System.AppContext.dll</PackagePath>

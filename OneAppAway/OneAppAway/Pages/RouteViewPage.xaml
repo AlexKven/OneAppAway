@@ -10,7 +10,7 @@
     <ScrollViewer VerticalScrollMode="Disabled" VerticalScrollBarVisibility="Hidden" HorizontalScrollMode="Enabled" HorizontalScrollBarVisibility="Visible">
         <Grid Background="#505050">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition x:Name="MapColumn" Width="1000"/>
+                <ColumnDefinition x:Name="MapColumn" Width="*"/>
                 <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
             <Grid>
