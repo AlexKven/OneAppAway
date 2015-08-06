@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 
@@ -14,31 +15,78 @@ namespace OneAppAway
         #region Static
         private static List<DownloadManager> DownloadsInProgress = new List<DownloadManager>();
 
-        public static async Task<DownloadManager> Create(RouteListing listing)
+        public static async Task<DownloadManager> Create(RouteListing listing, CancellationToken cancellationToken)
         {
+            listing.Progress = 0;
+            listing.ShowProgress = true;
             DownloadManager result = new DownloadManager();
             result.Listing = listing;
             result._Route = result.Listing.Route;
-            result._StopsPending = new ObservableCollection<BusStop>((await ApiLayer.GetStopsForRoute(result.Listing.Route.ID)).Item1);
+            result._StopsPending = new ObservableCollection<BusStop>((await ApiLayer.GetStopsForRoute(result.Listing.Route.ID, cancellationToken)).Item1);
+            if (cancellationToken.IsCancellationRequested)
+                return null;
             result.Initialize();
             result._TotalStops = result.StopsPending.Count;
             DownloadsInProgress.Add(result);
             return result;
         }
 
-        public static BusStop? DownloadNext()
+        public static async Task<RouteListing[]> DownloadAll(Action<double, string> statusChangedCallback, CancellationToken cancellationToken, params RouteListing[] routeListings)
         {
-            if (DownloadsInProgress.Count == 0) return null;
-            return DownloadsInProgress[0].StopsPending[0];
-        }
-
-        public static void StopDownloaded(BusStop stop)
-        {
-            foreach (var manager in DownloadsInProgress.ToArray())
+            List<RouteListing> errorList = new List<RouteListing>();
+            List<BusStop> allStops = new List<BusStop>();
+            try
             {
-                if (manager.StopsPending.Contains(stop))
-                    manager.StopsPending.Remove(stop);
+                for (int i = 0; i < routeListings.Length; i++)
+                {
+                    statusChangedCallback(0.15 * i / routeListings.Length, "Getting stops (" + (i + 1).ToString() + " of " + routeListings.Length.ToString() + ")" + " " + (routeListings[i].Name.All(chr => char.IsDigit(chr)) ? "Route " : "") + routeListings[i].Name);
+                    try
+                    {
+                        var manager = await DownloadManager.Create(routeListings[i], cancellationToken);
+                        foreach (var stop in manager.StopsPending)
+                        {
+                            if (!allStops.Contains(stop))
+                                allStops.Add(stop);
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        cancellationToken.ThrowIfCancellationRequested();
+                        errorList.Add(routeListings[i]);
+                    }
+                }
+
+                for (int i = 0; i < allStops.Count; i++)
+                {
+                    statusChangedCallback(0.15 + 0.85 * i / allStops.Count, "Downloading schedules (" + (i + 1).ToString() + " of " + allStops.Count.ToString() + ") " + allStops[i].Name);
+                    try
+                    {
+                        await Task.Delay(20);
+                        foreach (var manager in DownloadsInProgress.ToArray())
+                        {
+                            if (manager.StopsPending.Contains(allStops[i]))
+                                manager.StopsPending.Remove(allStops[i]);
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        cancellationToken.ThrowIfCancellationRequested();
+                        foreach (var download in DownloadsInProgress.Where(item => item.StopsPending.Contains(allStops[i])))
+                        {
+                            if (!errorList.Contains(download.Listing))
+                                errorList.Add(download.Listing);
+                        }
+                    }
+                }
+                statusChangedCallback(1, "Download complete.");
             }
+            catch (OperationCanceledException)
+            {
+                statusChangedCallback(1, "Download cancelled.");
+                while (DownloadsInProgress.Count > 0)
+                    DownloadsInProgress[0].StopsPending.Clear();
+            }
+            return errorList.ToArray();
         }
         #endregion
 

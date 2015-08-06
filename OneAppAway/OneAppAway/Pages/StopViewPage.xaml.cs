@@ -19,6 +19,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using OneAppAway.TemplateSelectors;
+using System.Threading;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -37,6 +38,7 @@ namespace OneAppAway
 
         private double? lonPP;
         private bool ScheduleLoaded = false;
+        private CancellationTokenSource MasterCancellationTokenSource = new CancellationTokenSource();
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -60,7 +62,7 @@ namespace OneAppAway
 
         private async void SetPage(string stopId)
         {
-            Stop = await Data.GetBusStop(stopId);
+            Stop = await Data.GetBusStop(stopId, MasterCancellationTokenSource.Token);
             TitleBlock.Text = Stop.Name;
             Uri imageUri = new Uri(Stop.Direction == StopDirection.Unspecified ? "ms-appx:///Assets/Icons/BusBase40.png" : "ms-appx:///Assets/Icons/BusDirection" + Stop.Direction.ToString() + "40.png");
             DirectionImage.Source = new BitmapImage(imageUri);
@@ -124,7 +126,7 @@ namespace OneAppAway
         private async Task RefreshArrivals()
         {
             ArrivalsProgressIndicator.IsActive = true;
-            var arrivals = await ApiLayer.GetBusArrivals(Stop.ID);
+            var arrivals = await ApiLayer.GetBusArrivals(Stop.ID, MasterCancellationTokenSource.Token);
             var removals = ArrivalsStackPanel.Children.Where(child => !arrivals.Contains(((BusArrivalBox)child).Arrival));
             foreach (var item in removals)
                 ArrivalsStackPanel.Children.Remove(item);
@@ -144,7 +146,7 @@ namespace OneAppAway
             ScheduleProgressIndicator.IsActive = true;
             ScheduleNotAvailableBlock.Visibility = Visibility.Collapsed;
             LoadSchedulesButton.Visibility = Visibility.Collapsed;
-            Schedule = await Data.GetScheduleForStop(Stop.ID);
+            Schedule = await Data.GetScheduleForStop(Stop.ID, MasterCancellationTokenSource.Token);
             DayScheduleSelector.Items.Clear();
             DayScheduleSelector.SelectedIndex = -1;
             foreach (var day in Schedule.DayGroups)
@@ -182,8 +184,8 @@ namespace OneAppAway
             RoutesControl.Items.Clear();
             foreach (string rte in Stop.Routes)
             {
-                BusRoute route = await Data.GetRoute(rte);
-                RoutesControl.Items.Add(new RouteListingTemplateSelector.RouteListing() { Name = route.Name, Description = route.Description, Agency = (await Data.GetTransitAgency(route.Agency)).Name, RouteId = route.ID });
+                BusRoute route = await Data.GetRoute(rte, MasterCancellationTokenSource.Token);
+                RoutesControl.Items.Add(new RouteListingTemplateSelector.RouteListing() { Name = route.Name, Description = route.Description, Agency = (await Data.GetTransitAgency(route.Agency, MasterCancellationTokenSource.Token)).Name, RouteId = route.ID });
             }
             RoutesProgressIndicator.IsActive = false;
         }

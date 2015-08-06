@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading;
 using Windows.Devices.Geolocation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -30,6 +31,8 @@ namespace OneAppAway
             this.InitializeComponent();
         }
 
+        private CancellationTokenSource MasterCancellationTokenSource = new CancellationTokenSource();
+
         private BusRoute Route;
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
@@ -38,9 +41,9 @@ namespace OneAppAway
             MainMap.Background = new SolidColorBrush(Colors.Black);
             if (e.Parameter is string)
             {
-                Route = await Data.GetRoute(e.Parameter.ToString());
+                Route = await Data.GetRoute(e.Parameter.ToString(), MasterCancellationTokenSource.Token);
                 RouteNameBlock.Text = (Route.Name.All(chr => char.IsNumber(chr)) ? "Route " : "") + Route.Name;
-                var stopInfo = await ApiLayer.GetStopsForRoute(Route.ID);
+                var stopInfo = await ApiLayer.GetStopsForRoute(Route.ID, MasterCancellationTokenSource.Token);
                 foreach (var stop in stopInfo.Item1)
                     MainMap.ShownStops.Add(stop);
                 List<BasicGeoposition> allPoints = new List<BasicGeoposition>();

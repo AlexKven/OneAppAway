@@ -726,7 +726,7 @@ namespace OneAppAway.OneAppAway_XamlTypeInfo
                 break;
 
             case 55:   //  OneAppAway.RoutesPage
-                userType = new global::OneAppAway.OneAppAway_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
+                userType = new global::OneAppAway.OneAppAway_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("OneAppAway.NavigationFriendlyPage"));
                 userType.Activator = Activate_55_RoutesPage;
                 userType.SetIsLocalType();
                 xamlType = userType;

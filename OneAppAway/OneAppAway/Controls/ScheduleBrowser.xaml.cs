@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI;
@@ -25,6 +26,8 @@ namespace OneAppAway
             this.InitializeComponent();
         }
 
+        private CancellationTokenSource MasterCancellationTokenSource = new CancellationTokenSource();
+
         public static readonly DependencyProperty ScheduleProperty = DependencyProperty.Register("Schedule", typeof(DaySchedule), typeof(ScheduleBrowser), new PropertyMetadata(null, OnScheduleChangedStatic));
 
         public static async void OnScheduleChangedStatic(DependencyObject sender, DependencyPropertyChangedEventArgs e)
@@ -43,7 +46,7 @@ namespace OneAppAway
                 {
                     lastRoute = item.Route;
                     lastDestination = item.Destination;
-                    typedSender.MainStackPanel.Children.Add(new TextBlock() { Text = (await Data.GetRoute(lastRoute)).Name + " to " + lastDestination, FontSize = 18, Foreground = new SolidColorBrush(lighten(accentColor)), TextWrapping = TextWrapping.WrapWholeWords });
+                    typedSender.MainStackPanel.Children.Add(new TextBlock() { Text = (await Data.GetRoute(lastRoute, typedSender.MasterCancellationTokenSource.Token)).Name + " to " + lastDestination, FontSize = 18, Foreground = new SolidColorBrush(lighten(accentColor)), TextWrapping = TextWrapping.WrapWholeWords });
                     timesControl = new ItemsControl();
                     typedSender.MainStackPanel.Children.Add(timesControl);
                 }

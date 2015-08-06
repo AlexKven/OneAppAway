@@ -45,7 +45,7 @@ namespace OneAppAway
             return totalFoundStops.ToArray();
         }
 
-        public static async Task<WeekSchedule> GetScheduleForStop(string id)
+        public static async Task<WeekSchedule> GetScheduleForStop(string id, CancellationToken cancellationToken)
         {
             WeekSchedule result = new WeekSchedule();
             for (int i = 0; i < 8; i++)
@@ -55,7 +55,7 @@ namespace OneAppAway
                 DateTime? date = HelperFunctions.DateForServiceDay(day);
                 if (date.HasValue)
                 {
-                    daySched.LoadFromVerboseString(await ApiLayer.SendRequest("schedule-for-stop/" + id, new Dictionary<string, string>() {["date"] = date.Value.ToString("yyyy-MM-dd") }));
+                    daySched.LoadFromVerboseString(await ApiLayer.SendRequest("schedule-for-stop/" + id, new Dictionary<string, string>() {["date"] = date.Value.ToString("yyyy-MM-dd") }, cancellationToken));
                     result.AddServiceDay(day, daySched);
                 }
             }
@@ -69,31 +69,31 @@ namespace OneAppAway
         #endregion
 
         #region Get Objects By ID
-        public static async Task<BusStop> GetBusStop(string id)
+        public static async Task<BusStop> GetBusStop(string id, CancellationToken cancellationToken)
         {
             if (CachedStops.ContainsKey(id))
                 return CachedStops[id];
-            var result = await ApiLayer.GetBusStop(id);
+            var result = await ApiLayer.GetBusStop(id, cancellationToken);
             if (CachedStops.ContainsKey(id))
                 CachedStops.Add(id, result);
             return result;
         }
 
-        public static async Task<TransitAgency> GetTransitAgency(string id)
+        public static async Task<TransitAgency> GetTransitAgency(string id, CancellationToken cancellationToken)
         {
             if (CachedTransitAgencies.ContainsKey(id))
                 return CachedTransitAgencies[id];
-            var result = await ApiLayer.GetTransitAgency(id);
+            var result = await ApiLayer.GetTransitAgency(id, cancellationToken);
             if (!CachedTransitAgencies.ContainsKey(id))
                 CachedTransitAgencies.Add(id, result);
             return result;
         }
 
-        public static async Task<BusRoute> GetRoute(string id)
+        public static async Task<BusRoute> GetRoute(string id, CancellationToken cancellationToken)
         {
             if (CachedRoutes.ContainsKey(id))
                 return CachedRoutes[id];
-            var result = await ApiLayer.GetBusRoute(id);
+            var result = await ApiLayer.GetBusRoute(id, cancellationToken);
             if (!CachedRoutes.ContainsKey(id))
                 CachedRoutes.Add(id, result);
             return result;

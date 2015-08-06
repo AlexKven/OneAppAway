@@ -238,6 +238,8 @@
       <RootProperty Name="VerticalAlignment" />
       <RootProperty Name="IsHitTestVisible" />
       <RootProperty Name="Visibility" />
+      <RootProperty Name="Minimum" />
+      <RootProperty Name="Maximum" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Media.CompositeTransform">
       <RootProperty Name="TranslateY" />
@@ -325,6 +327,7 @@
     <RootType FullName="Windows.UI.Xaml.Controls.AppBarButton">
       <RootProperty Name="Label" />
       <RootProperty Name="Icon" />
+      <RootProperty Name="Visibility" />
       <RootEvent Name="Click" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.AppBarToggleButton">
@@ -378,7 +381,17 @@
       <RootProperty Name="Content" />
       <RootEvent Name="SizeChanged" />
     </RootType>
-    <RootType FullName="Windows.UI.Xaml.Controls.AppBarSeparator" />
+    <RootType FullName="Windows.UI.Xaml.Controls.RelativePanel">
+      <RootProperty Name="Background" />
+      <RootProperty Name="Visibility" />
+      <RootProperty Name="Children" />
+      <RootMethod Name="GetBelow" />
+      <RootMethod Name="SetBelow" />
+      <RootMethod Name="GetAlignLeftWithPanel" />
+      <RootMethod Name="SetAlignLeftWithPanel" />
+      <RootMethod Name="GetAlignRightWithPanel" />
+      <RootMethod Name="SetAlignRightWithPanel" />
+    </RootType>
     <RootType FullName="OneAppAway.RouteListingControl">
       <RootProperty Name="Route" />
       <RootProperty Name="ShowCheckBox" />

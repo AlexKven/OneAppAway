@@ -84,6 +84,7 @@ namespace OneAppAway
         private long LastMove;
         private Task<BusStop[]> GetStopsTask;
         private CancellationTokenSource GetStopsCancellationTokenSource;
+        private CancellationTokenSource MasterCancellationTokenSource = new CancellationTokenSource();
         #endregion
 
         #region Methods
@@ -207,7 +208,7 @@ namespace OneAppAway
                     var stopIds = (string[])state["Stops"];
                     BusStop[] stops = new BusStop[stopIds.Length];
                     for (int i = 0; i < stopIds.Length; i++)
-                        stops[i] = await Data.GetBusStop(stopIds[i]);
+                        stops[i] = await Data.GetBusStop(stopIds[i], MasterCancellationTokenSource.Token);
                     OnStopsClicked(stops, location);
                     CanGoBack = true;
                 }

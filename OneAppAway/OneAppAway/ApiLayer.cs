@@ -40,15 +40,12 @@ namespace OneAppAway
             return await resp.Content.ReadAsStringAsync();
         }
 
-        public static async Task<string> SendRequest(string compactRequest, Dictionary<string, string> parameters)
-        {
-            return await SendRequest(compactRequest, parameters, new CancellationToken());
-        }
-
         public static async Task<BusStop[]> GetBusStops(BasicGeoposition center, double latSpan, double lonSpan, CancellationToken cancellationToken)
         {
             List<BusStop> result = new List<BusStop>();
-            var responseString = await SendRequest("stops-for-location", new Dictionary<string, string>() { ["lat"] = center.Latitude.ToString(), ["lon"] = center.Longitude.ToString(), ["latSpan"] = latSpan.ToString(), ["lonSpan"] = lonSpan.ToString() });
+            var responseString = await SendRequest("stops-for-location", new Dictionary<string, string>() { ["lat"] = center.Latitude.ToString(), ["lon"] = center.Longitude.ToString(), ["latSpan"] = latSpan.ToString(), ["lonSpan"] = lonSpan.ToString() }, cancellationToken);
+            if (cancellationToken.IsCancellationRequested)
+                return null;
 
             StringReader reader = new StringReader(responseString);
             XDocument xDoc = XDocument.Load(reader);
@@ -66,10 +63,13 @@ namespace OneAppAway
             return result.ToArray();
         }
 
-        public static async Task<RealtimeArrival[]> GetBusArrivals(string id)
+        public static async Task<RealtimeArrival[]> GetBusArrivals(string id, CancellationToken cancellationToken)
         {
             List<RealtimeArrival> result = new List<RealtimeArrival>();
-            StringReader reader = new StringReader(await SendRequest("arrivals-and-departures-for-stop/" + id, null));
+            StringReader reader = new StringReader(await SendRequest("arrivals-and-departures-for-stop/" + id, null, cancellationToken));
+            if (cancellationToken.IsCancellationRequested)
+                return null;
+
             XDocument xDoc = XDocument.Load(reader);
 
             XElement el = xDoc.Element("response");
@@ -100,12 +100,13 @@ namespace OneAppAway
             return result.ToArray();
         }
 
-        public static async Task<BusStop> GetBusStop(string id)
+        public static async Task<BusStop> GetBusStop(string id, CancellationToken cancellationToken)
         {
-            StringReader reader = new StringReader(await SendRequest("stop/" + id, null));
-            XDocument xDoc = XDocument.Load(reader);
+            StringReader reader = new StringReader(await SendRequest("stop/" + id, null, cancellationToken));
+            if (cancellationToken.IsCancellationRequested)
+                return new BusStop();
 
-            var sched = await SendRequest("schedule-for-stop/" + id, new Dictionary<string, string>() {["date"] = "2015-07-16" });
+            XDocument xDoc = XDocument.Load(reader);
 
             XElement el = xDoc.Element("response").Element("data").Element("entry");
 
@@ -123,9 +124,12 @@ namespace OneAppAway
             return new BusStop() { Position = new BasicGeoposition() { Latitude = double.Parse(lat), Longitude = double.Parse(lon) }, Direction = direction == null ? StopDirection.Unspecified : (StopDirection)Enum.Parse(typeof(StopDirection), direction), Name = name, ID = id, Code = code, LocationType = int.Parse(locationType), Routes = routeIds.ToArray() };
         }
 
-        public static async Task<BusRoute> GetBusRoute(string id)
+        public static async Task<BusRoute> GetBusRoute(string id, CancellationToken cancellationToken)
         {
-            StringReader reader = new StringReader(await SendRequest("route/" + id, null));
+            StringReader reader = new StringReader(await SendRequest("route/" + id, null, cancellationToken));
+            if (cancellationToken.IsCancellationRequested)
+                return new BusRoute();
+
             XDocument xDoc = XDocument.Load(reader);
 
             XElement el = xDoc.Element("response").Element("data").Element("entry");
@@ -139,10 +143,13 @@ namespace OneAppAway
             return new BusRoute() { ID = routeId, Name = routeName, Description = routeDescription, Agency = routeAgency };
         }
 
-        public static async Task<BusRoute[]> GetBusRoutes(string agencyId)
+        public static async Task<BusRoute[]> GetBusRoutes(string agencyId, CancellationToken cancellationToken)
         {
             List<BusRoute> result = new List<BusRoute>();
-            StringReader reader = new StringReader(await SendRequest("routes-for-agency/" + agencyId, null));
+            StringReader reader = new StringReader(await SendRequest("routes-for-agency/" + agencyId, null, cancellationToken));
+            if (cancellationToken.IsCancellationRequested)
+                return null;
+
             XDocument xDoc = XDocument.Load(reader);
 
             foreach (var el in xDoc.Element("response").Element("data").Element("list").Elements("route"))
@@ -159,10 +166,12 @@ namespace OneAppAway
             return result.ToArray();
         }
 
-        public static async Task<TransitAgency> GetTransitAgency(string id)
+        public static async Task<TransitAgency> GetTransitAgency(string id, CancellationToken cancellationToken)
         {
-            StringReader reader = new StringReader(await SendRequest("agency/" + id, null));
-            
+            StringReader reader = new StringReader(await SendRequest("agency/" + id, null, cancellationToken));
+            if (cancellationToken.IsCancellationRequested)
+                return new TransitAgency();
+
             XDocument xDoc = XDocument.Load(reader);
 
             XElement el = xDoc.Element("response").Element("data").Element("entry");
@@ -171,10 +180,13 @@ namespace OneAppAway
             return new TransitAgency() { Id = id, Name = agencyName, Url = agencyUrl};
         }
 
-        public static async Task<TransitAgency[]> GetTransitAgencies()
+        public static async Task<TransitAgency[]> GetTransitAgencies(CancellationToken cancellationToken)
         {
             List<TransitAgency> result = new List<TransitAgency>();
-            StringReader reader = new StringReader(await SendRequest("agencies-with-coverage", null));
+            StringReader reader = new StringReader(await SendRequest("agencies-with-coverage", null, cancellationToken));
+            if (cancellationToken.IsCancellationRequested)
+                return null;
+
             XDocument xDoc = XDocument.Load(reader);
             
             foreach (var el in xDoc.Element("response").Element("data").Element("references").Element("agencies").Elements("agency"))
@@ -188,12 +200,15 @@ namespace OneAppAway
             return result.ToArray();
         }
 
-        public static async Task<Tuple<BusStop[], string[]>> GetStopsForRoute(string route)
+        public static async Task<Tuple<BusStop[], string[]>> GetStopsForRoute(string route, CancellationToken cancellationToken)
         {
             List<BusStop> result = new List<BusStop>();
             List<string> shapeResult = new List<string>();
 
-            string responseString = await SendRequest("stops-for-route/" + route, null);
+            string responseString = await SendRequest("stops-for-route/" + route, null, cancellationToken);
+            if (cancellationToken.IsCancellationRequested)
+                return null;
+
             StringReader reader = new StringReader(responseString);
             XDocument xDoc = XDocument.Load(reader);
             foreach (XElement el in xDoc.Element("response")?.Element("data")?.Element("references")?.Element("stops")?.Elements("stop"))
@@ -209,9 +224,11 @@ namespace OneAppAway
             return new Tuple<BusStop[], string[]>(result.ToArray(), shapeResult.ToArray());
         }
 
-        public static async Task<string> GetShape(string id)
+        public static async Task<string> GetShape(string id, CancellationToken cancellationToken)
         {
-            StringReader reader = new StringReader(await SendRequest("shape/" + id, null));
+            StringReader reader = new StringReader(await SendRequest("shape/" + id, null, cancellationToken));
+            if (cancellationToken.IsCancellationRequested)
+                return null;
 
             XDocument xDoc = XDocument.Load(reader);
 
