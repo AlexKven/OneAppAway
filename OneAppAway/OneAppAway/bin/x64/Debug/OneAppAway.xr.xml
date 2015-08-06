@@ -11,7 +11,9 @@
     <RootPropertyPathName Name="Agency" />
     <RootPropertyPathName Name="Description" />
     <RootPropertyPathName Name="Name" />
+    <RootPropertyPathName Name="Route" />
     <RootPropertyPathName Name="IsChecked" />
+    <RootPropertyPathName Name="ShowProgress" />
     <RootPropertyPathName Name="Progress" />
   </Roots.PropertyPathNames>
   <Roots.RootTypes>
@@ -376,10 +378,13 @@
       <RootProperty Name="Content" />
       <RootEvent Name="SizeChanged" />
     </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.AppBarSeparator" />
     <RootType FullName="OneAppAway.RouteListingControl">
       <RootProperty Name="Route" />
       <RootProperty Name="ShowCheckBox" />
       <RootProperty Name="ShowProgress" />
+      <RootProperty Name="Progress" />
+      <RootProperty Name="IsChecked" />
       <RootEvent Name="Click" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.ListView">

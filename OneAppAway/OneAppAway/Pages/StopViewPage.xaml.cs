@@ -166,6 +166,7 @@ namespace OneAppAway
             }
             ScheduleLoaded = true;
             ScheduleProgressIndicator.IsActive = false;
+            //var saved = formatter.ToString();
         }
 
         private void DayScheduleSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)

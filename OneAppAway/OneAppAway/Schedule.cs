@@ -100,6 +100,37 @@ namespace OneAppAway
             foreach (var sch in DaySchedules)
                 sch.FilterByRoute(routeIds);
         }
+
+        public void Format(CompactFormatWriter formatter)
+        {
+            for (int i = 0; i < DaySchedules.Count; i++)
+            {
+                formatter.WriteInt((int)Days[i]);
+                formatter.WriteInt((int)TechnicalDays[i]);
+                formatter.OpenParens();
+                DaySchedules[i].Format(formatter);
+                formatter.CloseParens();
+                formatter.NextItem();
+            }
+        }
+
+        public void ReadFrom(CompactFormatReader reader)
+        {
+            Days.Clear();
+            TechnicalDays.Clear();
+            DaySchedules.Clear();
+            CompactFormatReader[] items;
+            while ((items = reader.Next()) != null)
+            {
+                ServiceDay nextDay = (ServiceDay)items[0].ReadInt();
+                ServiceDay nextTechnicalDay = (ServiceDay)items[1].ReadInt();
+                DaySchedule schedule = new DaySchedule();
+                schedule.ReadFrom(items[2]);
+                Days.Add(nextDay);
+                TechnicalDays.Add(nextTechnicalDay);
+                DaySchedules.Add(schedule);
+            }
+        }
     }
 
     public class DaySchedule : IEnumerable<ScheduledArrival>
@@ -240,6 +271,63 @@ namespace OneAppAway
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
+        }
+
+        public void Format(CompactFormatWriter formatter)
+        {
+            string curRoute = "";
+            foreach (var item in Data)
+            {
+                if (curRoute == "")
+                {
+                    curRoute = item.Item1;
+                    formatter.WriteString(curRoute);
+                    formatter.OpenParens();
+                }
+                else if (item.Item1 != curRoute)
+                {
+                    curRoute = item.Item1;
+                    formatter.CloseParens();
+                    formatter.NextItem();
+                    formatter.WriteString(curRoute);
+                    formatter.OpenParens();
+                }
+                formatter.WriteQuotedString(item.Item2);
+                formatter.OpenParens();
+                foreach (var subItem in item.Item3)
+                {
+                    formatter.WriteInt(subItem.Item1);
+                    formatter.WriteString(subItem.Item2);
+                    formatter.NextItem();
+                }
+                formatter.CloseParens();
+                formatter.NextItem();
+            }
+            formatter.CloseParens();
+        }
+
+        public void ReadFrom(CompactFormatReader reader)
+        {
+            List<Tuple<string, string, Tuple<short, string>[]>> data = new List<Tuple<string, string, Tuple<short, string>[]>>();
+
+            CompactFormatReader[] curRouteReader;
+            while ((curRouteReader = reader.Next()) != null)
+            {
+                string curRoute = curRouteReader[0].ReadString();
+                CompactFormatReader[] curDirectionReader;
+                while ((curDirectionReader = curRouteReader[1].Next()) != null)
+                {
+                    string sign = curDirectionReader[0].ReadString();
+                    List<Tuple<short, string>> trips = new List<Tuple<short, string>>();
+                    CompactFormatReader[] curTripReader;
+                    while ((curTripReader = curDirectionReader[1].Next()) != null)
+                    {
+                        trips.Add(new Tuple<short, string>((short)curTripReader[0].ReadInt(), curTripReader[1].ReadString()));
+                    }
+                    data.Add(new Tuple<string, string, Tuple<short, string>[]>(curRoute, sign, trips.ToArray()));
+                }
+            }
+            Data = data.ToArray();
         }
     }
 

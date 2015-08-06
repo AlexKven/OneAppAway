@@ -11,7 +11,9 @@
     <RootPropertyPathName Name="Agency" />
     <RootPropertyPathName Name="Description" />
     <RootPropertyPathName Name="Name" />
+    <RootPropertyPathName Name="Route" />
     <RootPropertyPathName Name="IsChecked" />
+    <RootPropertyPathName Name="ShowProgress" />
     <RootPropertyPathName Name="Progress" />
   </Roots.PropertyPathNames>
   <Roots.RootTypes>
@@ -283,6 +285,7 @@
       <RootProperty Name="ItemsPanel" />
       <RootProperty Name="ItemTemplateSelector" />
       <RootProperty Name="Items" />
+      <RootProperty Name="Tag" />
       <RootProperty Name="ItemTemplate" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.Control">
@@ -373,14 +376,17 @@
     <RootType FullName="Windows.UI.Xaml.Controls.Page">
       <RootProperty Name="RequestedTheme" />
       <RootProperty Name="Content" />
+      <RootEvent Name="SizeChanged" />
     </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.AppBarSeparator" />
     <RootType FullName="OneAppAway.RouteListingControl">
       <RootProperty Name="Route" />
       <RootProperty Name="ShowCheckBox" />
       <RootProperty Name="ShowProgress" />
+      <RootProperty Name="Progress" />
+      <RootProperty Name="IsChecked" />
       <RootEvent Name="Click" />
     </RootType>
-    <RootType FullName="Windows.UI.Xaml.Controls.VirtualizingStackPanel" />
     <RootType FullName="Windows.UI.Xaml.Controls.ListView">
       <RootProperty Name="SelectionMode" />
       <RootProperty Name="ItemsPanel" />

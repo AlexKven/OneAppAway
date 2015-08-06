@@ -368,11 +368,3 @@ C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\obj\ARM\Deb
 C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\obj\ARM\Debug\Pages\SettingsPage.xbf
 C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\obj\ARM\Debug\Pages\RoutesPage.xbf
 C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\obj\ARM\Debug\Controls\RouteListingControl.xbf
-C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\obj\ARM\Debug\Microsoft.Diagnostics.Tracing.EventSource\layout.resfiles
-C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\obj\ARM\Debug\Microsoft.Diagnostics.Tracing.EventSource\layout.resfiles.intermediate
-C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\obj\ARM\Debug\Microsoft.Diagnostics.Tracing.EventSource\Resources.resfiles
-C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\obj\ARM\Debug\Microsoft.Diagnostics.Tracing.EventSource\Resources.resfiles.intermediate
-C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\obj\ARM\Debug\Microsoft.Diagnostics.Tracing.EventSource\pri.resfiles
-C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\obj\ARM\Debug\Microsoft.Diagnostics.Tracing.EventSource\pri.resfiles.intermediate
-C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\obj\ARM\Debug\Microsoft.Diagnostics.Tracing.EventSource\priconfig.xml
-C:\Users\Alexander\Documents\GitHub\OneAppAway\OneAppAway\OneAppAway\obj\ARM\Debug\Microsoft.Diagnostics.Tracing.EventSource\priconfig.xml.intermediate

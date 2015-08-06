@@ -43,7 +43,7 @@ namespace OneAppAway
         private async void AgenciesListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             MainProgressRing.IsActive = true;
-            var inOrder = (Func<BusRoute, BusRoute, bool>)delegate (BusRoute first, BusRoute second)
+            var inOrder = (Func<RouteListing, RouteListing, bool>)delegate (RouteListing first, RouteListing second)
             {
                 var splitName = (Func<string, Tuple<int, string>>)delegate (string name)
                 {
@@ -64,10 +64,10 @@ namespace OneAppAway
             };
             MainList.Items.Clear();
             var agency = (TransitAgency)AgenciesListView.SelectedItem;
-            SortedSet<BusRoute> routesList = new SortedSet<BusRoute>(Comparer<BusRoute>.Create(new Comparison<BusRoute>((rt1, rt2) => inOrder(rt1, rt2) ? -1 : 1)));
+            SortedSet<RouteListing> routesList = new SortedSet<RouteListing>(Comparer<RouteListing>.Create(new Comparison<RouteListing>((rt1, rt2) => inOrder(rt1, rt2) ? -1 : 1)));
             foreach (var rte in await ApiLayer.GetBusRoutes(agency.Id))
             {
-                routesList.Add(rte);
+                routesList.Add(new RouteListing(rte));
             }
             foreach (var rte in routesList)
                 MainList.Items.Add(rte);
@@ -82,6 +82,21 @@ namespace OneAppAway
         private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             MainList.Tag = ActualWidth / (Max((int)ActualWidth / 400, 1.0));
+        }
+
+        private async void DownloadButton_Click(object sender, RoutedEventArgs e)
+        {
+            var items = MainList.Items.Where(item => ((item as RouteListing)?.IsChecked).GetValueOrDefault(false));
+            foreach (RouteListing item in items)
+            {
+                await DownloadManager.Create(item);
+            }
+            BusStop? stop;
+            while ((stop = DownloadManager.DownloadNext()) != null)
+            {
+                DownloadManager.StopDownloaded(stop.Value);
+                await Task.Delay(20);
+            }
         }
     }
 }

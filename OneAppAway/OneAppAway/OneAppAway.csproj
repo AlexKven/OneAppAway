@@ -124,11 +124,13 @@
     <Compile Include="Controls\HamburgerBar.xaml.cs">
       <DependentUpon>HamburgerBar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DownloadManager.cs" />
     <Compile Include="HelperFunctions.cs" />
     <Compile Include="Keys.cs" />
     <Compile Include="Controls\MultiStopArrivalsBox.xaml.cs">
       <DependentUpon>MultiStopArrivalsBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="NotifyPropertyChanged.cs" />
     <Compile Include="Pages\RouteViewPage.xaml.cs">
       <DependentUpon>RouteViewPage.xaml</DependentUpon>
     </Compile>
